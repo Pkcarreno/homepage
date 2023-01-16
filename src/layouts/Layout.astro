@@ -1,6 +1,7 @@
 ---
 import BaseHead from '../components/BaseHead.astro'
 import Body from '../components/Body.astro'
+import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../config'
 ---
@@ -13,5 +14,6 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../config'
 	<Body>
     <Header />
 		<slot />
+    <Footer />
 	</Body>
 </html>
