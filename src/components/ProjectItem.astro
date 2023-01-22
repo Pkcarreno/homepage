@@ -1,0 +1,17 @@
+---
+const {title, date, end} = Astro.props
+---
+
+<div>
+  <div class="flex flex-1 justify-between mb-1">
+    <h4 class="font-medium text-lg">{title}</h4>
+    <p class="italic text-zinc-500 font-light">{date}</p>
+  </div>
+
+  <div class="pl-4 mb-2">
+    <slot />
+  </div>
+  {!end && (
+    <div class="border-b border-b-zinc-400 dark:border-b-orange-500 mb-2"/>
+  )}
+</div>

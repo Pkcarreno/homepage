@@ -1,0 +1,15 @@
+---
+const {job, at, from, to, end} = Astro.props
+---
+
+<div>
+  <h4 class="font-medium text-lg">{job} @ {at}</h4>
+  <p class="italic font-light text-zinc-500 mb-2">{from} - {to}</p>
+
+  <div class="pl-4 mb-2">
+    <slot />
+  </div>
+  {!end && (
+    <div class="border-b border-b-zinc-400 dark:border-b-orange-500 mb-2"/>
+  )}
+</div>
