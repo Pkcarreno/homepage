@@ -1,10 +1,14 @@
 ---
-const {title, date, end} = Astro.props
+const {title, url, date, end} = Astro.props
 ---
 
 <div>
   <div class="flex flex-1 justify-between mb-1">
-    <h4 class="font-medium text-lg">{title}</h4>
+    <h4 class="font-medium text-lg">{url ? (
+      <a href={url} target="_blank" class="hover:underline underline-offset-4 dark:decoration-orange-500">{title}</a>
+    ) : (
+      <>{title}</>
+    )}</h4>
     <p class="italic text-zinc-500 font-light">{date}</p>
   </div>
 
