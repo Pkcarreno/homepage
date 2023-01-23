@@ -1,81 +1,66 @@
 ---
+import Content from '../components/Content.astro';
+import ExperienceItem from '../components/ExperienceItem.astro';
+import Li from '../components/Li.astro';
+import ProjectItem from '../components/ProjectItem.astro';
+import Ul from '../components/Ul.astro';
 import Layout from '../layouts/Layout.astro'
-import Card from '../components/Card.astro'
 ---
 
-<Layout title="Welcome to Astro.">
-	<main>
-		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
-		<p class="instructions font-mplus">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
-		</p>
-		<ul role="list" class="link-card-grid">
-			<Card
-				href="https://docs.astro.build/"
-				title="Documentation"
-				body="Learn how Astro works and explore the official API docs."
-			/>
-			<Card
-				href="https://astro.build/integrations/"
-				title="Integrations"
-				body="Supercharge your project with new frameworks and libraries."
-			/>
-			<Card
-				href="https://astro.build/themes/"
-				title="Themes"
-				body="Explore a galaxy of community-built starter themes."
-			/>
-			<Card
-				href="https://astro.build/chat/"
-				title="Community"
-				body="Come say hi to our amazing Discord community. ❤️"
-			/>
-		</ul>
+<Layout>
+	<main class="pt-24 flex justify-center mx-8 mb-9">
+    <div class="w-full max-w-md"> 
+      <h1 class="font-bold text-5xl mb-2">Pedro Carreño</h1>
+      <h2 class="text-xl mb-5 font-medium">System Engineer & Web Developer</h2>
+      <p class="font-light">
+        I'm a software developer with experience in building websites and mobile applications. I specialized in JavaScript and have professional experience working with Vue, React and React Native. I also have technical skills with Laravel, Python, Linux and the Supabase and Firebase platforms.
+      </p>
+    </div>
 	</main>
-</Layout>
 
-<style>
-	main {
-		margin: auto;
-		padding: 1.5rem;
-		max-width: 60ch;
-	}
-	h1 {
-		font-size: 3rem;
-		font-weight: 800;
-		margin: 0;
-	}
-	.text-gradient {
-		background-image: var(--accent-gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 400%;
-		background-position: 0%;
-	}
-	.instructions {
-		line-height: 1.6;
-		margin: 1rem 0;
-		border: 1px solid rgba(var(--accent), 25%);
-		background-color: white;
-		padding: 1rem;
-		border-radius: 0.4rem;
-	}
-	.instructions code {
-		font-size: 0.875em;
-		font-weight: bold;
-		background: rgba(var(--accent), 12%);
-		color: rgb(var(--accent));
-		border-radius: 4px;
-		padding: 0.3em 0.45em;
-	}
-	.instructions strong {
-		color: rgb(var(--accent));
-	}
-	.link-card-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
-		gap: 1rem;
-		padding: 0;
-	}
-</style>
+  <section class="flex justify-center mx-8 mb-12">
+    <div class="w-full max-w-md">
+      <Content title="Experience">
+        <ExperienceItem job="Mobile Developer" at="Grupo Avanza SPA" atUrl="https://www.linkedin.com/company/avanza-consultores" from="Dec 2021" to="present">
+          <Ul>
+            <Li>Developed mobile applications based on existing web platforms</Li> 
+            <Li>App Store and Google Play Store Management</Li>
+            <Li>Integration with FCM-based notification system for iOS and Android</Li>
+          </Ul>
+        </ExperienceItem>
+        <ExperienceItem job="Web Developer" at="S2H Tech" from="Feb 2021" to="Nov 2021" end>
+          <Ul>
+            <Li>Developed web solutions that were designed, coded and tested</Li>
+            <Li>I proposed ideas to improve the application</Li>
+            <Li>Working with Vue.Js, Laravel, PWA features and shared hosting management</Li>
+          </Ul>
+        </ExperienceItem>
+      </Content>
+    </div>
+  </section>
+
+  <section class="flex justify-center mx-8 mb-12">
+    <div class="w-full max-w-md">
+      <Content title="Popular Projects">
+        <ProjectItem title="Humberto Juarez's web portfolio" url="https://www.juarezhumberto.com/" date="2021">
+          <Ul>
+            <Li>Highlighted works</Li>
+            <Li>Multilanguage</Li>
+            <Li>Contact Methods</Li>
+          </Ul>
+          <p class="mt-1">Stack: React.js, Typescript, Netlify and Supabase</p>
+        </ProjectItem>
+        <ProjectItem title="BoxSystem" url="https://spoiler.boxsystem.online/" date="2021" end>
+          <Ul>
+            <Li>Administrative system</Li>
+            <Li>Control and solvency of payments</Li>
+            <Li>Control of Attendance</Li>
+            <Li>Inventory</Li>
+            <Li>PWA</Li>
+          </Ul>
+          <p class="mt-1">Stack: Vue.js and Laravel (backend)</p>
+        </ProjectItem>
+      </Content>
+    </div>
+  </section>
+</Layout>
