@@ -20,6 +20,8 @@ const { title, description, image = '/cover.jpg' } = Astro.props
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
+<meta name="theme-color" content="#1c1917">
+<meta name="theme-color" content="#f59e0b" media="(prefers-color-scheme: dark)">
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
