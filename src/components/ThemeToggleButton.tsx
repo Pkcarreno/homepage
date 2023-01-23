@@ -30,7 +30,7 @@ export default function ThemeToggler() {
       document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#1c1917')
     } else {
       root.classList.add('dark')
-      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#f59e0b')
+      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#f97316')
     }
   }, [theme])
 
