@@ -43,7 +43,7 @@ export default function ThemeToggler() {
       <button 
         className={`bg-purple-800 text-[#f0f0f0] dark:bg-amber-300 dark:text-[#1c1917] cursor-pointer rounded-2xl p-2`}
         onClick={toggleTheme}
-        arial-label="Toggle theme"
+        aria-label="Toggle theme"
       >
         {theme === 'light' ? <IoMoon /> : <IoSunny />}
       </button>
