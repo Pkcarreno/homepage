@@ -1,3 +1,23 @@
-<body class="bg-[#f0f0f0] dark:bg-[#1c1917] bg-[url('/img/bg-grain.png')] dark:bg-[url('/img/bg-grain-dark.png')] text-[#2e2e2e] dark:text-[#d6d3d1] break-words leading-6 transition-colors duration-500 min-h-full font-notoSans">
+<body class="bg-[#f0f0f0] dark:bg-[#1c1917] bg-base-light dark:bg-base-dark text-[#2e2e2e] dark:text-[#d6d3d1] break-words leading-6 transition-colors duration-500 min-h-full font-notoSans">
   <slot />
 </body>
+
+<style is:global>
+  .bg-base-light {
+    background-image: url("/img/bg-grain.png");
+    background-image: image-set(
+      url("/img/bg-grain.avif") type("image/avif"), 
+      url("/img/bg-grain.webp") type("image/webp"), 
+      url("/img/bg-grain.png") type("image/png")
+    );
+  }
+
+  .dark .dark\:bg-base-dark {
+    background-image: url("/img/bg-grain-dark.png");
+    background-image: image-set(
+      url("/img/bg-grain-dark.avif") type("image/avif"), 
+      url("/img/bg-grain-dark.webp") type("image/webp"), 
+      url("/img/bg-grain-dark.png") type("image/png")
+      );
+  }
+</style>
