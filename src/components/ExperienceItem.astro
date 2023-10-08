@@ -3,13 +3,16 @@ const {job, at, atUrl = "", from, to, end} = Astro.props
 ---
 
 <div>
-  <h4 class="font-medium text-lg">{job} @ {atUrl ? (
-    <a href={atUrl} target="_blank" class="hover:underline underline-offset-4 dark:decoration-primary">{at}</a>
-  ) : (
-    <>{at}</>
-  )}
-  </h4>
-  <p class="italic font-light text-text/70 mb-2">{from} - {to}</p>
+  <div class="mb-3">
+    <h4 class="font-normal">
+      {job} @ {atUrl ? (
+        <a href={atUrl} target="_blank" class="hover:underline underline-offset-4 dark:decoration-primary">{at}</a>
+      ) : (
+        <>{at}</>
+      )}
+    </h4>
+    <p class="italic text-text/70">{from} - {to}</p>
+  </div>
 
   <div class="pl-4 mb-2">
     <slot />
