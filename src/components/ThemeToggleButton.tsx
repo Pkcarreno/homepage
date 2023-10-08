@@ -27,10 +27,10 @@ export default function ThemeToggler() {
     const root = document.documentElement
     if (theme === 'light') {
       root.classList.remove('dark')
-      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#1c1917')
+      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#140f00')
     } else {
       root.classList.add('dark')
-      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#f97316')
+      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#fff5d6')
     }
   }, [theme])
 
