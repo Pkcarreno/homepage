@@ -12,10 +12,10 @@ import Layout from '../layouts/Layout.astro'
     <div class="w-full max-w-lg"> 
       <div class="mb-5">
         <h1 class="mb-2">Pedro Carreño</h1>
-        <span class="text-xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">System Engineer & Web Developer</span>
+        <span class="text-xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Mobile & Web Developer</span>
       </div>
       <p class="leading-relaxed">
-        I'm a software developer with experience in building websites and mobile applications. I specialized in JavaScript and have professional experience working with Vue, React and React Native. I also have technical skills with Laravel, Python, Linux and the Supabase and Firebase platforms.
+        I'm a React developer from Venezuela, I work full-time at <a class="font-bold hover:underline" target="_blank" href="https://www.linkedin.com/company/avanza-consultores">Grupo Avanza</a> as a web and mobile developer. I enjoy discovering and contributing to <a class="font-bold hover:underline" target="_blank" href="https://github.com/Pkcarreno">open-source projects</a>.
       </p>
     </div>
   </main>
@@ -23,21 +23,18 @@ import Layout from '../layouts/Layout.astro'
   <section class="flex justify-center mx-8 mb-12">
     <div class="w-full max-w-lg">
       <Content title="Experience">
-        <ExperienceItem job="Mobile Developer" at="Grupo Avanza SPA" atUrl="https://www.linkedin.com/company/avanza-consultores" from="Dec 2021" to="present">
-          <Ul>
-            <Li>Designed and implemented architecture for mobile apps.</Li> 
-            <Li>Developed mobile applications based on web platforms of the company services.</Li>
-            <Li>Deployed and maintained iOS & Android app stores.</Li>
-            <Li>Created high-converting landing pages for company products.</Li>
-            <Li>Collaborated with clients for tailored product solutions.</Li>
-          </Ul>
+        <ExperienceItem job="Mobile & Web Developer" at="Grupo Avanza SPA" atUrl="https://www.linkedin.com/company/avanza-consultores" from="Dec 2021" to="present">
+          <div>
+            <p class="mb-2 leading-relaxed">I'm responsible for the development and maintenance of web platforms based on PHP and mobile platforms with React Native, and I'm also developing a major upgrade for an existing platform using Next.JS.</p>
+            <Ul>
+              <Li>Built a template in React Native as a base for the different clients of the 'Portal Personas' platform.</Li> 
+              <Li>Took part in the implementation of new features in the web platforms of several clients.</Li>
+              <Li>Collaborated with clients for tailored product solutions.</Li>
+            </Ul>
+          </div>
         </ExperienceItem>
-        <ExperienceItem job="Web Developer" at="S2H Tech" from="Feb 2021" to="Nov 2021" end>
-          <Ul>
-            <Li>Designed and built a comprehensive dashboard and management platform for a crossfit box, including payment, user, classes and inventory modules.</Li>
-            <Li>Developed the system with Vue.js, Laravel and MySQL, complete with PWA features.</Li>
-            <Li>Supported backend duties by creating APIs, modeling database tables and optimizing system architecture.</Li>
-          </Ul>
+        <ExperienceItem job="Front-End Developer" at="S2H Tech" from="Feb 2021" to="Nov 2021" end>
+          <p class="leading-relaxed">I contributed in a project to build a platform for a CrossFit Box, this was an integrated management system for all the activities of the box.</p>
         </ExperienceItem>
       </Content>
     </div>
@@ -45,24 +42,36 @@ import Layout from '../layouts/Layout.astro'
 
   <section class="flex justify-center mx-8 mb-12">
     <div class="w-full max-w-lg">
-      <Content title="Popular Projects">
+      <Content title="Projects">
+        <ProjectItem title="flockfysh landing page" url="https://flockfysh.ai/" date="2023">
+          <Ul>
+            <Li>Design based on a figma project</Li>
+            <Li>optimize assets for better loading experience</Li>
+          </Ul>
+          <div class="mt-2">
+            <small class="text-text/60">Next.js, CSS, Typescript</small>
+          </div>
+        </ProjectItem>
         <ProjectItem title="Humberto Juarez's web portfolio" url="https://www.juarezhumberto.com/" date="2021">
           <Ul>
             <Li>Highlighted works</Li>
             <Li>Multilanguage</Li>
             <Li>Contact Methods</Li>
           </Ul>
-          <p class="mt-1">Stack: React.js, Typescript, Netlify and Supabase</p>
+          <div class="mt-2">
+            <small class="text-text/60">React.js, Typescript, Supabase</small>
+          </div>
         </ProjectItem>
-        <ProjectItem title="BoxSystem" url="https://spoiler.boxsystem.online/" date="2021" end>
+        <ProjectItem title="BoxSystem" date="2021" end>
           <Ul>
-            <Li>Administrative system</Li>
-            <Li>Control and solvency of payments</Li>
-            <Li>Control of Attendance</Li>
-            <Li>Inventory</Li>
-            <Li>PWA</Li>
+            <Li>Designed and built a comprehensive dashboard and management platform for a crossfit box, including modules for: payment, users, classes and inventory.</Li>
+            <Li>Integrate PWA features such as cache, offline capability and notification system.</Li>
+            <Li>Supporting backend tasks by creating APIs, modeling database tables and optimizing system architecture.</Li>
           </Ul>
-          <p class="mt-1">Stack: Vue.js and Laravel (backend)</p>
+          <div class="flex flex-col gap-1 mt-2">
+            <small>(out of service)</small>
+            <small class="text-text/60">Vue.js, PWA, Laravel</small>
+          </div>
         </ProjectItem>
       </Content>
     </div>
