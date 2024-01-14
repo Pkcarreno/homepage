@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { IoSunny, IoMoon } from 'react-icons/io5/index.js'
+import { IoSunny, IoMoon } from 'react-icons/io5'
 
 const themes = ['light', 'dark']
 
@@ -27,10 +27,14 @@ export default function ThemeToggler() {
     const root = document.documentElement
     if (theme === 'light') {
       root.classList.remove('dark')
-      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#140f00')
+      document
+        .querySelector('meta[name="theme-color"]')
+        ?.setAttribute('content', '#140f00')
     } else {
       root.classList.add('dark')
-      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#fff5d6')
+      document
+        .querySelector('meta[name="theme-color"]')
+        ?.setAttribute('content', '#fff5d6')
     }
   }, [theme])
 
@@ -39,8 +43,8 @@ export default function ThemeToggler() {
   }, [])
 
   return isMounted ? (
-    <div className='inline-flex items-center p-[1px]'>
-      <button 
+    <div className="inline-flex items-center p-[1px]">
+      <button
         className={`bg-purple-800 text-[#f0f0f0] dark:bg-amber-300 dark:text-[#1c1917] cursor-pointer rounded-2xl p-2`}
         onClick={toggleTheme}
         aria-label="Toggle theme"
