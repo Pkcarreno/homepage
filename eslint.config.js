@@ -1,5 +1,5 @@
-import typescriptParser from '@typescript-eslint/parser'
 import eslintPluginAstro from 'eslint-plugin-astro'
+import typescriptParser from '@typescript-eslint/parser'
 
 export default [
   ...eslintPluginAstro.configs.recommended,
