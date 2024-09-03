@@ -1,0 +1,118 @@
+---
+import myImage from '@/assets/images/photo_1.jpg'
+import jsodImg from '@/assets/images/project-jsod.png'
+import DecorateItemLink from '@/components/templates/DecorateItemLink.astro'
+import Image from '@/components/ui/Image.astro'
+import Link from '@/components/ui/Link.astro'
+import Layout from '@/layouts/Layout.astro'
+---
+
+<Layout
+  title="About me"
+  description="Pedro Carreño's professional profile as a developer and open source enthusiast."
+  lang="en"
+>
+  <blockquote>
+    <b>Note</b>
+    <p>
+      This website is in Spanish. This section is intended as an introduction to
+      my self (Pedro Carreño) to an English audience.
+    </p>
+  </blockquote>
+  <Image
+    src={myImage}
+    title="Photo of a beach that I like"
+    alt="Photo of a beach that I like"
+  />
+  <p>
+    Made in Venezuela in the late 90s. My name is Pedro. I'm a Front-End and
+    mobile application developer with 4+ years of professional experience. I
+    have led the Front-End development of complex and highly dynamic platforms
+    using React.js, Next.js and Vue.js technologies, as well as mobile apps with
+    React Native (and Expo).
+  </p>
+  <p>
+    Furthermore, I love technology, philosophy, history, music and video games.
+    I'm excited about open source, Linux and minimalism because they combine
+    several of my passions. I've migrated my digital workflow to open source,
+    and I've been involved in projects that I identify with and bring value to
+    my day-to-day life. In the same way, I try to create <Link
+      href="https://github.com/Pkcarreno?tab=repositories">FOSS tools</Link
+    > that can be useful.
+  </p>
+
+  <p>
+    This is my personal blog where I intend to share content on topics of my
+    interest such as development, FOSS and privacy. I had not had an excuse to
+    have a blog because «I already get the content that interests me», but
+    almost everything is in English, and it is a journey to get valuable content
+    in Spanish, for that reason I am focusing my blog to the Hispanic community.
+    Also, I really like this idea of <Link href="https://smallweb.page/why"
+      >small webs</Link
+    >.
+  </p>
+
+  <p>
+    <b>Note</b>: You can get the links to my platforms in the <Link
+      href="#barra-navegacion">navigation bar</Link
+    >.
+  </p>
+
+  <br />
+
+  <h2>Professional experience</h2>
+  <ul>
+    <li class="flex flex-col gap-1">
+      <div class="flex flex-col items-baseline gap-2 md:flex-row">
+        <Link href="https://www.linkedin.com/company/avanza-consultores"
+          >Grupo Avanza</Link
+        >
+        <small class="text-muted-foreground text-xs">2021 - presente</small>
+      </div>
+      <i>Front-End and Mobile Developer</i>
+    </li>
+    <li class="flex flex-col gap-1">
+      <div class="flex flex-col items-baseline gap-2 md:flex-row">
+        <Link href="https://www.linkedin.com/company/flockfysh">flockfysh</Link>
+        <small class="text-muted-foreground text-xs">2023</small>
+      </div>
+      <i>Front-End Developer</i>
+    </li>
+    <li class="flex flex-col gap-1">
+      <div class="flex flex-col items-baseline gap-2 md:flex-row">
+        <Link href="https://www.juarezhumberto.com/es/">Humberto Juarez</Link>
+        <small class="text-muted-foreground text-xs">2021</small>
+      </div>
+      <i>Freelance Front-End Developer</i>
+    </li>
+    <li class="flex flex-col gap-1">
+      <div class="flex flex-col items-baseline gap-2 md:flex-row">
+        <span>S2H Tech</span>
+        <small class="text-muted-foreground text-xs">2021</small>
+      </div>
+      <i>Front-End Developer</i>
+    </li>
+  </ul>
+
+  <br />
+
+  <h2>Highlighted project</h2>
+
+  <div class="flex flex-col gap-3">
+    <DecorateItemLink
+      title="JSOD"
+      date="2024"
+      href="https://github.com/pkcarreno/jsod"
+      imgSrc={jsodImg}
+    >
+      <p>
+        In this app you can run and share JavaScript code from your browser,
+        locally, respecting your privacy. My intention is to have a way to do
+        data manipulation without altering the code of the project I'm working
+        on and also to be able to share useful scripts (like calculators for
+        specific purposes) with family and friends without them having to go
+        through a login.
+      </p>
+    </DecorateItemLink>
+  </div>
+</Layout>

@@ -1,0 +1,96 @@
+---
+import '@/styles/global.css'
+
+import type { ComponentProps, HTMLAttributes } from 'astro/types'
+import { AstroFont } from 'astro-font'
+
+import SEO from '@/components/Seo.astro'
+
+const getFontPath = ({
+  weight,
+  style = 'normal',
+  format = 'woff2'
+}: {
+  weight: '400' | '700'
+  style?: 'normal' | 'italic'
+  format?: 'woff' | 'woff2'
+}) =>
+  `https://cdn.jsdelivr.net/fontsource/fonts/ia-writer-duo@latest/latin-${weight}-${style}.${format}`
+
+type AstroFontConfigSrc = ComponentProps<
+  typeof AstroFont
+>['config'][number]['src']
+
+const getFontSources: (
+  weight: '400' | '700',
+  format: 'woff' | 'woff2'
+) => AstroFontConfigSrc = (weight, format) => {
+  return [
+    {
+      style: 'normal',
+      weight,
+      path: getFontPath({
+        weight,
+        format
+      })
+    },
+    {
+      style: 'italic',
+      weight,
+      path: getFontPath({
+        weight,
+        style: 'italic',
+        format
+      })
+    }
+  ]
+}
+
+type Props = Pick<
+  ComponentProps<typeof SEO>,
+  'title' | 'description' | 'withoutTitleTemplate'
+> &
+  HTMLAttributes<'body'> & {
+    lang?: 'es' | 'en' | string
+  }
+
+const {
+  title,
+  description,
+  withoutTitleTemplate,
+  lang = 'es',
+  ...props
+} = Astro.props
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <SEO
+      title={title}
+      withoutTitleTemplate={withoutTitleTemplate}
+      description={description}
+    />
+    <AstroFont
+      config={[
+        {
+          name: 'iA Writer Duo',
+          fetch: true,
+          preload: false,
+          src: [
+            ...getFontSources('400', 'woff2'),
+            ...getFontSources('700', 'woff2'),
+            ...getFontSources('400', 'woff'),
+            ...getFontSources('700', 'woff')
+          ],
+          display: 'swap',
+          fallback: 'monospace'
+        }
+      ]}
+    />
+  </head>
+  <body {...props}>
+    <slot />
+  </body>
+</html>

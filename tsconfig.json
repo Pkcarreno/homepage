@@ -1,6 +1,17 @@
 {
-  "extends": "astro/tsconfigs/strict",
+  "extends": "astro/tsconfigs/base",
   "compilerOptions": {
-    "jsx": "react",
-  }
+    "baseUrl": ".",
+    "strictNullChecks": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "plugins": [
+      {
+        "name": "@astrojs/ts-plugin"
+      }
+    ]
+  },
+  "exclude": ["node_modules", "dist"],
+  "include": ["src"]
 }

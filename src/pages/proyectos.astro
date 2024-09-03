@@ -1,0 +1,36 @@
+---
+import jsodImg from '@/assets/images/project-jsod.png'
+import DecorateItemLink from '@/components/templates/DecorateItemLink.astro'
+import Link from '@/components/ui/Link.astro'
+import Layout from '@/layouts/Layout.astro'
+---
+
+<Layout
+  title="Proyectos"
+  description="Lista de utilidades desarrolladas por Pedro Carreño y que son Open Source. Estas pueden ser utilidades web o herramientas CLI."
+>
+  <p>
+    Tengo <Link href="https://github.com/Pkcarreno?tab=repositories"
+      >varias ideas</Link
+    > que quiero llevar a cabo, pero mientras solo mostraré las que consideré en
+    estado de uso.
+  </p>
+
+  <br />
+
+  <DecorateItemLink
+    title="JSOD"
+    date="2024"
+    href="https://github.com/pkcarreno/jsod"
+    imgSrc={jsodImg}
+  >
+    <p>
+      En esta app puedes ejecutar y compartir código JavaScript desde tu
+      navegador, de forma local, respetando tu privacidad. Mi intención es el
+      tener una forma de poder hacer manipulación de datos sin alterar el código
+      del proyecto en el que esté trabajando y también poder compartir scripts
+      útiles en forma de código (como calculadoras para propósitos específicos)
+      con familiares y amigos sin que tengan que pasar por un inicio de sesión.
+    </p>
+  </DecorateItemLink>
+</Layout>

@@ -1,19 +1,82 @@
 ---
-import BaseHead from '../components/BaseHead.astro'
-import Body from '../components/Body.astro'
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../config'
+import type { ComponentProps } from 'astro/types'
+import { Picture } from 'astro:assets'
+
+import bmBlack from '@/assets/images/bm-black.svg'
+import bmWhite from '@/assets/images/bm-white.svg'
+import ContentFrame from '@/components/templates/ContentFrame.astro'
+import Navigation from '@/components/templates/Navigation.astro'
+import Link from '@/components/ui/Link.astro'
+
+import Base from './Base.astro'
+
+type Props = ComponentProps<typeof Base> & {
+  seoTitle?: string
+}
+
+const { title, description, lang, seoTitle, withoutTitleTemplate } = Astro.props
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<Body>
-    <Header />
-		<slot />
-    <Footer />
-	</Body>
-</html>
+<Base
+  title={seoTitle ?? title}
+  withoutTitleTemplate={withoutTitleTemplate}
+  description={description}
+  lang={lang}
+  class="p-3 2xl:container md:p-6"
+>
+  <header class="flex flex-col flex-wrap items-baseline gap-2 sm:flex-row">
+    <Link href="/" class="text-lg font-bold">PK</Link>
+    {
+      title && (
+        <>
+          <span class="hidden sm:block">-</span>
+          <h1 class="text-muted-foreground m-0 text-sm font-light italic">
+            {title}
+          </h1>
+        </>
+      )
+    }
+  </header>
+  <main
+    class="mt-6 flex flex-wrap gap-x-4 gap-y-6 md:mt-12 md:gap-x-6 md:gap-y-8"
+  >
+    <Navigation />
+
+    <slot name="aside" />
+
+    <ContentFrame>
+      <slot />
+    </ContentFrame>
+  </main>
+  <footer class="my-6 flex w-fit flex-col gap-4 md:mt-12">
+    <div class="flex flex-col gap-4 md:flex-row">
+      <Link href="/licencia" class="text-muted-foreground">CC BY-NC-SA 4.0</Link
+      >
+      <Link
+        href="https://github.com/Pkcarreno/homepage"
+        class="text-muted-foreground">Código</Link
+      >
+      <Link href="/about-me" class="text-muted-foreground">English?</Link>
+    </div>
+    <Link
+      href="https://brainmade.org/"
+      unstyled
+      class="bg-transparent hover:bg-transparent"
+    >
+      <Picture
+        src={bmBlack}
+        alt="Brain Made"
+        width={128}
+        formats={['avif', 'webp']}
+        class="dark:hidden"
+      />
+      <Picture
+        src={bmWhite}
+        alt="Brain Made"
+        width={128}
+        formats={['avif', 'webp']}
+        class="hidden dark:block"
+      />
+    </Link>
+  </footer>
+</Base>

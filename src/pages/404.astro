@@ -1,14 +1,9 @@
 ---
-import Layout from '../layouts/Layout.astro'
+import Layout from '@/layouts/Layout.astro'
 ---
 
-<Layout>
-  <main class="pt-24 flex justify-center mx-8 mb-9">
-    <div class="w-full max-w-lg flex flex-col gap-3"> 
-      <h3>Opps! :,(</h3>
-      <p>The page you requested doesn't exist.</p>
-      <a href="/" class="hover:underline underline-offset-2">Go back</a>
-    </div>
-  </main>
-  
+<Layout title="404 Error" description="Página no encontrada">
+  <h2>Upps</h2>
+
+  <p>Parece que esta página no existe.</p>
 </Layout>

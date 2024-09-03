@@ -1,0 +1,44 @@
+---
+import type { ComponentProps } from 'astro/types'
+import { Picture } from 'astro:assets'
+
+type Props = ComponentProps<typeof Picture> & {
+  title?: string
+  alt?: string
+}
+
+const { title, alt, ...props } = Astro.props as Props
+
+const href =
+  typeof props.src === 'string'
+    ? props.src
+    : props.src
+      ? props.src.toString()
+      : ''
+
+const isExternal = URL.canParse(href)
+---
+
+<figure
+  class="hover:text-muted-foreground/90 text-muted-foreground/70 mb-3 flex flex-col items-center justify-center gap-0 bg-transparent no-underline hover:bg-transparent"
+>
+  {
+    isExternal ? (
+      <img
+        alt={alt ? alt : title}
+        title={alt ? alt : title}
+        src={props.src as string}
+        class:list={['mb-0', props.class, props['class:list']]}
+      />
+    ) : (
+      <Picture
+        formats={['avif', 'webp']}
+        title={alt ? alt : title}
+        alt={alt ? alt : (title ?? null)}
+        {...props}
+        class:list={['mb-0', props.class, props['class:list']]}
+      />
+    )
+  }
+  {title && <figcaption>{title}</figcaption>}
+</figure>

@@ -1,0 +1,32 @@
+---
+import type { ImageMetadata } from 'astro'
+
+import Image from '@/components/ui/Image.astro'
+import Link from '@/components/ui/Link.astro'
+
+interface Props {
+  title: string
+  href: string
+  date: string | Date
+  imgSrc?: ImageMetadata
+  tags?: (string | undefined)[]
+}
+
+const { title, href, date, imgSrc, tags } = Astro.props
+---
+
+<div class="flex flex-col gap-1" id={title}>
+  <div class="flex flex-col items-baseline justify-between gap-1 md:flex-row">
+    <h2 class="mb-0"><Link href={href}>{title}</Link></h2>
+    <i class="text-muted-foreground text-xs"
+      >{date instanceof Date ? date.toLocaleDateString() : date}</i
+    >
+  </div>
+  {imgSrc && <Image src={imgSrc} formats={['avif', 'webp']} alt={title} />}
+  <div><slot /></div>
+  {
+    tags && (
+      <small class="text-muted-foreground text-xs">{tags.join(', ')}</small>
+    )
+  }
+</div>
