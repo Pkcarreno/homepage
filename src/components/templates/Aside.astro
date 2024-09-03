@@ -1,0 +1,11 @@
+---
+interface Props {
+  slot: 'aside'
+}
+
+const { slot } = Astro.props
+---
+
+<aside class="flex flex-col" slot={slot}>
+  <slot />
+</aside>

@@ -1,0 +1,77 @@
+---
+import { SEO as SEOTag } from 'astro-seo'
+
+import { seoConfig } from '@/utils/seo-config.js'
+
+interface Props {
+  title: string
+  withoutTitleTemplate?: boolean
+  description: string
+  image?: string
+  imageAlt?: string
+}
+
+const {
+  title,
+  description,
+  withoutTitleTemplate,
+  image = seoConfig.image.src,
+  imageAlt = seoConfig.image.alt
+} = Astro.props
+const imageUrl = new URL(image, Astro.url).toString()
+---
+
+<SEOTag
+  title={title}
+  titleTemplate={withoutTitleTemplate ? undefined : '%s - PK'}
+  description={description}
+  openGraph={{
+    basic: {
+      title: title,
+      type: seoConfig.type,
+      image: imageUrl
+    },
+    image: {
+      alt: imageAlt
+    }
+  }}
+  twitter={{
+    creator: seoConfig.twitter.creator,
+    title: title,
+    description: description,
+    image: imageUrl,
+    imageAlt: imageAlt
+  }}
+  extend={{
+    link: [
+      {
+        rel: 'icon',
+        type: 'image/svg+xml',
+        href: '/favicon.svg'
+      },
+      {
+        rel: 'sitemap',
+        href: '/sitemap-index.xml'
+      }
+    ],
+    meta: [
+      {
+        name: 'theme-color',
+        content: '#fffaeb'
+      },
+      {
+        name: 'theme-color',
+        content: '#140f00',
+        media: '(prefers-color-scheme: dark)'
+      },
+      {
+        name: 'viewport',
+        content: 'width=device-width,initial-scale=1'
+      },
+      {
+        name: 'generator',
+        content: Astro.generator
+      }
+    ]
+  }}
+/>

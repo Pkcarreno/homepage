@@ -1,0 +1,51 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import { getCollection } from 'astro:content'
+
+import Layout from '@/layouts/Layout.astro'
+
+type entryType = CollectionEntry<'escritos'>
+
+export async function getStaticPaths() {
+  const writeEntries = await getCollection('escritos')
+  return writeEntries
+    .filter(
+      (entry: entryType) =>
+        process.env.NODE_ENV === 'development' || !entry.data.draft
+    )
+    .sort(
+      (entryA: entryType, entryB: entryType) =>
+        new Date(entryB.data.date).getTime() -
+        new Date(entryA.data.date).getTime()
+    )
+    .map((entry: entryType) => ({
+      params: { slug: entry.slug },
+      props: { entry }
+    }))
+}
+
+interface Props {
+  entry: entryType
+}
+
+const { entry } = Astro.props
+const { Content } = await entry.render()
+---
+
+<Layout
+  title={`${entry.data.title}${entry.data.draft ? ' (draft)' : ''}`}
+  description={entry.data.description}
+>
+  <Content />
+
+  {
+    entry.data.tags && (
+      <div class="flex flex-col gap-0.5">
+        <label class="mb-0 italic">etiquetas</label>
+        <small class="text-muted-foreground text-xs">
+          {entry.data.tags.join(', ')}
+        </small>
+      </div>
+    )
+  }
+</Layout>

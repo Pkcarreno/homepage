@@ -1,0 +1,11 @@
+---
+import Link from '@/components/ui/Link.astro'
+import Layout from '@/layouts/Layout.astro'
+---
+
+<Layout title="RSS" description="Subscríbete al feed RSS">
+  <p>Puedes subscribirte al feed RSS los escritos a través de este link:</p>
+  <Link class="w-full" href="/escritos.xml"
+    >{import.meta.env.SITE}/escritos.xml</Link
+  >
+</Layout>

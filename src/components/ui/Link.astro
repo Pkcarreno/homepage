@@ -1,0 +1,93 @@
+---
+import path from 'node:path'
+
+import type { LinkProps } from './Link.type.ts'
+
+type Props = LinkProps
+
+const { ...props } = Astro.props
+
+const { pathname } = Astro.url
+
+const href =
+  typeof props.href === 'string'
+    ? props.href
+    : props.href
+      ? props.href.toString()
+      : ''
+
+const isExternal = URL.canParse(href)
+const isHash = href.startsWith('#')
+const isMail = href.startsWith('mailto:')
+const isTel = href.startsWith('tel:')
+const isActive = href === pathname || href === '.' || href === './'
+const isInternal = !isExternal && !isHash && !isMail && !isTel
+
+let contact: string | undefined = undefined
+if (isMail) {
+  contact = href.replace('mailto:', '')
+} else if (isTel) {
+  contact = href.replace('tel:', '')
+}
+
+let parsedUrl = href
+if (isExternal === false && isHash === false) {
+  const basePrefix = import.meta.env.BASE_URL
+
+  parsedUrl = path.isAbsolute(href)
+    ? `${path.join(basePrefix ?? '/', href)}`
+    : href
+}
+
+let dataContact: string | null = null
+if (contact) {
+  parsedUrl = '#'
+  dataContact = btoa(href)
+}
+
+const uniqueId = dataContact
+  ? `link-${Math.random().toString(16).slice(2)}`
+  : undefined
+---
+
+<a
+  href={parsedUrl}
+  class:list={[
+    props.unstyled !== true && {
+      link: true,
+      'is-external': isExternal,
+      'is-internal': isInternal,
+      'is-hash': isHash,
+      'is-mail': isMail,
+      'is-tel': isTel,
+      'is-active': isActive
+    },
+    props.class,
+    props['class:list']
+  ]}
+  unique-id={uniqueId}
+  data-contact={dataContact}
+  target={isExternal ? '_blank' : null}
+  rel={isExternal
+    ? 'noopener nofollow'
+    : isInternal && !isActive
+      ? 'prefetch'
+      : null}
+  {...props}><slot /></a
+>
+
+<script>
+  const contactLinks = document.querySelectorAll('.link[unique-id]')
+
+  contactLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault()
+
+      const contactHrefRaw = link.getAttribute('data-contact')
+      if (contactHrefRaw) {
+        const contactHref = atob(contactHrefRaw)
+        window.location.href = contactHref
+      }
+    })
+  })
+</script>

@@ -1,59 +1,135 @@
-/* 
-* Styles built with the *Realtime Colors* tool.
-* Styles used:
-* https://www.realtimecolors.com/?colors=130e01-fffaeb-ff8400-fff5d6-cf4307&fonts=Poppins-Poppins
-*/
-
-@import url('https://fonts.googleapis.com/css?family=Poppins:700|Poppins:400');
-
 @tailwind base;
-
-body {
-  font-family: 'Poppins';
-  font-weight: 400;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  overflow-wrap: break-word;
-}
-
-body {
-  font-family: 'Poppins';
-  font-weight: 400;
-}
-
-h1, h2, h3, h4, h5 {
-  font-family: 'Poppins';
-  font-weight: 700;
-}
-
-html {font-size: 100%;} /* 16px */
-
-h1 {font-size: 2.489rem; /* 39.84px */}
-
-h2 {font-size: 2.074rem; /* 33.12px */}
-
-h3 {font-size: 1.728rem; /* 27.68px */}
-
-h4 {font-size: 1.440rem; /* 23.04px */}
-
-h5 {font-size: 1.200rem; /* 19.2px */}
-
-small {font-size: 0.833rem; /* 13.28px */}
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   :root {
-    --text: 43 90% 4%;
     --background: 45 100% 96%;
-    --primary: 31 100% 50%;
-    --secondary: 45 100% 92%;
-    --accent: 18 93% 42%;
+    --foreground: 31 58% 5%;
+    --muted: 31 14% 94%;
+    --muted-foreground: 31 10% 29%;
   }
-  .dark {
-    --text: 43 90% 96%;
-    --background: 45 100% 4%;
-    --primary: 31 100% 50%;
-    --secondary: 45 100% 8%;
-    --accent: 18 93% 58%;
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background: 45 100% 4%;
+      --foreground: 31 39% 98%;
+      --muted: 31 14% 10%;
+      --muted-foreground: 31 10% 71%;
+    }
+
+    .astro-code,
+    .astro-code span {
+      color: var(--shiki-dark) !important;
+      background-color: var(--shiki-dark-bg) !important;
+      /* Optional, if you also want font styles */
+      font-style: var(--shiki-dark-font-style) !important;
+      font-weight: var(--shiki-dark-font-weight) !important;
+      text-decoration: var(--shiki-dark-text-decoration) !important;
+    }
   }
 }
 
+@layer base {
+  body {
+    @apply bg-background text-foreground selection:bg-foreground selection:text-background font-mono box-border;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+  }
+
+  a {
+    @apply underline underline-offset-2 decoration-dotted hover:no-underline hover:bg-foreground hover:text-background;
+  }
+
+  a.link.is-active {
+    @apply bg-muted text-muted-foreground decoration-solid hover:text-muted-foreground/70;
+  }
+
+  ul,
+  ol {
+    @apply pl-5;
+  }
+
+  ul {
+    @apply list-disc;
+  }
+
+  ol {
+    @apply list-decimal;
+  }
+
+  p,
+  label,
+  ul,
+  li,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  blockquote {
+    @apply mb-4;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold leading-[1.15] tracking-[-0.022em];
+  }
+
+  h1 {
+    @apply text-[1.476rem];
+  }
+
+  h2 {
+    @apply text-[1.383rem];
+  }
+
+  h3 {
+    @apply text-[1.296rem];
+  }
+
+  h4 {
+    @apply text-[1.215rem];
+  }
+
+  h5 {
+    @apply text-[1.138rem];
+  }
+
+  h6 {
+    @apply text-[1.067rem];
+  }
+
+  small {
+    @apply text-sm;
+  }
+
+  hr {
+    @apply border-muted-foreground/70;
+  }
+
+  label {
+    @apply italic;
+  }
+
+  pre {
+    @apply px-2 py-3;
+  }
+
+  pre code {
+    @apply bg-transparent text-current px-0;
+  }
+
+  code {
+    @apply bg-muted-foreground text-muted font-mono px-0.5;
+  }
+
+  blockquote {
+    @apply border-l-4 w-fit pl-4 my-4 bg-muted/20 hover:bg-muted/40 text-muted-foreground;
+  }
+}
