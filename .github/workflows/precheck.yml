@@ -4,7 +4,7 @@ name: Precheck
 
 on:
   pull_request:
-    branches: [main]
+    branches: [master]
   workflow_call:
 
 jobs:
