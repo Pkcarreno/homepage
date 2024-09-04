@@ -20,8 +20,14 @@ const isExternal = URL.canParse(href)
 const isHash = href.startsWith('#')
 const isMail = href.startsWith('mailto:')
 const isTel = href.startsWith('tel:')
-const isActive = href === pathname || href === '.' || href === './'
 const isInternal = !isExternal && !isHash && !isMail && !isTel
+const isActive =
+  isInternal &&
+  (href === pathname ||
+    href === `${pathname}/` ||
+    `${href}/` === pathname ||
+    href === '.' ||
+    href === './')
 
 let contact: string | undefined = undefined
 if (isMail) {
