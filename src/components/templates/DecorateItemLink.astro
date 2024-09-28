@@ -23,7 +23,7 @@ const { title, href, date, imgSrc, tags } = Astro.props
     >
   </div>
   {imgSrc && <Image src={imgSrc} formats={['avif', 'webp']} alt={title} />}
-  <div><slot /></div>
+  <div class="text-muted-foreground"><slot /></div>
   {
     tags && (
       <small class="text-muted-foreground text-xs">{tags.join(', ')}</small>
