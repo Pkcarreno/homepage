@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content'
 import { getCollection } from 'astro:content'
 
+import Link from '@/components/ui/Link.astro'
 import Layout from '@/layouts/Layout.astro'
 
 type entryType = CollectionEntry<'escritos'>
@@ -42,8 +43,10 @@ const { Content } = await entry.render()
     entry.data.tags && (
       <div class="flex flex-col gap-0.5">
         <label class="mb-0 italic">etiquetas</label>
-        <small class="text-muted-foreground text-xs">
-          {entry.data.tags.join(', ')}
+        <small class="text-muted-foreground flex flex-wrap gap-2 text-xs">
+          {entry.data.tags.map(tag => (
+            <Link href={`/etiqueta/${tag}`}>{tag}</Link>
+          ))}
         </small>
       </div>
     )
