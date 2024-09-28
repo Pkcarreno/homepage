@@ -1,0 +1,74 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import { getCollection } from 'astro:content'
+
+import DecorateItemLink from '@/components/templates/DecorateItemLink.astro'
+import Layout from '@/layouts/Layout.astro'
+
+type entryType = CollectionEntry<'escritos'>
+
+export async function getStaticPaths() {
+  const writeEntries = await getCollection('escritos')
+  const uniqueTags = [
+    ...new Set(writeEntries.map((entry: entryType) => entry.data.tags).flat())
+  ]
+
+  return uniqueTags.map(tag => {
+    const filteredEntries = writeEntries
+      .filter(
+        (entry: entryType) =>
+          process.env.NODE_ENV === 'development' || !entry.data.draft
+      )
+      .sort(
+        (entryA: entryType, entryB: entryType) =>
+          new Date(entryB.data.date).getTime() -
+          new Date(entryA.data.date).getTime()
+      )
+    return {
+      params: { tag },
+      props: { entries: filteredEntries, tag }
+    }
+  })
+}
+
+interface Props {
+  entries: entryType
+  tag: string
+}
+
+const { entries, tag } = Astro.props
+---
+
+<Layout
+  title={`Etiqueta ${tag}`}
+  description="Contenido existente filtrado por etiquetas."
+>
+  <p>Lista de escritos por etiqueta</p>
+
+  <br />
+
+  <div class="flex flex-col gap-4">
+    {
+      entries
+        .sort(
+          (entryA: entryType, entryB: entryType) =>
+            new Date(entryB.data.date).getTime() -
+            new Date(entryA.data.date).getTime()
+        )
+        .filter(
+          (entry: entryType) =>
+            process.env.NODE_ENV === 'development' || !entry.data.draft
+        )
+        .map((entry: entryType) => (
+          <DecorateItemLink
+            title={`${entry.data.title}${entry.data.draft ? ' - DRAFT' : ''}`}
+            date={entry.data.date}
+            href={`/escritos/${entry.slug}`}
+            tags={entry.data.tags}
+          >
+            <p class="mb-0">{entry.data.description}</p>
+          </DecorateItemLink>
+        ))
+    }
+  </div>
+</Layout>
