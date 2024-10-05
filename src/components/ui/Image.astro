@@ -2,19 +2,18 @@
 import type { ComponentProps } from 'astro/types'
 import { Picture } from 'astro:assets'
 
-type Props = ComponentProps<typeof Picture> & {
+type Props = Pick<
+  ComponentProps<typeof Picture>,
+  'class' | 'class:list' | 'src'
+> & {
   title?: string
   alt?: string
 }
 
-const { title, alt, ...props } = Astro.props as Props
+const { title, alt, src: imageSrc, ...props } = Astro.props as Props
 
 const href =
-  typeof props.src === 'string'
-    ? props.src
-    : props.src
-      ? props.src.toString()
-      : ''
+  typeof imageSrc === 'string' ? imageSrc : imageSrc ? imageSrc.toString() : ''
 
 const isExternal = URL.canParse(href)
 ---
@@ -27,7 +26,8 @@ const isExternal = URL.canParse(href)
       <img
         alt={alt ? alt : title}
         title={alt ? alt : title}
-        src={props.src as string}
+        src={imageSrc as string}
+        loading="lazy"
         class:list={['mb-0', props.class, props['class:list']]}
       />
     ) : (
@@ -35,7 +35,9 @@ const isExternal = URL.canParse(href)
         formats={['avif', 'webp']}
         title={alt ? alt : title}
         alt={alt ? alt : (title ?? null)}
-        {...props}
+        widths={[300, 600, 720, 1200]}
+        loading="lazy"
+        src={imageSrc as ImageMetadata}
         class:list={['mb-0', props.class, props['class:list']]}
       />
     )
