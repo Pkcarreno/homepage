@@ -13,12 +13,13 @@ export async function getStaticPaths() {
     ...new Set(writeEntries.map((entry: entryType) => entry.data.tags).flat())
   ]
 
-  return uniqueTags.map(tag => {
+  return uniqueTags.map((tag: string) => {
     const filteredEntries = writeEntries
       .filter(
         (entry: entryType) =>
           process.env.NODE_ENV === 'development' || !entry.data.draft
       )
+      .filter((entry: entryType) => entry.data.tags?.includes(tag))
       .sort(
         (entryA: entryType, entryB: entryType) =>
           new Date(entryB.data.pubDate).getTime() -
