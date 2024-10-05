@@ -4,11 +4,13 @@ const writeCollection = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    description: z.string(),
-    draft: z.boolean().default(false),
-    tags: z.array(z.string().optional()),
-    date: z.date().transform(str => new Date(str)),
-    image: z.string().optional()
+    description: z.string().max(160),
+    draft: z.boolean().default(true),
+    keywords: z.array(z.string()).optional(),
+    tags: z.array(z.string()).optional(),
+    pubDate: z.date().transform(str => new Date(str)),
+    lastMod: z.date().transform(str => new Date(str)),
+    heroImage: z.string().optional()
   })
 })
 

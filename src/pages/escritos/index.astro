@@ -21,8 +21,8 @@ type entryType = CollectionEntry<'escritos'>
       writeEntries
         .sort(
           (entryA: entryType, entryB: entryType) =>
-            new Date(entryB.data.date).getTime() -
-            new Date(entryA.data.date).getTime()
+            new Date(entryB.data.pubDate).getTime() -
+            new Date(entryA.data.pubDate).getTime()
         )
         .filter(
           (entry: entryType) =>
@@ -31,7 +31,7 @@ type entryType = CollectionEntry<'escritos'>
         .map((entry: entryType) => (
           <DecorateItemLink
             title={`${entry.data.title}${entry.data.draft ? ' - DRAFT' : ''}`}
-            date={entry.data.date}
+            date={entry.data.pubDate}
             href={`/escritos/${entry.slug}`}
             tags={entry.data.tags}
           >

@@ -26,7 +26,9 @@ const { title, href, date, imgSrc, tags } = Astro.props
   <div class="text-muted-foreground"><slot /></div>
   {
     tags && (
-      <small class="text-muted-foreground text-xs">{tags.join(', ')}</small>
+      <small class="text-muted-foreground text-xs capitalize">
+        {tags.join(', ')}
+      </small>
     )
   }
 </div>
