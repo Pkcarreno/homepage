@@ -16,7 +16,7 @@
     {
       "name": "default",
       "pageBundle": false,
-      "previewPath": "'escritos'",
+      "previewPath": "escritos",
       "filePrefix": null,
       "clearEmpty": false,
       "fileType": "mdoc",
