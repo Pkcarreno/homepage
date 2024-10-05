@@ -47,17 +47,17 @@ const { Content } = await entry.render()
         <small>
           Este escrito fue publicado el{' '}
           <b>{entry.data.pubDate.toLocaleDateString()}</b> y fue actualizado por
-          ultima vez el <b>{entry.data.lastMod.toLocaleDateString()}</b>.
-          {entry.data.tags && ' Contiene las etiquetas: '}
+          última vez el <b>{entry.data.lastMod.toLocaleDateString()}</b>.
           {entry.data.tags &&
-            entry.data.tags.map((tag, index) => {
+            entry.data.tags.length > 0 &&
+            ' Contiene las etiquetas: '}
+          {entry.data.tags &&
+            entry.data.tags.length > 0 &&
+            entry.data.tags.map(tag => {
               return (
-                <>
-                  {index ? ', ' : ''}
-                  <Link class="capitalize" href={`/etiqueta/${tag}`}>
-                    {tag}
-                  </Link>
-                </>
+                <Link class="capitalize" href={`/etiqueta/${tag}`}>
+                  {`${tag}`}
+                </Link>
               )
             })}
         </small>
