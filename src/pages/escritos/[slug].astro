@@ -16,8 +16,8 @@ export async function getStaticPaths() {
     )
     .sort(
       (entryA: entryType, entryB: entryType) =>
-        new Date(entryB.data.date).getTime() -
-        new Date(entryA.data.date).getTime()
+        new Date(entryB.data.pubDate).getTime() -
+        new Date(entryA.data.pubDate).getTime()
     )
     .map((entry: entryType) => ({
       params: { slug: entry.slug },
@@ -39,14 +39,27 @@ const { Content } = await entry.render()
 >
   <Content />
 
+  <br />
+
   {
     entry.data.tags && (
       <div class="flex flex-col gap-0.5">
-        <label class="mb-0 italic">etiquetas</label>
-        <small class="text-muted-foreground flex flex-wrap gap-2 text-xs">
-          {entry.data.tags.map(tag => (
-            <Link href={`/etiqueta/${tag}`}>{tag}</Link>
-          ))}
+        <small>
+          Este escrito fue publicado el{' '}
+          <b>{entry.data.pubDate.toLocaleDateString()}</b> y fue actualizado por
+          última vez el <b>{entry.data.lastMod.toLocaleDateString()}</b>.
+          {entry.data.tags &&
+            entry.data.tags.length > 0 &&
+            ' Contiene las etiquetas: '}
+          {entry.data.tags &&
+            entry.data.tags.length > 0 &&
+            entry.data.tags.map(tag => {
+              return (
+                <Link class="capitalize" href={`/etiqueta/${tag}`}>
+                  {`${tag}`}
+                </Link>
+              )
+            })}
         </small>
       </div>
     )

@@ -46,16 +46,16 @@ type entryType = CollectionEntry<'escritos'>
         )
         .sort(
           (entryA: entryType, entryB: entryType) =>
-            new Date(entryB.data.date).getTime() -
-            new Date(entryA.data.date).getTime()
+            new Date(entryB.data.pubDate).getTime() -
+            new Date(entryA.data.pubDate).getTime()
         )
         .splice(0, 5)
         .map((entry: entryType) => (
           <div class="space-x-5">
             <small class="text-muted-foreground text-xs">
-              {entry.data.date instanceof Date
-                ? entry.data.date.toLocaleDateString()
-                : entry.data.date}
+              {entry.data.pubDate instanceof Date
+                ? entry.data.pubDate.toLocaleDateString()
+                : entry.data.pubDate}
             </small>
             <Link
               href={`/escritos/${entry.slug}`}

@@ -16,12 +16,12 @@ export async function GET(context) {
       )
       .sort(
         (entryA, entryB) =>
-          new Date(entryB.data.date).getTime() -
-          new Date(entryA.data.date).getTime()
+          new Date(entryB.data.pubDate).getTime() -
+          new Date(entryA.data.pubDate).getTime()
       )
       .map(entry => ({
         title: `${entry.data.title}${entry.data.draft ? ' (draft)' : ''}`,
-        pubDate: entry.data.date,
+        pubDate: entry.data.pubDate,
         description: entry.data.description,
         link: `/escritos/${entry.slug}`,
         content: sanitizeHtml(parser.render(entry.body), {

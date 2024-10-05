@@ -13,16 +13,17 @@ export async function getStaticPaths() {
     ...new Set(writeEntries.map((entry: entryType) => entry.data.tags).flat())
   ]
 
-  return uniqueTags.map(tag => {
+  return uniqueTags.map((tag: string) => {
     const filteredEntries = writeEntries
       .filter(
         (entry: entryType) =>
           process.env.NODE_ENV === 'development' || !entry.data.draft
       )
+      .filter((entry: entryType) => entry.data.tags?.includes(tag))
       .sort(
         (entryA: entryType, entryB: entryType) =>
-          new Date(entryB.data.date).getTime() -
-          new Date(entryA.data.date).getTime()
+          new Date(entryB.data.pubDate).getTime() -
+          new Date(entryA.data.pubDate).getTime()
       )
     return {
       params: { tag },
@@ -32,7 +33,7 @@ export async function getStaticPaths() {
 }
 
 interface Props {
-  entries: entryType
+  entries: entryType[]
   tag: string
 }
 
@@ -52,8 +53,8 @@ const { entries, tag } = Astro.props
       entries
         .sort(
           (entryA: entryType, entryB: entryType) =>
-            new Date(entryB.data.date).getTime() -
-            new Date(entryA.data.date).getTime()
+            new Date(entryB.data.pubDate).getTime() -
+            new Date(entryA.data.pubDate).getTime()
         )
         .filter(
           (entry: entryType) =>
@@ -62,7 +63,7 @@ const { entries, tag } = Astro.props
         .map((entry: entryType) => (
           <DecorateItemLink
             title={`${entry.data.title}${entry.data.draft ? ' - DRAFT' : ''}`}
-            date={entry.data.date}
+            date={entry.data.pubDate}
             href={`/escritos/${entry.slug}`}
             tags={entry.data.tags}
           >

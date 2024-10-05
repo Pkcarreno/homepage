@@ -22,11 +22,13 @@ const { title, href, date, imgSrc, tags } = Astro.props
       >{date instanceof Date ? date.toLocaleDateString() : date}</i
     >
   </div>
-  {imgSrc && <Image src={imgSrc} formats={['avif', 'webp']} alt={title} />}
+  {imgSrc && <Image src={imgSrc} alt={title} />}
   <div class="text-muted-foreground"><slot /></div>
   {
     tags && (
-      <small class="text-muted-foreground text-xs">{tags.join(', ')}</small>
+      <small class="text-muted-foreground text-xs capitalize">
+        {tags.join(', ')}
+      </small>
     )
   }
 </div>
