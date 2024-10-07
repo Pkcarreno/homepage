@@ -14,31 +14,31 @@
     "lint:fix": "unox --fix"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.3",
+    "@astrojs/check": "^0.9.4",
     "@astrojs/markdoc": "^0.11.4",
     "@astrojs/rss": "^4.0.7",
-    "@astrojs/sitemap": "^3.1.6",
+    "@astrojs/sitemap": "^3.2.0",
     "@astrojs/tailwind": "^5.1.1",
     "@astrojs/ts-plugin": "^1.10.2",
-    "astro": "^4.15.9",
+    "astro": "^4.15.11",
     "astro-font": "^0.1.81",
     "astro-seo": "^0.8.4",
     "markdown-it": "^14.1.0",
-    "sanitize-html": "^2.13.0",
+    "sanitize-html": "^2.13.1",
     "tailwindcss": "^3.4.13"
   },
   "packageManager": "pnpm@9.4.0+sha256.b6fd0bfda555e7e584ad7e56b30c68b01d5a04f9ee93989f4b93ca8473c49c74",
   "devDependencies": {
     "@types/markdown-it": "^14.1.2",
     "@types/sanitize-html": "^2.13.0",
-    "eslint": "^9.11.1",
+    "eslint": "^9.12.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-astro": "^1.2.4",
     "eslint-plugin-oxlint": "^0.9.9",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-tailwindcss": "^3.17.4",
-    "eslint-plugin-unicorn": "^55.0.0",
+    "eslint-plugin-unicorn": "^56.0.0",
     "eslint-plugin-unused-imports": "^4.1.4",
     "lightningcss": "^1.27.0",
     "oxlint": "^0.9.9",
@@ -46,7 +46,7 @@
     "prettier-plugin-astro": "^0.14.1",
     "sharp": "^0.33.5",
     "typescript": "^5.6.2",
-    "typescript-eslint": "8.7.0",
+    "typescript-eslint": "8.8.0",
     "unplugin-oxlint": "^0.6.3"
   }
 }
