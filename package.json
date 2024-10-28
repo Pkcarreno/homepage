@@ -19,8 +19,8 @@
     "@astrojs/rss": "^4.0.9",
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/tailwind": "^5.1.2",
-    "@astrojs/ts-plugin": "^1.10.3",
-    "astro": "^4.16.6",
+    "@astrojs/ts-plugin": "^1.10.4",
+    "astro": "^4.16.7",
     "astro-font": "^0.1.81",
     "astro-seo": "^0.8.4",
     "markdown-it": "^14.1.0",
@@ -41,12 +41,12 @@
     "eslint-plugin-unicorn": "^56.0.0",
     "eslint-plugin-unused-imports": "^4.1.4",
     "lightningcss": "^1.27.0",
-    "oxlint": "^0.10.1",
+    "oxlint": "^0.10.3",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.1",
     "sharp": "^0.33.5",
     "typescript": "^5.6.3",
-    "typescript-eslint": "8.10.0",
-    "unplugin-oxlint": "^0.7.0"
+    "typescript-eslint": "8.11.0",
+    "unplugin-oxlint": "^0.7.3"
   }
 }
