@@ -10,8 +10,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check",
-    "lint": "unox",
-    "lint:fix": "unox --fix"
+    "lint": "unix",
+    "lint:fix": "unix --fix"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -46,7 +46,7 @@
     "prettier-plugin-astro": "^0.14.1",
     "sharp": "^0.33.5",
     "typescript": "^5.6.3",
-    "typescript-eslint": "8.14.0",
+    "typescript-eslint": "8.15.0",
     "unplugin-oxlint": "^0.7.3"
   }
 }
