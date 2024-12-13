@@ -64,7 +64,7 @@ const { entries, tag } = Astro.props
           <DecorateItemLink
             title={`${entry.data.title}${entry.data.draft ? ' - DRAFT' : ''}`}
             date={entry.data.pubDate}
-            href={`/escritos/${entry.slug}`}
+            href={`/escritos/${entry.id}`}
             tags={entry.data.tags}
           >
             <p class="mb-0">{entry.data.description}</p>

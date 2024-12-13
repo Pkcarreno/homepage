@@ -23,7 +23,7 @@ export async function GET(context) {
         title: `${entry.data.title}${entry.data.draft ? ' (draft)' : ''}`,
         pubDate: entry.data.pubDate,
         description: entry.data.description,
-        link: `/escritos/${entry.slug}`,
+        link: `/escritos/${entry.id}`,
         content: sanitizeHtml(parser.render(entry.body), {
           allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img'])
         })
