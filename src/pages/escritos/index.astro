@@ -32,7 +32,7 @@ type entryType = CollectionEntry<'escritos'>
           <DecorateItemLink
             title={`${entry.data.title}${entry.data.draft ? ' - DRAFT' : ''}`}
             date={entry.data.pubDate}
-            href={`/escritos/${entry.id}`}
+            href={`/escritos/${entry.slug}`}
             tags={entry.data.tags}
           >
             <p class="mb-0">{entry.data.description}</p>

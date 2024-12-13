@@ -58,7 +58,7 @@ type entryType = CollectionEntry<'escritos'>
                 : entry.data.pubDate}
             </small>
             <Link
-              href={`/escritos/${entry.id}`}
+              href={`/escritos/${entry.slug}`}
             >{`${entry.data.title}${entry.data.draft ? ' - DRAFT' : ''}`}</Link>
           </div>
         ))
