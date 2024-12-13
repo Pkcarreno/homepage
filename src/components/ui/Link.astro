@@ -56,31 +56,33 @@ const uniqueId = dataContact
   : undefined
 ---
 
-<a
-  href={parsedUrl}
-  class:list={[
-    props.unstyled !== true && {
-      link: true,
-      'is-external': isExternal,
-      'is-internal': isInternal,
-      'is-hash': isHash,
-      'is-mail': isMail,
-      'is-tel': isTel,
-      'is-active': isActive
-    },
-    props.class,
-    props['class:list']
-  ]}
-  unique-id={uniqueId}
-  data-contact={dataContact}
-  target={isExternal ? '_blank' : null}
-  rel={isExternal
-    ? 'noopener nofollow'
-    : isInternal && !isActive
-      ? 'prefetch'
-      : null}
-  {...props}><slot /></a
->
+<>
+  <!-- prettier-ignore -->
+  <a
+    href={parsedUrl}
+    class:list={[
+      props.unstyled !== true && {
+        link: true,
+        'is-external': isExternal,
+        'is-internal': isInternal,
+        'is-hash': isHash,
+        'is-mail': isMail,
+        'is-tel': isTel,
+        'is-active': isActive
+      },
+      props.class,
+      props['class:list']
+    ]}
+    unique-id={uniqueId}
+    data-contact={dataContact}
+    target={isExternal ? '_blank' : null}
+    rel={isExternal
+      ? 'noopener nofollow'
+      : isInternal && !isActive
+        ? 'prefetch'
+        : null}
+    {...props}><slot /></a>
+</>
 
 <script>
   const contactLinks = document.querySelectorAll('.link[unique-id]')
