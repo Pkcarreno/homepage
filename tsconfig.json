@@ -4,14 +4,18 @@
     "baseUrl": ".",
     "strictNullChecks": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@assets/*": ["./src/assets/*"]
     },
     "plugins": [
       {
         "name": "@astrojs/ts-plugin"
       }
-    ]
+    ],
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
   },
   "exclude": ["node_modules", "dist"],
   "include": [".astro/types.d.ts", "**/*", "src"]
 }
+
