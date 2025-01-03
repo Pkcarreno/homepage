@@ -1,6 +1,8 @@
 import markdoc from '@astrojs/markdoc'
+import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
 import tailwind from '@astrojs/tailwind'
+import keystatic from '@keystatic/astro'
 import { defineConfig } from 'astro/config'
 import Oxlint from 'unplugin-oxlint/vite'
 
@@ -20,8 +22,11 @@ export default defineConfig({
       nesting: true
     }),
     sitemap(),
-    markdoc()
+    markdoc(),
+    react(),
+    keystatic()
   ],
+  output: 'static',
   vite: {
     plugins: [Oxlint({})]
   },
