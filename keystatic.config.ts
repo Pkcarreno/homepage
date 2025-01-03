@@ -8,7 +8,7 @@ export default config({
         }
       : {
           kind: 'github',
-          repo: `Pkcarreno/hompage-collection`
+          repo: `Pkcarreno/hompage`
         },
   ui: {
     brand: { name: 'PK Blog' }
