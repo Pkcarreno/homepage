@@ -22,16 +22,30 @@ export default config({
       entryLayout: 'content',
       schema: {
         title: fields.slug({ name: { label: 'Title' } }),
-        description: fields.text({ label: 'Description' }),
+        description: fields.text({
+          label: 'Description',
+          multiline: true
+        }),
         heroImage: fields.image({
           label: 'Hero Image'
         }),
-        pubDate: fields.date({ label: 'Published Date' }),
-        lastMod: fields.date({ label: 'Last Modified' }),
+        pubDate: fields.date({
+          label: 'Published Date',
+          defaultValue: {
+            kind: 'today'
+          }
+        }),
+        lastMod: fields.date({
+          label: 'Last Modified',
+          defaultValue: {
+            kind: 'today'
+          }
+        }),
         draft: fields.checkbox({
           label: 'Draft',
           description:
-            'Set this post as draft to prevent it from being published'
+            'Set this post as draft to prevent it from being published',
+          defaultValue: true
         }),
         tags: fields.array(fields.text({ label: 'Tags' }), {
           label: 'Tags',
