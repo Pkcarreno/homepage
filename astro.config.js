@@ -6,16 +6,21 @@ import keystatic from '@keystatic/astro'
 import { defineConfig } from 'astro/config'
 import Oxlint from 'unplugin-oxlint/vite'
 
+import vercel from '@astrojs/vercel';
+
 // https://astro.build/config
 export default defineConfig({
   build: {
     inlineStylesheets: 'always'
   },
+
   compressHTML: true,
   prefetch: true,
+
   devToolbar: {
     enabled: false
   },
+
   integrations: [
     tailwind({
       applyBaseStyles: false,
@@ -26,9 +31,13 @@ export default defineConfig({
     react(),
     keystatic()
   ],
+
   output: 'static',
+
   vite: {
     plugins: [Oxlint({})]
   },
-  site: 'https://www.pkcarreno.com'
+
+  site: 'https://www.pkcarreno.com',
+  adapter: vercel()
 })
