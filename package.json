@@ -9,9 +9,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check": "astro check",
-    "lint": "unix",
-    "lint:fix": "unix --fix"
+    "check": "astro check"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",

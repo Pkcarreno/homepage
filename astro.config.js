@@ -34,10 +34,16 @@ export default defineConfig({
   output: 'static',
 
   vite: {
-    plugins: [Oxlint({})]
+    plugins: [
+      Oxlint({
+        watch: true,
+        fix: true,
+        includes: ['src/**/*.{ts,astro}'],
+        packageManager: 'pnpm'
+      })
+    ]
   },
 
   site: 'https://www.pkcarreno.com',
   adapter: vercel()
 })
-
