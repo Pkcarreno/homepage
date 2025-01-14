@@ -2,11 +2,10 @@ import markdoc from '@astrojs/markdoc'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
 import tailwind from '@astrojs/tailwind'
+import vercel from '@astrojs/vercel'
 import keystatic from '@keystatic/astro'
 import { defineConfig } from 'astro/config'
 import Oxlint from 'unplugin-oxlint/vite'
-
-import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
@@ -41,3 +40,4 @@ export default defineConfig({
   site: 'https://www.pkcarreno.com',
   adapter: vercel()
 })
+
