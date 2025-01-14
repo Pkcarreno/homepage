@@ -20,7 +20,7 @@ export async function getStaticPaths() {
         new Date(entryA.data.pubDate).getTime()
     )
     .map((entry: entryType) => ({
-      params: { id: entry.slug },
+      params: { id: entry.id },
       props: { entry }
     }))
 }
