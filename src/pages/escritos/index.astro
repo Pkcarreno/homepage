@@ -1,11 +1,9 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content'
-
 import DecorateItemLink from '@/components/templates/DecorateItemLink.astro'
 import Layout from '@/layouts/Layout.astro'
+import { type escritosType, getAllEscritos } from '@/utils/collections'
 
-const writeEntries = await getCollection('escritos')
-type entryType = CollectionEntry<'escritos'>
+const entries = await getAllEscritos()
 ---
 
 <Layout
@@ -18,26 +16,16 @@ type entryType = CollectionEntry<'escritos'>
 
   <div class="flex flex-col gap-4">
     {
-      writeEntries
-        .sort(
-          (entryA: entryType, entryB: entryType) =>
-            new Date(entryB.data.pubDate).getTime() -
-            new Date(entryA.data.pubDate).getTime()
-        )
-        .filter(
-          (entry: entryType) =>
-            process.env.NODE_ENV === 'development' || !entry.data.draft
-        )
-        .map((entry: entryType) => (
-          <DecorateItemLink
-            title={`${entry.data.title}${entry.data.draft ? ' - DRAFT' : ''}`}
-            date={entry.data.pubDate}
-            href={`/escritos/${entry.id}`}
-            tags={entry.data.tags}
-          >
-            <p class="mb-0">{entry.data.description}</p>
-          </DecorateItemLink>
-        ))
+      entries.map((entry: escritosType) => (
+        <DecorateItemLink
+          title={entry.data.title}
+          date={entry.data.pubDate}
+          href={`/escritos/${entry.id}`}
+          tags={entry.data.tags}
+        >
+          <p class="mb-0">{entry.data.description}</p>
+        </DecorateItemLink>
+      ))
     }
   </div>
 </Layout>
