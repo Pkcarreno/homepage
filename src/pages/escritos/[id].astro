@@ -1,28 +1,15 @@
 ---
 import type { CollectionEntry } from 'astro:content'
-import { getCollection, render } from 'astro:content'
+import { render } from 'astro:content'
 
 import Link from '@/components/ui/Link.astro'
 import Layout from '@/layouts/Layout.astro'
+import { getEscritosById } from '@/utils/collections'
 
 type entryType = CollectionEntry<'escritos'>
 
 export async function getStaticPaths() {
-  const writeEntries = await getCollection('escritos')
-  return writeEntries
-    .filter(
-      (entry: entryType) =>
-        process.env.NODE_ENV === 'development' || !entry.data.draft
-    )
-    .sort(
-      (entryA: entryType, entryB: entryType) =>
-        new Date(entryB.data.pubDate).getTime() -
-        new Date(entryA.data.pubDate).getTime()
-    )
-    .map((entry: entryType) => ({
-      params: { id: entry.slug },
-      props: { entry }
-    }))
+  return await getEscritosById()
 }
 
 interface Props {
@@ -33,10 +20,7 @@ const { entry } = Astro.props
 const { Content } = await render(entry)
 ---
 
-<Layout
-  title={`${entry.data.title}${entry.data.draft ? ' (draft)' : ''}`}
-  description={entry.data.description}
->
+<Layout title={entry.data.title} description={entry.data.description}>
   <Content />
 
   <br />
@@ -53,7 +37,7 @@ const { Content } = await render(entry)
             ' Contiene las etiquetas: '}
           {entry.data.tags &&
             entry.data.tags.length > 0 &&
-            entry.data.tags.map(tag => {
+            entry.data.tags.map((tag: string) => {
               return (
                 <Link class="capitalize" href={`/etiqueta/${tag}`}>
                   {`${tag}`}

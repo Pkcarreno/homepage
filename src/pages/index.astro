@@ -1,12 +1,9 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content'
-
 import Link from '@/components/ui/Link.astro'
 import Layout from '@/layouts/Layout.astro'
+import { getAllEscritos } from '@/utils/collections'
 
-const writeEntries = await getCollection('escritos')
-
-type entryType = CollectionEntry<'escritos'>
+const entries = await getAllEscritos()
 ---
 
 <Layout
@@ -39,29 +36,16 @@ type entryType = CollectionEntry<'escritos'>
   <h2>Mis últimos escritos</h2>
   <div class="flex flex-col gap-4">
     {
-      writeEntries
-        .filter(
-          (entry: entryType) =>
-            process.env.NODE_ENV === 'development' || !entry.data.draft
-        )
-        .sort(
-          (entryA: entryType, entryB: entryType) =>
-            new Date(entryB.data.pubDate).getTime() -
-            new Date(entryA.data.pubDate).getTime()
-        )
-        .splice(0, 5)
-        .map((entry: entryType) => (
-          <div class="space-x-5">
-            <small class="text-muted-foreground text-xs">
-              {entry.data.pubDate instanceof Date
-                ? entry.data.pubDate.toLocaleDateString()
-                : entry.data.pubDate}
-            </small>
-            <Link
-              href={`/escritos/${entry.slug}`}
-            >{`${entry.data.title}${entry.data.draft ? ' - DRAFT' : ''}`}</Link>
-          </div>
-        ))
+      entries.splice(0, 5).map(entry => (
+        <div class="space-x-5">
+          <small class="text-muted-foreground text-xs">
+            {entry.data.pubDate instanceof Date
+              ? entry.data.pubDate.toLocaleDateString()
+              : entry.data.pubDate}
+          </small>
+          <Link href={`/escritos/${entry.id}`}>{entry.data.title}</Link>
+        </div>
+      ))
     }
     <Link class="w-fit" href="/escritos">Ver todos</Link>
   </div>

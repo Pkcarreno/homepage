@@ -9,9 +9,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check": "astro check",
-    "lint": "unix",
-    "lint:fix": "unix --fix"
+    "check": "astro check"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -37,6 +35,7 @@
   },
   "packageManager": "pnpm@9.15.2+sha256.022309bb31359142b65bfa889e0406d2eebd5acfffca47e6944acf29d9d6a66b",
   "devDependencies": {
+    "@types/eslint-plugin-tailwindcss": "^3.17.0",
     "@types/markdown-it": "^14.1.2",
     "@types/sanitize-html": "^2.13.0",
     "eslint": "^9.18.0",

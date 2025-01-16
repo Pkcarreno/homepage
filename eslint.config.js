@@ -1,5 +1,4 @@
 import eslint from '@eslint/js'
-import eslintConfigPrettier from 'eslint-config-prettier'
 import eslintPluginAstro from 'eslint-plugin-astro'
 import oxlint from 'eslint-plugin-oxlint'
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
@@ -14,7 +13,7 @@ export default tseslint.config(
     ignores: ['node_modules/*', 'dist/*', '.astro']
   },
   oxlint.configs['flat/recommended'],
-  ...eslintPluginAstro.configs['flat/recommended'],
+  ...eslintPluginAstro.configs.recommended,
   {
     rules: {
       'prettier/prettier': [
@@ -135,6 +134,5 @@ export default tseslint.config(
       'tailwindcss/no-custom-classname': 'off'
     }
   },
-  eslintConfigPrettier,
   eslintPluginPrettierRecommended
 )

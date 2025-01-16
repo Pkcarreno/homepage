@@ -1,11 +1,13 @@
-import { defineCollection, z } from 'astro:content'
 import { glob } from 'astro/loaders'
+import { defineCollection, z } from 'astro:content'
 
 const writeCollection = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.mdoc', base: './src/content/escritos' }),
+  loader: glob({
+    pattern: '**/[^_]*.mdoc',
+    base: './src/content/escritos'
+  }),
   schema: z.object({
     title: z.string(),
-    slug: z.string(),
     description: z.string().max(160),
     draft: z.boolean().default(true),
     keywords: z.array(z.string()).optional(),

@@ -1,39 +1,14 @@
 ---
-import type { CollectionEntry } from 'astro:content'
-import { getCollection } from 'astro:content'
-
 import DecorateItemLink from '@/components/templates/DecorateItemLink.astro'
 import Layout from '@/layouts/Layout.astro'
-
-type entryType = CollectionEntry<'escritos'>
+import { type escritosType, getEscritosByTag } from '@/utils/collections'
 
 export async function getStaticPaths() {
-  const writeEntries = await getCollection('escritos')
-  const uniqueTags = [
-    ...new Set(writeEntries.map((entry: entryType) => entry.data.tags).flat())
-  ]
-
-  return uniqueTags.map((tag: string) => {
-    const filteredEntries = writeEntries
-      .filter(
-        (entry: entryType) =>
-          process.env.NODE_ENV === 'development' || !entry.data.draft
-      )
-      .filter((entry: entryType) => entry.data.tags?.includes(tag))
-      .sort(
-        (entryA: entryType, entryB: entryType) =>
-          new Date(entryB.data.pubDate).getTime() -
-          new Date(entryA.data.pubDate).getTime()
-      )
-    return {
-      params: { tag },
-      props: { entries: filteredEntries, tag }
-    }
-  })
+  return await getEscritosByTag()
 }
 
 interface Props {
-  entries: entryType[]
+  entries: escritosType[]
   tag: string
 }
 
@@ -50,26 +25,16 @@ const { entries, tag } = Astro.props
 
   <div class="flex flex-col gap-4">
     {
-      entries
-        .sort(
-          (entryA: entryType, entryB: entryType) =>
-            new Date(entryB.data.pubDate).getTime() -
-            new Date(entryA.data.pubDate).getTime()
-        )
-        .filter(
-          (entry: entryType) =>
-            process.env.NODE_ENV === 'development' || !entry.data.draft
-        )
-        .map((entry: entryType) => (
-          <DecorateItemLink
-            title={`${entry.data.title}${entry.data.draft ? ' - DRAFT' : ''}`}
-            date={entry.data.pubDate}
-            href={`/escritos/${entry.slug}`}
-            tags={entry.data.tags}
-          >
-            <p class="mb-0">{entry.data.description}</p>
-          </DecorateItemLink>
-        ))
+      entries.map((entry: escritosType) => (
+        <DecorateItemLink
+          title={entry.data.title}
+          date={entry.data.pubDate}
+          href={`/escritos/${entry.id}`}
+          tags={entry.data.tags}
+        >
+          <p class="mb-0">{entry.data.description}</p>
+        </DecorateItemLink>
+      ))
     }
   </div>
 </Layout>
