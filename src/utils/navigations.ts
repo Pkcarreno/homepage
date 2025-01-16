@@ -52,7 +52,8 @@ export const navigations: NavigationProps[] = [
   {
     label: 'RSS',
     linkProps: {
-      href: '/rss'
+      target: '_blank',
+      href: '/escritos.xml'
     }
   }
 ]
