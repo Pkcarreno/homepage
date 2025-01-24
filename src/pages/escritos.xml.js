@@ -2,7 +2,7 @@ import rss from '@astrojs/rss'
 import MarkdownIt from 'markdown-it'
 import sanitizeHtml from 'sanitize-html'
 
-import { getAllEscritos } from '@/utils/collections'
+import { getAllEscritos } from '@/data/collections'
 const parser = new MarkdownIt()
 
 export async function GET(context) {
