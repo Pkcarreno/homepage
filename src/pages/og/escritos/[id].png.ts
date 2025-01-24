@@ -3,7 +3,7 @@ import type { APIRoute } from 'astro'
 import satori from 'satori'
 import { html as toReactElement } from 'satori-html'
 
-import { getAllEscritos } from '@/utils/collections'
+import { getAllEscritos } from '@/data/collections'
 
 const getFontPath = ({
   weight,
