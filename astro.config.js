@@ -34,6 +34,9 @@ export default defineConfig({
   output: 'static',
 
   vite: {
+    optimizeDeps: {
+      exclude: ['@resvg/resvg-js']
+    },
     plugins: [
       Oxlint({
         watch: true,
@@ -44,6 +47,11 @@ export default defineConfig({
     ]
   },
 
-  site: 'https://www.pkcarreno.com',
+  site:
+    process.env.VERCEL_ENV === 'production'
+      ? 'https://www.pkcarreno.com'
+      : process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : 'http://127.0.0.1:4321',
   adapter: vercel()
 })

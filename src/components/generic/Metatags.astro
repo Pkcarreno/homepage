@@ -7,18 +7,15 @@ interface Props {
   title: string
   withoutTitleTemplate?: boolean
   description: string
-  image?: string
-  imageAlt?: string
+  ogImage?: URL
 }
 
 const {
   title,
   description,
   withoutTitleTemplate,
-  image = seoConfig.image.src,
-  imageAlt = seoConfig.image.alt
+  ogImage = new URL('/og/default.png', Astro.url)
 } = Astro.props
-const imageUrl = new URL(image, Astro.url).toString()
 ---
 
 <meta charset="utf-8" />
@@ -30,18 +27,14 @@ const imageUrl = new URL(image, Astro.url).toString()
     basic: {
       title: title,
       type: seoConfig.type,
-      image: imageUrl
-    },
-    image: {
-      alt: imageAlt
+      image: ogImage.toString()
     }
   }}
   twitter={{
     creator: seoConfig.twitter.creator,
     title: title,
     description: description,
-    image: imageUrl,
-    imageAlt: imageAlt
+    image: ogImage.toString()
   }}
   extend={{
     link: [

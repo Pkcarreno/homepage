@@ -9,16 +9,12 @@ import Font from '../generic/Font.astro'
 
 type Props = Pick<
   ComponentProps<typeof Metatags>,
-  'title' | 'description' | 'withoutTitleTemplate'
+  'title' | 'description' | 'withoutTitleTemplate' | 'ogImage'
 >
-const { title, description, withoutTitleTemplate } = Astro.props
+const { ...props } = Astro.props
 ---
 
 <head>
-  <Metatags
-    title={title}
-    withoutTitleTemplate={withoutTitleTemplate}
-    description={description}
-  />
+  <Metatags {...props} />
   <Font />
 </head>

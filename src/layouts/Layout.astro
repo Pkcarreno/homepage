@@ -9,10 +9,7 @@ import BaseHeader from '@/components/layout/BaseHeader.astro'
 import BaseNavigation from '@/components/layout/BaseNavigation.astro'
 import { cn } from '@/utils/utils'
 
-type Props = Pick<
-  ComponentProps<typeof BaseHead>,
-  'title' | 'description' | 'withoutTitleTemplate'
-> &
+type Props = ComponentProps<typeof BaseHead> &
   HTMLAttributes<'body'> & {
     lang?: 'es' | 'en' | string
     metaTitle?: ComponentProps<typeof BaseHead>['title']
@@ -24,6 +21,7 @@ const {
   description,
   withoutTitleTemplate,
   lang = 'es',
+  ogImage,
   class: className,
   ...props
 } = Astro.props
@@ -35,6 +33,7 @@ const {
     title={metaTitle ?? title}
     description={description}
     withoutTitleTemplate={withoutTitleTemplate}
+    ogImage={ogImage}
   />
   <body
     class={cn('space-y-6 p-3 2xl:container md:space-y-12 md:p-6', className)}

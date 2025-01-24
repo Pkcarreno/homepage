@@ -3,10 +3,6 @@ export const seoConfig = {
   siteName: 'Pedro Carreño',
   description: 'Portafolio y vlog de Pedro Carreño.',
   type: 'website',
-  image: {
-    alt: 'Me Banner',
-    src: '/cover.jpg'
-  },
   twitter: {
     creator: '@pkcarreno',
     card: 'summary_large_image'

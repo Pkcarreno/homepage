@@ -20,7 +20,11 @@ const { entry } = Astro.props
 const { Content } = await render(entry)
 ---
 
-<Layout title={entry.data.title} description={entry.data.description}>
+<Layout
+  title={entry.data.title}
+  description={entry.data.description}
+  ogImage={new URL(`/og/escritos/${entry.id}.png`, Astro.url)}
+>
   <Content />
 
   <br />
