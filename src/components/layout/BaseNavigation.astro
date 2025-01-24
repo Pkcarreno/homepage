@@ -1,0 +1,19 @@
+---
+import Link from '@/components/generic/Link.astro'
+import { navigations } from '@/utils/navigations'
+---
+
+<aside>
+  <nav id="barra-navegacion">
+    <label>Navegación</label>
+    <ul class="list-outside list-none">
+      {
+        navigations.map(item => (
+          <li class="mb-2">
+            <Link {...item.linkProps}>{item.label}</Link>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</aside>

@@ -1,5 +1,5 @@
 ---
-import { SEO as SEOTag } from 'astro-seo'
+import { SEO } from 'astro-seo'
 
 import { seoConfig } from '@/utils/seo-config.js'
 
@@ -21,7 +21,8 @@ const {
 const imageUrl = new URL(image, Astro.url).toString()
 ---
 
-<SEOTag
+<meta charset="utf-8" />
+<SEO
   title={title}
   titleTemplate={withoutTitleTemplate ? undefined : '%s - PK'}
   description={description}

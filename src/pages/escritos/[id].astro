@@ -2,7 +2,7 @@
 import type { CollectionEntry } from 'astro:content'
 import { render } from 'astro:content'
 
-import Link from '@/components/ui/Link.astro'
+import Link from '@/components/generic/Link.astro'
 import Layout from '@/layouts/Layout.astro'
 import { getEscritosById } from '@/utils/collections'
 
@@ -25,17 +25,19 @@ const { Content } = await render(entry)
 
   <br />
 
-  {
-    entry.data.tags && (
-      <div class="flex flex-col gap-0.5">
-        <small>
-          Este escrito fue publicado el{' '}
-          <b>{entry.data.pubDate.toLocaleDateString()}</b> y fue actualizado por
-          última vez el <b>{entry.data.lastMod.toLocaleDateString()}</b>.
-          {entry.data.tags &&
+  <aside>
+    <div class="flex flex-col gap-0.5">
+      <small>
+        Este escrito fue publicado el{' '}
+        <b>{entry.data.pubDate.toLocaleDateString()}</b> y fue actualizado por última
+        vez el <b>{entry.data.lastMod.toLocaleDateString()}</b>.
+        {
+          entry.data.tags &&
             entry.data.tags.length > 0 &&
-            ' Contiene las etiquetas: '}
-          {entry.data.tags &&
+            ' Contiene las etiquetas: '
+        }
+        {
+          entry.data.tags &&
             entry.data.tags.length > 0 &&
             entry.data.tags.map((tag: string) => {
               return (
@@ -43,9 +45,9 @@ const { Content } = await render(entry)
                   {`${tag}`}
                 </Link>
               )
-            })}
-        </small>
-      </div>
-    )
-  }
+            })
+        }
+      </small>
+    </div>
+  </aside>
 </Layout>

@@ -5,11 +5,11 @@ export default defineMarkdocConfig({
   nodes: {
     link: {
       ...nodes.link,
-      render: component('./src/components/ui/Link.astro')
+      render: component('./src/components/generic/Link.astro')
     },
     image: {
       ...nodes.image,
-      render: component('./src/components/ui/Image.astro')
+      render: component('./src/components/generic/Image.astro')
     }
   },
   extends: [
