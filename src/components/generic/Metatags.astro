@@ -1,27 +1,25 @@
 ---
-import { SEO as SEOTag } from 'astro-seo'
+import { SEO } from 'astro-seo'
 
-import { seoConfig } from '@/utils/seo-config.js'
+import { seoConfig } from '@/data/seo-config.js'
 
 interface Props {
   title: string
   withoutTitleTemplate?: boolean
   description: string
-  image?: string
-  imageAlt?: string
+  ogImage?: URL
 }
 
 const {
   title,
   description,
   withoutTitleTemplate,
-  image = seoConfig.image.src,
-  imageAlt = seoConfig.image.alt
+  ogImage = new URL('/og/default.png', Astro.url)
 } = Astro.props
-const imageUrl = new URL(image, Astro.url).toString()
 ---
 
-<SEOTag
+<meta charset="utf-8" />
+<SEO
   title={title}
   titleTemplate={withoutTitleTemplate ? undefined : '%s - PK'}
   description={description}
@@ -29,18 +27,20 @@ const imageUrl = new URL(image, Astro.url).toString()
     basic: {
       title: title,
       type: seoConfig.type,
-      image: imageUrl
+      image: ogImage.toString()
     },
     image: {
-      alt: imageAlt
+      height: 630,
+      width: 1200,
+      type: seoConfig.type
     }
   }}
   twitter={{
     creator: seoConfig.twitter.creator,
     title: title,
     description: description,
-    image: imageUrl,
-    imageAlt: imageAlt
+    image: ogImage.toString(),
+    card: 'summary_large_image'
   }}
   extend={{
     link: [

@@ -1,4 +1,4 @@
-import type { LinkProps } from '@/components/ui/Link.type'
+import type { LinkProps } from '@/components/generic/Link.type'
 
 interface NavigationProps {
   label: string

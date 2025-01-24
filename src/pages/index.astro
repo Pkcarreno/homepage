@@ -1,7 +1,7 @@
 ---
-import Link from '@/components/ui/Link.astro'
+import Link from '@/components/generic/Link.astro'
+import { getAllEscritos } from '@/data/collections'
 import Layout from '@/layouts/Layout.astro'
-import { getAllEscritos } from '@/utils/collections'
 
 const entries = await getAllEscritos()
 ---
@@ -9,7 +9,7 @@ const entries = await getAllEscritos()
 <Layout
   title="Intro"
   description="Blog de Pedro Carreño, donde se comparte contenido sobre desarrollo, software libre y privacidad. Además, están expuestos algunos proyectos destacados."
-  seoTitle="Pedro Carreño"
+  metaTitle="Pedro Carreño"
   withoutTitleTemplate
 >
   <h1>Pedro Carreño</h1>
@@ -33,20 +33,22 @@ const entries = await getAllEscritos()
 
   <br />
 
-  <h2>Mis últimos escritos</h2>
-  <div class="flex flex-col gap-4">
-    {
-      entries.splice(0, 5).map(entry => (
-        <div class="space-x-5">
-          <small class="text-muted-foreground text-xs">
-            {entry.data.pubDate instanceof Date
-              ? entry.data.pubDate.toLocaleDateString()
-              : entry.data.pubDate}
-          </small>
-          <Link href={`/escritos/${entry.id}`}>{entry.data.title}</Link>
-        </div>
-      ))
-    }
-    <Link class="w-fit" href="/escritos">Ver todos</Link>
-  </div>
+  <section aria-labelledby="Mis últimos escritos">
+    <h2>Mis últimos escritos</h2>
+    <div class="flex flex-col gap-4">
+      {
+        entries.splice(0, 5).map(entry => (
+          <div class="space-x-5">
+            <small class="text-muted-foreground text-xs">
+              {entry.data.pubDate instanceof Date
+                ? entry.data.pubDate.toLocaleDateString()
+                : entry.data.pubDate}
+            </small>
+            <Link href={`/escritos/${entry.id}`}>{entry.data.title}</Link>
+          </div>
+        ))
+      }
+      <Link class="w-fit" href="/escritos">Ver todos</Link>
+    </div>
+  </section>
 </Layout>

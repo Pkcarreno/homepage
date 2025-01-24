@@ -1,9 +1,9 @@
 ---
 import myImage from '@/assets/images/photo_1.jpg'
 import jsodImg from '@/assets/images/project-jsod.png'
+import Image from '@/components/generic/Image.astro'
+import Link from '@/components/generic/Link.astro'
 import DecorateItemLink from '@/components/templates/DecorateItemLink.astro'
-import Image from '@/components/ui/Image.astro'
-import Link from '@/components/ui/Link.astro'
 import Layout from '@/layouts/Layout.astro'
 ---
 
@@ -60,59 +60,65 @@ import Layout from '@/layouts/Layout.astro'
 
   <br />
 
-  <h2>Professional experience</h2>
-  <ul>
-    <li class="flex flex-col gap-1">
-      <div class="flex flex-col items-baseline gap-2 md:flex-row">
-        <Link href="https://www.linkedin.com/company/avanza-consultores"
-          >Grupo Avanza</Link
-        >
-        <small class="text-muted-foreground text-xs">2021 - presente</small>
-      </div>
-      <i>Front-End and Mobile Developer</i>
-    </li>
-    <li class="flex flex-col gap-1">
-      <div class="flex flex-col items-baseline gap-2 md:flex-row">
-        <Link href="https://www.linkedin.com/company/flockfysh">flockfysh</Link>
-        <small class="text-muted-foreground text-xs">2023</small>
-      </div>
-      <i>Front-End Developer</i>
-    </li>
-    <li class="flex flex-col gap-1">
-      <div class="flex flex-col items-baseline gap-2 md:flex-row">
-        <Link href="https://www.juarezhumberto.com/es/">Humberto Juarez</Link>
-        <small class="text-muted-foreground text-xs">2021</small>
-      </div>
-      <i>Freelance Front-End Developer</i>
-    </li>
-    <li class="flex flex-col gap-1">
-      <div class="flex flex-col items-baseline gap-2 md:flex-row">
-        <span>S2H Tech</span>
-        <small class="text-muted-foreground text-xs">2021</small>
-      </div>
-      <i>Front-End Developer</i>
-    </li>
-  </ul>
+  <section aria-labelledby="Professional experience">
+    <h2>Professional experience</h2>
+    <ul>
+      <li class="flex flex-col gap-1">
+        <div class="flex flex-col items-baseline gap-2 md:flex-row">
+          <Link href="https://www.linkedin.com/company/avanza-consultores"
+            >Grupo Avanza</Link
+          >
+          <small class="text-muted-foreground text-xs">2021 - present</small>
+        </div>
+        <i>Front-End and Mobile Developer</i>
+      </li>
+      <li class="flex flex-col gap-1">
+        <div class="flex flex-col items-baseline gap-2 md:flex-row">
+          <Link href="https://www.linkedin.com/company/flockfysh"
+            >flockfysh</Link
+          >
+          <small class="text-muted-foreground text-xs">2023</small>
+        </div>
+        <i>Front-End Developer</i>
+      </li>
+      <li class="flex flex-col gap-1">
+        <div class="flex flex-col items-baseline gap-2 md:flex-row">
+          <Link href="https://www.juarezhumberto.com/es/">Humberto Juarez</Link>
+          <small class="text-muted-foreground text-xs">2021</small>
+        </div>
+        <i>Freelance Front-End Developer</i>
+      </li>
+      <li class="flex flex-col gap-1">
+        <div class="flex flex-col items-baseline gap-2 md:flex-row">
+          <span>S2H Tech</span>
+          <small class="text-muted-foreground text-xs">2021</small>
+        </div>
+        <i>Front-End Developer</i>
+      </li>
+    </ul>
+  </section>
 
   <br />
 
-  <h2>Highlighted project</h2>
+  <section aria-labelledby="Highlighted project">
+    <h2>Highlighted project</h2>
 
-  <div class="flex flex-col gap-3">
-    <DecorateItemLink
-      title="JSOD"
-      date="2024"
-      href="https://github.com/pkcarreno/jsod"
-      imgSrc={jsodImg}
-    >
-      <p>
-        In this app you can run and share JavaScript code from your browser,
-        locally, respecting your privacy. My intention is to have a way to do
-        data manipulation without altering the code of the project I'm working
-        on and also to be able to share useful scripts (like calculators for
-        specific purposes) with family and friends without them having to go
-        through a login.
-      </p>
-    </DecorateItemLink>
-  </div>
+    <div class="flex flex-col gap-3">
+      <DecorateItemLink
+        title="JSOD"
+        date="2024"
+        href="https://github.com/pkcarreno/jsod"
+        imgSrc={jsodImg}
+      >
+        <p>
+          In this app you can run and share JavaScript code from your browser,
+          locally, respecting your privacy. My intention is to have a way to do
+          data manipulation without altering the code of the project I'm working
+          on and also to be able to share useful scripts (like calculators for
+          specific purposes) with family and friends without them having to go
+          through a login.
+        </p>
+      </DecorateItemLink>
+    </div>
+  </section>
 </Layout>

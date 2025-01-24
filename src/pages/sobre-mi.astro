@@ -1,7 +1,7 @@
 ---
 import myImage from '@/assets/images/photo_1.jpg'
-import Image from '@/components/ui/Image.astro'
-import Link from '@/components/ui/Link.astro'
+import Image from '@/components/generic/Image.astro'
+import Link from '@/components/generic/Link.astro'
 import Layout from '@/layouts/Layout.astro'
 ---
 
@@ -50,43 +50,49 @@ import Layout from '@/layouts/Layout.astro'
     >.
   </p>
 
-  <h2>Experiencia Profesional</h2>
-  <ul>
-    <li class="flex flex-col gap-1">
-      <div class="flex flex-col items-baseline gap-2 md:flex-row">
-        <Link href="https://www.linkedin.com/company/avanza-consultores"
-          >Grupo Avanza</Link
-        >
-        <small class="text-muted-foreground text-xs">2021 - presente</small>
-      </div>
-      <i>Desarrollador Front-End y Movil</i>
-    </li>
-    <li class="flex flex-col gap-1">
-      <div class="flex flex-col items-baseline gap-2 md:flex-row">
-        <Link href="https://www.linkedin.com/company/flockfysh">flockfysh</Link>
-        <small class="text-muted-foreground text-xs">2023</small>
-      </div>
-      <i>Desarrollador Front-End</i>
-    </li>
-    <li class="flex flex-col gap-1">
-      <div class="flex flex-col items-baseline gap-2 md:flex-row">
-        <Link href="https://www.juarezhumberto.com/es/">Humberto Juarez</Link>
-        <small class="text-muted-foreground text-xs">2021</small>
-      </div>
-      <i>Desarrollador Front-End Freelance</i>
-    </li>
-    <li class="flex flex-col gap-1">
-      <div class="flex flex-col items-baseline gap-2 md:flex-row">
-        <span>S2H Tech</span>
-        <small class="text-muted-foreground text-xs">2021</small>
-      </div>
-      <i>Desarrollador Front-End</i>
-    </li>
-  </ul>
+  <section aria-labelledby="Experiencia Profesional">
+    <h2>Experiencia Profesional</h2>
+    <ul>
+      <li class="flex flex-col gap-1">
+        <div class="flex flex-col items-baseline gap-2 md:flex-row">
+          <Link href="https://www.linkedin.com/company/avanza-consultores"
+            >Grupo Avanza</Link
+          >
+          <small class="text-muted-foreground text-xs">2021 - presente</small>
+        </div>
+        <i>Desarrollador Front-End y Movil</i>
+      </li>
+      <li class="flex flex-col gap-1">
+        <div class="flex flex-col items-baseline gap-2 md:flex-row">
+          <Link href="https://www.linkedin.com/company/flockfysh"
+            >flockfysh</Link
+          >
+          <small class="text-muted-foreground text-xs">2023</small>
+        </div>
+        <i>Desarrollador Front-End</i>
+      </li>
+      <li class="flex flex-col gap-1">
+        <div class="flex flex-col items-baseline gap-2 md:flex-row">
+          <Link href="https://www.juarezhumberto.com/es/">Humberto Juarez</Link>
+          <small class="text-muted-foreground text-xs">2021</small>
+        </div>
+        <i>Desarrollador Front-End Freelance</i>
+      </li>
+      <li class="flex flex-col gap-1">
+        <div class="flex flex-col items-baseline gap-2 md:flex-row">
+          <span>S2H Tech</span>
+          <small class="text-muted-foreground text-xs">2021</small>
+        </div>
+        <i>Desarrollador Front-End</i>
+      </li>
+    </ul>
+  </section>
 
-  <p>
-    Si quieres ver mis proyectos personales, te invito a revisar la sección de <Link
-      href="/proyectos">proyectos</Link
-    >.
-  </p>
+  <aside>
+    <p>
+      Si quieres ver mis proyectos personales, te invito a revisar la sección de <Link
+        href="/proyectos">proyectos</Link
+      >.
+    </p>
+  </aside>
 </Layout>
