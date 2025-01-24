@@ -31,7 +31,7 @@ const fontFileBold = await fetch(
 const fontDataRegular: ArrayBuffer = await fontFileRegular.arrayBuffer()
 const fontDataBold: ArrayBuffer = await fontFileBold.arrayBuffer()
 
-const height = 600
+const height = 630
 const width = 1200
 
 const writtings = await getAllEscritos()
