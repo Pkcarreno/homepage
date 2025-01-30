@@ -5,50 +5,45 @@ import type { LinkProps } from './Link.type.ts'
 
 type Props = LinkProps
 
-const { ...props } = Astro.props
+const { href, class: className, ...props } = Astro.props
 
 const { pathname } = Astro.url
 
-const href =
-  typeof props.href === 'string'
-    ? props.href
-    : props.href
-      ? props.href.toString()
-      : ''
+const dir = typeof href === 'string' ? href : href ? href.toString() : ''
 
-const isExternal = URL.canParse(href)
-const isHash = href.startsWith('#')
-const isMail = href.startsWith('mailto:')
-const isTel = href.startsWith('tel:')
+const isExternal = URL.canParse(dir)
+const isHash = dir.startsWith('#')
+const isMail = dir.startsWith('mailto:')
+const isTel = dir.startsWith('tel:')
 const isInternal = !isExternal && !isHash && !isMail && !isTel
 const isActive =
   isInternal &&
-  (href === pathname ||
-    href === `${pathname}/` ||
-    `${href}/` === pathname ||
-    href === '.' ||
-    href === './')
+  (dir === pathname ||
+    dir === `${pathname}/` ||
+    `${dir}/` === pathname ||
+    dir === '.' ||
+    dir === './')
 
 let contact: string | undefined = undefined
 if (isMail) {
-  contact = href.replace('mailto:', '')
+  contact = dir.replace('mailto:', '')
 } else if (isTel) {
-  contact = href.replace('tel:', '')
+  contact = dir.replace('tel:', '')
 }
 
-let parsedUrl = href
+let parsedUrl = dir
 if (isExternal === false && isHash === false) {
   const basePrefix = import.meta.env.BASE_URL
 
-  parsedUrl = path.isAbsolute(href)
-    ? `${path.join(basePrefix ?? '/', href)}`
-    : href
+  parsedUrl = path.isAbsolute(dir)
+    ? `${path.join(basePrefix ?? '/', dir)}`
+    : dir
 }
 
 let dataContact: string | null = null
 if (contact) {
   parsedUrl = '#'
-  dataContact = btoa(href)
+  dataContact = btoa(dir)
 }
 
 const uniqueId = dataContact
@@ -70,7 +65,7 @@ const uniqueId = dataContact
         'is-tel': isTel,
         'is-active': isActive
       },
-      props.class,
+      className,
       props['class:list']
     ]}
     unique-id={uniqueId}

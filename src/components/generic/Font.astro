@@ -1,62 +1,24 @@
 ---
-import type { ComponentProps } from 'astro/types'
-import { AstroFont } from 'astro-font'
+import '@fontsource/ia-writer-duo/400.css'
+import '@fontsource/ia-writer-duo/700.css'
+import '@fontsource/ia-writer-duo/400-italic.css'
+import '@fontsource/ia-writer-duo/700-italic.css'
 
-const getFontPath = ({
-  weight,
-  style = 'normal',
-  format = 'woff2'
-}: {
-  weight: '400' | '700'
-  style?: 'normal' | 'italic'
-  format?: 'woff' | 'woff2'
-}) =>
-  `https://cdn.jsdelivr.net/fontsource/fonts/ia-writer-duo@latest/latin-${weight}-${style}.${format}`
-
-type AstroFontConfigSrc = ComponentProps<
-  typeof AstroFont
->['config'][number]['src']
-
-const getFontSources: (
-  weight: '400' | '700',
-  format: 'woff' | 'woff2'
-) => AstroFontConfigSrc = (weight, format) => {
-  return [
-    {
-      style: 'normal',
-      weight,
-      path: getFontPath({
-        weight,
-        format
-      })
-    },
-    {
-      style: 'italic',
-      weight,
-      path: getFontPath({
-        weight,
-        style: 'italic',
-        format
-      })
-    }
-  ]
-}
+import iaWriterDuoWoff from '@fontsource/ia-writer-duo/files/ia-writer-duo-latin-400-normal.woff?url'
+import iaWriterDuoWoff2 from '@fontsource/ia-writer-duo/files/ia-writer-duo-latin-400-normal.woff2?url'
 ---
 
-<AstroFont
-  config={[
-    {
-      name: 'iA Writer Duo',
-      fetch: true,
-      preload: false,
-      src: [
-        ...getFontSources('400', 'woff2'),
-        ...getFontSources('700', 'woff2'),
-        ...getFontSources('400', 'woff'),
-        ...getFontSources('700', 'woff')
-      ],
-      display: 'swap',
-      fallback: 'monospace'
-    }
-  ]}
-/>
+<>
+  <link
+    as="font"
+    type="font/woff"
+    href={iaWriterDuoWoff}
+    crossorigin="anonymous"
+  />
+  <link
+    as="font"
+    type="font/woff2"
+    href={iaWriterDuoWoff2}
+    crossorigin="anonymous"
+  />
+</>
