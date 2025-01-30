@@ -1,3 +1,5 @@
+import fs from 'node:fs'
+
 import { Resvg, type ResvgRenderOptions } from '@resvg/resvg-js'
 import type { APIRoute } from 'astro'
 import satori from 'satori'
@@ -5,31 +7,12 @@ import { html as toReactElement } from 'satori-html'
 
 import { getAllEscritos } from '@/data/collections'
 
-const getFontPath = ({
-  weight,
-  style = 'normal',
-  format = 'woff2'
-}: {
-  weight: '400' | '700'
-  style?: 'normal' | 'italic'
-  format?: 'woff' | 'woff2'
-}) =>
-  `https://cdn.jsdelivr.net/fontsource/fonts/ia-writer-duo@latest/latin-${weight}-${style}.${format}`
-
-const fontFileRegular = await fetch(
-  getFontPath({
-    weight: '400',
-    format: 'woff'
-  })
+const fontDataRegular = fs.readFileSync(
+  'node_modules/@fontsource/ia-writer-duo/files/ia-writer-duo-latin-400-normal.woff'
 )
-const fontFileBold = await fetch(
-  getFontPath({
-    weight: '700',
-    format: 'woff'
-  })
+const fontDataBold = fs.readFileSync(
+  'node_modules/@fontsource/ia-writer-duo/files/ia-writer-duo-latin-700-normal.woff'
 )
-const fontDataRegular: ArrayBuffer = await fontFileRegular.arrayBuffer()
-const fontDataBold: ArrayBuffer = await fontFileBold.arrayBuffer()
 
 const height = 630
 const width = 1200
