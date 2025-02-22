@@ -1,7 +1,7 @@
 import { glob } from 'astro/loaders'
 import { defineCollection, z } from 'astro:content'
 
-const writeCollection = defineCollection({
+const writings = defineCollection({
   loader: glob({
     pattern: '**/[^_]*.mdoc',
     base: './src/content/escritos'
@@ -19,5 +19,5 @@ const writeCollection = defineCollection({
 })
 
 export const collections = {
-  escritos: writeCollection
+  writings
 }

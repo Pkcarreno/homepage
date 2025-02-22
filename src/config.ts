@@ -1,5 +1,5 @@
 export const seoConfig = {
-  baseURL: 'https://www.pkcarreno.com/', // Production URL.
+  baseURL: 'https://www.pkcarreno.com/',
   siteName: 'Pedro Carreño',
   description: 'Portafolio y vlog de Pedro Carreño.',
   type: 'website',
@@ -8,3 +8,5 @@ export const seoConfig = {
     card: 'summary_large_image'
   }
 }
+
+// TODO: centralize system values

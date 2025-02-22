@@ -5,7 +5,7 @@ import type { APIRoute } from 'astro'
 import satori from 'satori'
 import { html as toReactElement } from 'satori-html'
 
-import { getAllEscritos } from '@/data/collections'
+import { getAllWritings } from '@/api/collections'
 
 const fontDataRegular = fs.readFileSync(
   'node_modules/@fontsource/ia-writer-duo/files/ia-writer-duo-latin-400-normal.woff'
@@ -17,7 +17,7 @@ const fontDataBold = fs.readFileSync(
 const height = 630
 const width = 1200
 
-const writtings = await getAllEscritos()
+const writtings = await getAllWritings()
 
 export function getStaticPaths() {
   return writtings.map(entry => ({

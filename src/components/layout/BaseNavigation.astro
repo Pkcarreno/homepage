@@ -1,6 +1,8 @@
 ---
+import { getNavigations } from '@/api/data'
 import Link from '@/components/generic/Link.astro'
-import { navigations } from '@/data/navigations'
+
+const navigations = await getNavigations()
 ---
 
 <aside>
@@ -8,9 +10,24 @@ import { navigations } from '@/data/navigations'
     <label>Navegación</label>
     <ul class="list-outside list-none">
       {
-        navigations.map(item => (
+        navigations.map(navigation => (
           <li class="mb-2">
-            <Link {...item.linkProps}>{item.label}</Link>
+            <Link
+              href={navigation.href}
+              target={
+                navigation.options.target &&
+                navigation.options.target.length > 0
+                  ? navigation.options.target
+                  : undefined
+              }
+              rel={
+                navigation.options.rel && navigation.options.rel.length > 0
+                  ? navigation.options.rel
+                  : undefined
+              }
+            >
+              {navigation.label}
+            </Link>
           </li>
         ))
       }
