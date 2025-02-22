@@ -7,6 +7,8 @@ import keystatic from '@keystatic/astro'
 import { defineConfig } from 'astro/config'
 import Oxlint from 'unplugin-oxlint/vite'
 
+import { config } from './src/config'
+
 // https://astro.build/config
 export default defineConfig({
   build: {
@@ -47,11 +49,6 @@ export default defineConfig({
     ]
   },
 
-  site:
-    process.env.VERCEL_ENV === 'production'
-      ? 'https://www.pkcarreno.com'
-      : process.env.VERCEL_URL
-        ? `https://${process.env.VERCEL_URL}`
-        : 'http://127.0.0.1:4321',
+  site: config.site,
   adapter: vercel()
 })
