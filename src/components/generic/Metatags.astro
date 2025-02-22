@@ -5,7 +5,7 @@ import { metaConfig } from '@/config'
 
 interface Props {
   title: string
-  withoutTitleTemplate?: boolean
+  noTemplate?: boolean
   description: string
   ogImage?: URL
 }
@@ -13,7 +13,7 @@ interface Props {
 const {
   title,
   description,
-  withoutTitleTemplate,
+  noTemplate,
   ogImage = new URL('/og/default.png', Astro.url)
 } = Astro.props
 ---
@@ -21,9 +21,7 @@ const {
 <meta charset="utf-8" />
 <SEO
   title={title}
-  titleTemplate={withoutTitleTemplate
-    ? undefined
-    : `%s ${metaConfig.titleTemplate}`}
+  titleTemplate={noTemplate ? undefined : `%s ${metaConfig.titleTemplate}`}
   description={description}
   openGraph={{
     basic: {
