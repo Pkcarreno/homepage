@@ -41,7 +41,11 @@ const entries = await getAllEscritos()
           <div class="space-x-5">
             <small class="text-muted-foreground text-xs">
               {entry.data.pubDate instanceof Date
-                ? entry.data.pubDate.toLocaleDateString()
+                ? entry.data.pubDate.toLocaleDateString('es', {
+                    year: 'numeric',
+                    month: 'numeric',
+                    day: 'numeric'
+                  })
                 : entry.data.pubDate}
             </small>
             <Link href={`/escritos/${entry.id}`}>{entry.data.title}</Link>
