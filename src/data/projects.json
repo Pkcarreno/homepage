@@ -1,0 +1,20 @@
+{
+  "list": [
+    {
+      "title": "jsod",
+      "description": {
+        "es": "Es un proyecto open source para escribir, ejecutar y compartir código JavaScript de manera simple que no requiere iniciar sesión y toda la ejecución sucede en el navegador.",
+        "en": "It's an open source project to write, execute and share JavaScript code in a simple way that does not require login and all execution happens in the browser."
+      },
+      "url": "https://github.com/pkcarreno/jsod"
+    },
+    {
+      "title": "astro minimal template",
+      "description": {
+        "es": "Plantilla de Astro.js. Sin componentes ni páginas pre construidas, solo con herramientas de desarrollo ya integradas y configuradas.",
+        "en": "Astro.js template. No pre-built components or pages, only development tools already integrated and configured."
+      },
+      "url": "https://github.com/pkcarreno/astro-minimal-template"
+    }
+  ]
+}

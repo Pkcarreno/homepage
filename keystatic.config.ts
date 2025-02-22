@@ -1,4 +1,4 @@
-import { config, fields, collection } from '@keystatic/core'
+import { config, fields, collection, singleton } from '@keystatic/core'
 
 export default config({
   storage:
@@ -13,7 +13,74 @@ export default config({
   ui: {
     brand: { name: 'PK Blog' }
   },
+  singletons: {
+    proyecto: singleton({
+      label: 'Proyectos',
+      path: 'src/data/projects',
+      format: { data: 'json' },
+      schema: {
+        list: fields.array(
+          fields.object({
+            title: fields.text({
+              label: 'Title',
+              validation: {
+                isRequired: true
+              }
+            }),
+            description: fields.object({
+              es: fields.text({
+                label: 'Spanish Description',
+                multiline: true,
+                validation: {
+                  isRequired: true
+                }
+              }),
+              en: fields.text({
+                label: 'English Description',
+                multiline: true,
+                validation: {
+                  isRequired: false
+                }
+              })
+            }),
+            url: fields.url({
+              label: 'URL',
+              validation: {
+                isRequired: true
+              }
+            })
+          }),
+          {
+            label: 'Projects',
+            itemLabel: props => props.fields.title.value
+          }
+        )
+      }
+    })
+  },
   collections: {
+    // proyectos: collection({
+    //   label: 'Proyectos',
+    //   slugField: 'title',
+    //   format: { data: 'json' },
+    //   path: 'src/content/proyectos/*',
+    //   schema: {
+    //     title: fields.slug({ name: { label: 'Title' } }),
+    //     description: fields.object({
+    //       es: fields.text({ label: 'Spanish Description', multiline: true }),
+    //       en: fields.text({
+    //         label: 'English Description',
+    //         multiline: true,
+    //         validation: {
+    //           isRequired: false
+    //         }
+    //       })
+    //     }),
+    //     url: fields.url({
+    //       label: 'URL'
+    //     })
+    //   }
+    // }),
     escritos: collection({
       label: 'Escritos',
       slugField: 'title',
