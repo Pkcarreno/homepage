@@ -1,7 +1,7 @@
 ---
 import { SEO } from 'astro-seo'
 
-import { seoConfig } from '@/config'
+import { metaConfig } from '@/config'
 
 interface Props {
   title: string
@@ -21,22 +21,24 @@ const {
 <meta charset="utf-8" />
 <SEO
   title={title}
-  titleTemplate={withoutTitleTemplate ? undefined : '%s - PK'}
+  titleTemplate={withoutTitleTemplate
+    ? undefined
+    : `%s ${metaConfig.titleTemplate}`}
   description={description}
   openGraph={{
     basic: {
       title: title,
-      type: seoConfig.type,
+      type: 'website',
       image: ogImage.toString()
     },
     image: {
       height: 630,
       width: 1200,
-      type: seoConfig.type
+      type: 'website'
     }
   }}
   twitter={{
-    creator: seoConfig.twitter.creator,
+    creator: '@pkcarreno',
     title: title,
     description: description,
     image: ogImage.toString(),
@@ -57,11 +59,11 @@ const {
     meta: [
       {
         name: 'theme-color',
-        content: '#fffaeb'
+        content: metaConfig.themeColor.light
       },
       {
         name: 'theme-color',
-        content: '#140f00',
+        content: metaConfig.themeColor.dark,
         media: '(prefers-color-scheme: dark)'
       },
       {

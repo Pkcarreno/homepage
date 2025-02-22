@@ -1,12 +1,16 @@
-export const seoConfig = {
-  baseURL: 'https://www.pkcarreno.com/',
-  siteName: 'Pedro Carreño',
-  description: 'Portafolio y vlog de Pedro Carreño.',
-  type: 'website',
-  twitter: {
-    creator: '@pkcarreno',
-    card: 'summary_large_image'
-  }
+export const config = {
+  site:
+    process.env.VERCEL_ENV === 'production'
+      ? 'https://www.pkcarreno.com'
+      : process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : 'http://127.0.0.1:4321'
 }
 
-// TODO: centralize system values
+export const metaConfig = {
+  titleTemplate: '- PK',
+  themeColor: {
+    light: '#fffaeb',
+    dark: '#140f00'
+  }
+}
