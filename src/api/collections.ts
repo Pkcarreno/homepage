@@ -3,9 +3,14 @@ import { type CollectionEntry, getCollection } from 'astro:content'
 export type writingsType = CollectionEntry<'writings'>
 
 export const getAllWritings: () => Promise<writingsType[]> = async () => {
-  const entries: writingsType[] = await getCollection('writings')
+  const entries: writingsType[] = await getCollection(
+    'writings',
+    ({ data }) => {
+      return import.meta.env.DEV || !data.draft
+    }
+  )
+
   return entries
-    .filter(entry => import.meta.env.DEV || !entry.data.draft)
     .map(entry => {
       if (entry.data.draft) {
         entry.data.title = `${entry.data.title} [DRAFT]`
