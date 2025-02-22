@@ -2,8 +2,8 @@
 import type { CollectionEntry } from 'astro:content'
 import { render } from 'astro:content'
 
+import { getEscritosById } from '@/api/collections'
 import Link from '@/components/generic/Link.astro'
-import { getEscritosById } from '@/data/collections'
 import Layout from '@/layouts/Layout.astro'
 
 type entryType = CollectionEntry<'escritos'>

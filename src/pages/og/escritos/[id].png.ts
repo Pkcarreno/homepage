@@ -5,7 +5,7 @@ import type { APIRoute } from 'astro'
 import satori from 'satori'
 import { html as toReactElement } from 'satori-html'
 
-import { getAllEscritos } from '@/data/collections'
+import { getAllEscritos } from '@/api/collections'
 
 const fontDataRegular = fs.readFileSync(
   'node_modules/@fontsource/ia-writer-duo/files/ia-writer-duo-latin-400-normal.woff'
