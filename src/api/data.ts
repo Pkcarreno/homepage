@@ -1,5 +1,6 @@
 import { z } from 'astro:schema'
 
+import navigations from '@/data/navigations.json'
 import projects from '@/data/projects.json'
 
 const _projectsSchema = z.object({
@@ -19,4 +20,25 @@ type projectsType = z.infer<typeof _projectsSchema>
 
 export const getProjects: () => Promise<projectsType> = async () => {
   return projects
+}
+
+const _navigationsSchema = z.object({
+  list: z.array(
+    z.object({
+      label: z.string(),
+      href: z.string().url(),
+      options: z.object({
+        target: z.string().optional(),
+        rel: z.string().optional()
+      })
+    })
+  )
+})
+
+type navigationsType = z.infer<typeof _navigationsSchema>
+
+export const getNavigations: () => Promise<
+  navigationsType['list']
+> = async () => {
+  return navigations.list
 }

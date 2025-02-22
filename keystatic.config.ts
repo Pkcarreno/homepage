@@ -14,6 +14,68 @@ export default config({
     brand: { name: 'PK Blog' }
   },
   singletons: {
+    navigations: singleton({
+      label: 'Navigations',
+      path: 'src/data/navigations',
+      format: { data: 'json' },
+      schema: {
+        list: fields.array(
+          fields.object({
+            label: fields.text({
+              label: 'Title',
+              validation: {
+                isRequired: true
+              }
+            }),
+            href: fields.url({
+              label: 'href',
+              validation: {
+                isRequired: true
+              }
+            }),
+            options: fields.object(
+              {
+                target: fields.select({
+                  label: 'Target',
+                  options: [
+                    {
+                      label: 'Empty',
+                      value: ''
+                    },
+                    {
+                      label: '_blank',
+                      value: '_blank'
+                    }
+                  ],
+                  defaultValue: ''
+                }),
+                rel: fields.select({
+                  label: 'Rel',
+                  options: [
+                    {
+                      label: 'Empty',
+                      value: ''
+                    },
+                    {
+                      label: 'me',
+                      value: 'me'
+                    }
+                  ],
+                  defaultValue: ''
+                })
+              },
+              {
+                label: 'Link options'
+              }
+            )
+          }),
+          {
+            label: 'Navigations',
+            itemLabel: props => props.fields.label.value
+          }
+        )
+      }
+    }),
     proyecto: singleton({
       label: 'Proyectos',
       path: 'src/data/projects',
