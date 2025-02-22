@@ -125,6 +125,7 @@ export default config({
       label: 'Writings',
       slugField: 'title',
       path: 'src/content/escritos/*',
+      columns: ['title', 'draft', 'pubDate', 'lastMod'],
       format: { contentField: 'content' },
       entryLayout: 'content',
       schema: {
