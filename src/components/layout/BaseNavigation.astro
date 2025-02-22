@@ -15,11 +15,16 @@ const navigations = await getNavigations()
             <Link
               href={navigation.href}
               target={
-                navigation.options.target
+                navigation.options.target &&
+                navigation.options.target.length > 0
                   ? navigation.options.target
                   : undefined
               }
-              rel={navigation.options.rel ? navigation.options.rel : undefined}
+              rel={
+                navigation.options.rel && navigation.options.rel.length > 0
+                  ? navigation.options.rel
+                  : undefined
+              }
             >
               {navigation.label}
             </Link>
