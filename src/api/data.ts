@@ -18,8 +18,8 @@ const _projectsSchema = z.object({
 
 type projectsType = z.infer<typeof _projectsSchema>
 
-export const getProjects: () => Promise<projectsType> = async () => {
-  return projects
+export const getProjects: () => Promise<projectsType['list']> = async () => {
+  return projects.list
 }
 
 const _navigationsSchema = z.object({

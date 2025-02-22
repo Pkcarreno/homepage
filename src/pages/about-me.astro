@@ -106,7 +106,7 @@ const projects = await getProjects()
 
     <ul class="list-none">
       {
-        projects.list
+        projects
           .filter(project => !!project.description.en)
           .map(project => (
             <li class="flex flex-col space-y-1">
