@@ -1,5 +1,5 @@
 ---
-import DecorateItemLink from '@/components/templates/DecorateItemLink.astro'
+import Link from '@/components/generic/Link.astro'
 import { type escritosType, getEscritosByTag } from '@/data/collections'
 import Layout from '@/layouts/Layout.astro'
 
@@ -23,18 +23,45 @@ const { entries, tag } = Astro.props
 
   <br />
 
-  <div class="flex flex-col gap-4">
+  <ul class="list-none p-0">
     {
-      entries.map((entry: escritosType) => (
-        <DecorateItemLink
-          title={entry.data.title}
-          date={entry.data.pubDate}
-          href={`/escritos/${entry.id}`}
-          tags={entry.data.tags}
-        >
-          <p class="mb-0">{entry.data.description}</p>
-        </DecorateItemLink>
-      ))
+      entries.map(entry => {
+        const tags = entry.data.tags
+        const date = entry.data.pubDate
+
+        return (
+          <li class="flex flex-col space-y-1">
+            <Link
+              href={`/escritos/${entry.id}`}
+              class="w-fit text-lg font-bold capitalize"
+            >
+              {entry.data.title}
+            </Link>
+            <small class="text-muted-foreground">
+              {entry.data.description}
+            </small>
+            <div class="flex flex-wrap items-baseline gap-1">
+              <i class="text-muted-foreground/70 text-xs">
+                {date instanceof Date
+                  ? date.toLocaleDateString('es', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric'
+                    })
+                  : date}
+              </i>
+
+              <span>.</span>
+
+              {tags && (
+                <small class="text-muted-foreground text-right text-xs capitalize">
+                  {tags.join(', ')}
+                </small>
+              )}
+            </div>
+          </li>
+        )
+      })
     }
-  </div>
+  </ul>
 </Layout>
