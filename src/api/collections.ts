@@ -8,7 +8,6 @@ export const getAllWritings: () => Promise<writingsType[]> = async () => {
     .filter(entry => import.meta.env.DEV || !entry.data.draft)
     .map(entry => {
       if (entry.data.draft) {
-        console.log('entro al draft')
         entry.data.title = `${entry.data.title} [DRAFT]`
       }
       return entry
