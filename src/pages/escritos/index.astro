@@ -1,9 +1,9 @@
 ---
-import { getAllEscritos } from '@/api/collections'
+import { getAllWritings } from '@/api/collections'
 import Link from '@/components/generic/Link.astro'
 import Layout from '@/layouts/Layout.astro'
 
-const entries = await getAllEscritos()
+const entries = await getAllWritings()
 ---
 
 <Layout

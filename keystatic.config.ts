@@ -76,8 +76,8 @@ export default config({
         )
       }
     }),
-    proyecto: singleton({
-      label: 'Proyectos',
+    projects: singleton({
+      label: 'Projects',
       path: 'src/data/projects',
       format: { data: 'json' },
       schema: {
@@ -121,30 +121,8 @@ export default config({
     })
   },
   collections: {
-    // proyectos: collection({
-    //   label: 'Proyectos',
-    //   slugField: 'title',
-    //   format: { data: 'json' },
-    //   path: 'src/content/proyectos/*',
-    //   schema: {
-    //     title: fields.slug({ name: { label: 'Title' } }),
-    //     description: fields.object({
-    //       es: fields.text({ label: 'Spanish Description', multiline: true }),
-    //       en: fields.text({
-    //         label: 'English Description',
-    //         multiline: true,
-    //         validation: {
-    //           isRequired: false
-    //         }
-    //       })
-    //     }),
-    //     url: fields.url({
-    //       label: 'URL'
-    //     })
-    //   }
-    // }),
-    escritos: collection({
-      label: 'Escritos',
+    writings: collection({
+      label: 'Writings',
       slugField: 'title',
       path: 'src/content/escritos/*',
       format: { contentField: 'content' },

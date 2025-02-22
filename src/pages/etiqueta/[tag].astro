@@ -1,14 +1,14 @@
 ---
-import { type escritosType, getEscritosByTag } from '@/api/collections'
+import { getWritingsByTag, type writingsType } from '@/api/collections'
 import Link from '@/components/generic/Link.astro'
 import Layout from '@/layouts/Layout.astro'
 
 export async function getStaticPaths() {
-  return await getEscritosByTag()
+  return await getWritingsByTag()
 }
 
 interface Props {
-  entries: escritosType[]
+  entries: writingsType[]
   tag: string
 }
 

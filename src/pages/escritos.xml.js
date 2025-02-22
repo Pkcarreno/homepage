@@ -2,11 +2,11 @@ import rss from '@astrojs/rss'
 import MarkdownIt from 'markdown-it'
 import sanitizeHtml from 'sanitize-html'
 
-import { getAllEscritos } from '@/api/collections'
+import { getAllWritings } from '@/api/collections'
 const parser = new MarkdownIt()
 
 export async function GET(context) {
-  const entries = await getAllEscritos()
+  const entries = await getAllWritings()
   return rss({
     title: 'Escritos de Pedro C.',
     description: 'Ideas sobre tecnología, programación y privacidad.',

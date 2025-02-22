@@ -1,9 +1,9 @@
 import { type CollectionEntry, getCollection } from 'astro:content'
 
-export type escritosType = CollectionEntry<'escritos'>
+export type writingsType = CollectionEntry<'writings'>
 
-export const getAllEscritos: () => Promise<escritosType[]> = async () => {
-  const entries: escritosType[] = await getCollection('escritos')
+export const getAllWritings: () => Promise<writingsType[]> = async () => {
+  const entries: writingsType[] = await getCollection('writings')
   return entries
     .filter(entry => import.meta.env.DEV || !entry.data.draft)
     .map(entry => {
@@ -20,15 +20,15 @@ export const getAllEscritos: () => Promise<escritosType[]> = async () => {
     )
 }
 
-export const getEscritosById = async () => {
-  return (await getAllEscritos()).map(entry => ({
+export const getWritingsById = async () => {
+  return (await getAllWritings()).map(entry => ({
     params: { id: entry.id },
     props: { entry }
   }))
 }
 
-export const getEscritosByTag = async () => {
-  const allEntries = await getAllEscritos()
+export const getWritingsByTag = async () => {
+  const allEntries = await getAllWritings()
 
   const uniqueTags = [
     ...new Set(allEntries.map(entry => entry.data.tags).flat())
