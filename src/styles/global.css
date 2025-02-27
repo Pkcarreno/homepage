@@ -6,16 +6,16 @@
   :root {
     --background: 45 100% 96%;
     --foreground: 31 58% 5%;
-    --muted: 31 14% 94%;
-    --muted-foreground: 31 10% 29%;
+    --muted: 31 27% 87%;
+    --muted-foreground: 45 17% 35%;
   }
 
   @media (prefers-color-scheme: dark) {
     :root {
       --background: 45 100% 4%;
-      --foreground: 31 39% 98%;
-      --muted: 31 14% 10%;
-      --muted-foreground: 31 10% 71%;
+      --foreground: 32.727 22% 80.392%;
+      --muted: 32.727 57% 11%;
+      --muted-foreground: 45 13% 58%;
     }
 
     .astro-code,
@@ -56,6 +56,17 @@
 
   ol {
     @apply list-decimal;
+  }
+
+  main p,
+  main label,
+  main span,
+  main small,
+  main b,
+  main strong,
+  main i,
+  main u {
+    @apply text-foreground/90;
   }
 
   p,
