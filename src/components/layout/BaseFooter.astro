@@ -1,9 +1,6 @@
 ---
-import { Picture } from 'astro:assets'
-
-import bmBlack from '@/assets/images/bm-black.svg'
-import bmWhite from '@/assets/images/bm-white.svg'
 import Link from '@/components/generic/Link.astro'
+import BrainMade from '@/components/vectors/BrainMade.astro'
 ---
 
 <footer class="mb-6 flex w-fit flex-col gap-4">
@@ -20,19 +17,6 @@ import Link from '@/components/generic/Link.astro'
     unstyled
     class="bg-transparent hover:bg-transparent"
   >
-    <Picture
-      src={bmBlack}
-      alt="Brain Made"
-      width={128}
-      formats={['avif', 'webp']}
-      class="dark:hidden"
-    />
-    <Picture
-      src={bmWhite}
-      alt="Brain Made"
-      width={128}
-      formats={['avif', 'webp']}
-      class="hidden dark:block"
-    />
+    <BrainMade />
   </Link>
 </footer>
