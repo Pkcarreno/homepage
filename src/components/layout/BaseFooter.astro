@@ -1,22 +1,30 @@
 ---
+import { renderSVG } from 'uqr'
+
 import Link from '@/components/generic/Link.astro'
-import BrainMade from '@/components/vectors/BrainMade.astro'
+
+const qr = renderSVG(Astro.request.url, {
+  ecc: 'L',
+  border: 0,
+  whiteColor: 'hsl(var(--background))',
+  blackColor: 'hsl(var(--muted-foreground))',
+  pixelSize: 4
+})
 ---
 
-<footer class="mb-6 flex w-fit flex-col gap-4">
-  <div class="flex flex-col gap-4 md:flex-row">
-    <Link href="/licencia" class="text-muted-foreground">CC BY-NC-SA 4.0</Link>
+<footer class="mb-6 flex w-fit flex-col items-end gap-4 md:flex-row">
+  <div class="w-24 self-start">
+    <Fragment set:html={qr} />
+  </div>
+  <div class="flex h-fit flex-col gap-4 md:flex-row">
+    <Link href="/licencia" class="text-muted-foreground size-fit"
+      >CC BY-NC-SA 4.0</Link
+    >
     <Link
       href="https://github.com/Pkcarreno/homepage"
-      class="text-muted-foreground">Código</Link
+      class="text-muted-foreground size-fit">Código</Link
     >
-    <Link href="/about-me" class="text-muted-foreground">English?</Link>
+    <Link href="/about-me" class="text-muted-foreground size-fit">English?</Link
+    >
   </div>
-  <Link
-    href="https://brainmade.org/"
-    unstyled
-    class="bg-transparent hover:bg-transparent"
-  >
-    <BrainMade />
-  </Link>
 </footer>
