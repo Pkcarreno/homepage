@@ -16,15 +16,12 @@ const qr = renderSVG(Astro.request.url, {
   <div class="w-24 self-start">
     <Fragment set:html={qr} />
   </div>
-  <div class="flex h-fit flex-col gap-4 md:flex-row">
-    <Link href="/licencia" class="text-muted-foreground size-fit"
-      >CC BY-NC-SA 4.0</Link
-    >
+  <div class="flex h-fit flex-col gap-4 p-0 leading-5 md:flex-row">
+    <Link href="/licencia" class="text-muted-foreground">CC BY-NC-SA 4.0</Link>
     <Link
       href="https://github.com/Pkcarreno/homepage"
-      class="text-muted-foreground size-fit">Código</Link
+      class="text-muted-foreground">Código</Link
     >
-    <Link href="/about-me" class="text-muted-foreground size-fit">English?</Link
-    >
+    <Link href="/about-me" class="text-muted-foreground">English?</Link>
   </div>
 </footer>
