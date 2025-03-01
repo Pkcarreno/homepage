@@ -36,7 +36,7 @@ const {
     ogImage={ogImage}
   />
   <body
-    class={cn('space-y-6 p-3 2xl:container md:space-y-12 md:p-6', className)}
+    class={cn('space-y-6 p-6 2xl:container md:space-y-12', className)}
     {...props}
   >
     <BaseHeader title={title} />
@@ -45,7 +45,7 @@ const {
       <BaseNavigation />
 
       <div class="w-screen lg:ml-auto lg:w-fit">
-        <main class="max-w-[70ch] hyphens-auto lg:w-[70ch]">
+        <main class="max-w-[75ch] hyphens-auto lg:w-[75ch]">
           <slot> Empty slot </slot>
         </main>
       </div>

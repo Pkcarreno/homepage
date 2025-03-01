@@ -36,7 +36,8 @@
     "satori": "^0.12.1",
     "satori-html": "^0.3.2",
     "tailwind-merge": "^2.6.0",
-    "tailwindcss": "^3.4.17"
+    "tailwindcss": "^3.4.17",
+    "uqr": "^0.1.2"
   },
   "packageManager": "pnpm@9.15.2+sha256.022309bb31359142b65bfa889e0406d2eebd5acfffca47e6944acf29d9d6a66b",
   "devDependencies": {
