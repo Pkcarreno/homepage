@@ -1,9 +1,11 @@
 ---
 import path from 'node:path'
 
-import type { LinkProps } from './Link.type.ts'
+import type { HTMLAttributes } from 'astro/types'
 
-type Props = LinkProps
+type Props = HTMLAttributes<'a'> & {
+  unstyled?: boolean
+}
 
 const { href, class: className, ...props } = Astro.props
 
