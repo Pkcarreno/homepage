@@ -37,14 +37,6 @@
     text-rendering: optimizeLegibility;
   }
 
-  a {
-    @apply underline underline-offset-2 decoration-dotted hover:no-underline hover:bg-foreground hover:text-background;
-  }
-
-  a.link.is-active {
-    @apply bg-muted text-muted-foreground decoration-solid hover:text-muted-foreground/70;
-  }
-
   ul,
   ol {
     @apply pl-5;
