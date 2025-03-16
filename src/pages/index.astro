@@ -8,27 +8,25 @@ const entries = await getAllWritings()
 
 <Layout
   title="Intro"
-  description="Blog de Pedro Carreño, donde se comparte contenido sobre desarrollo, software libre y privacidad. Además, están expuestos algunos proyectos destacados."
+  description="Sitio de Pedro Carreño, donde se comparte contenido sobre desarrollo, software libre y privacidad. Además, están expuestos algunos proyectos destacados."
   metaTitle="Pedro Carreño"
   noTemplate
 >
   <h1>Pedro Carreño</h1>
 
-  <p>Bienvenido a mi sitio.</p>
+  <p>Bienvenido a mi pequeño jardín de experimentación.</p>
 
   <p>
-    Este es mi pequeño jardín de experimentación. Iré subiendo algunos <Link
-      href="/escritos">escritos</Link
-    >
-    de lo que se me cruce por la cabeza en temas relacionados con tecnología, programación
-    y privacidad cada tanto. Además de ir expandiendo el sitio con varias ideas que
-    tengo en mente.
+    La principal razón de existencia de este sitio es poder practicar mi
+    escritura. Lo que puedes esperar de mí, los temas que más me gustan, es:
+    tecnología, programación, diseño, open source y la filosofía detrás del
+    software.
   </p>
 
   <p>
-    Todavía es un proyecto en construcción. Puedes subscribirte al <Link
-      href="/rss">feed RSS</Link
-    > para estar al tanto con cualquier novedad.
+    Puedes encontrar mis proyectos personales en la sección de <Link
+      href="/proyectos">proyectos</Link
+    >.
   </p>
 
   <br />
@@ -52,7 +50,7 @@ const entries = await getAllWritings()
           </div>
         ))
       }
-      <Link class="w-fit" href="/escritos">Ver todos</Link>
+      <Link class="w-fit leading-none" href="/escritos">Ver todos</Link>
     </div>
   </section>
 </Layout>
