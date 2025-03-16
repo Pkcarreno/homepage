@@ -93,27 +93,29 @@
   }
 
   h1 {
+    @apply uppercase;
+  }
+
+  h1,
+  h2,
+  h3 {
     @apply text-[1.476rem];
   }
 
-  h2 {
-    @apply text-[1.383rem];
-  }
-
-  h3 {
-    @apply text-[1.296rem];
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-normal;
   }
 
   h4 {
     @apply text-[1.215rem];
   }
 
-  h5 {
-    @apply text-[1.138rem];
-  }
-
+  h5,
   h6 {
-    @apply text-[1.067rem];
+    @apply text-base;
   }
 
   small {
