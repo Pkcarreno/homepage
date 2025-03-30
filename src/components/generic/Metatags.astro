@@ -1,4 +1,5 @@
 ---
+import { localizedHTML as favicons } from 'astro-favicons/middleware'
 import { SEO } from 'astro-seo'
 
 import { metaConfig } from '@/config'
@@ -45,11 +46,6 @@ const {
   extend={{
     link: [
       {
-        rel: 'icon',
-        type: 'image/svg+xml',
-        href: '/favicon.svg'
-      },
-      {
         rel: 'sitemap',
         href: '/sitemap-index.xml'
       }
@@ -75,3 +71,4 @@ const {
     ]
   }}
 />
+<Fragment set:html={favicons(Astro.currentLocale)} />

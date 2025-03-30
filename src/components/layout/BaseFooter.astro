@@ -1,20 +1,11 @@
 ---
-import { renderSVG } from 'uqr'
-
 import Link from '@/components/generic/Link.astro'
-
-const qr = renderSVG(Astro.request.url, {
-  ecc: 'L',
-  border: 0,
-  whiteColor: 'hsl(var(--background))',
-  blackColor: 'hsl(var(--muted-foreground))',
-  pixelSize: 4
-})
+import Qr from '@/components/generic/Qr.astro'
 ---
 
 <footer class="mb-6 flex w-fit flex-col items-end gap-4 md:flex-row">
   <div class="w-24 self-start">
-    <Fragment set:html={qr} />
+    <Qr string={Astro.request.url} />
   </div>
   <div class="flex h-fit flex-col gap-4 p-0 leading-5 md:flex-row">
     <Link href="/licencia" class="text-muted-foreground">CC BY-NC-SA 4.0</Link>

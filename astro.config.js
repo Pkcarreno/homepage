@@ -5,6 +5,8 @@ import tailwind from '@astrojs/tailwind'
 import vercel from '@astrojs/vercel'
 import keystatic from '@keystatic/astro'
 import { defineConfig } from 'astro/config'
+import favicons from 'astro-favicons'
+import robots from 'astro-robots'
 import Oxlint from 'unplugin-oxlint/vite'
 
 import { config } from './src/config'
@@ -26,6 +28,15 @@ export default defineConfig({
     tailwind({
       applyBaseStyles: false,
       nesting: true
+    }),
+    favicons(),
+    robots({
+      policy: [
+        {
+          userAgent: config.iaBotAgents,
+          disallow: ['/']
+        }
+      ]
     }),
     sitemap(),
     markdoc(),
