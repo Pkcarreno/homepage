@@ -56,6 +56,9 @@ importers:
       astro-favicons:
         specifier: ^3.1.5
         version: 3.1.5(astro@5.5.4(@types/node@22.5.2)(idb-keyval@6.2.1)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.37.0)(terser@5.31.6)(typescript@5.8.2)(yaml@2.7.0))
+      astro-robots:
+        specifier: ^2.3.1
+        version: 2.3.1(astro@5.5.4(@types/node@22.5.2)(idb-keyval@6.2.1)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.37.0)(terser@5.31.6)(typescript@5.8.2)(yaml@2.7.0))
       astro-seo:
         specifier: ^0.8.4
         version: 0.8.4(prettier-plugin-astro@0.14.1)(prettier@3.5.3)(typescript@5.8.2)
@@ -2128,6 +2131,11 @@ packages:
 
   astro-favicons@3.1.5:
     resolution: {integrity: sha512-XFEW0Yk0sSfFu7WAT5wJ61atbT16YpO3y5n/ooxtys1/Uuv0v2XmMFw8OUrxnykmstUKoa+XjqUw22ph9cFn7A==}
+    peerDependencies:
+      astro: '>= 4.0.0'
+
+  astro-robots@2.3.1:
+    resolution: {integrity: sha512-ocYIVPBVRBp0zeIVQ9o8PiQThkTmccZWlPKJXtgfC6dsrPwNtKOwbLtH+X4COoJhliwVEO2uzQy6bAFSSSwzcA==}
     peerDependencies:
       astro: '>= 4.0.0'
 
@@ -7439,6 +7447,10 @@ snapshots:
       astro: 5.5.4(@types/node@22.5.2)(idb-keyval@6.2.1)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.37.0)(terser@5.31.6)(typescript@5.8.2)(yaml@2.7.0)
       favilib: 1.0.5
       ultrahtml: 1.5.3
+
+  astro-robots@2.3.1(astro@5.5.4(@types/node@22.5.2)(idb-keyval@6.2.1)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.37.0)(terser@5.31.6)(typescript@5.8.2)(yaml@2.7.0)):
+    dependencies:
+      astro: 5.5.4(@types/node@22.5.2)(idb-keyval@6.2.1)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.37.0)(terser@5.31.6)(typescript@5.8.2)(yaml@2.7.0)
 
   astro-seo@0.8.4(prettier-plugin-astro@0.14.1)(prettier@3.5.3)(typescript@5.8.2):
     dependencies:
