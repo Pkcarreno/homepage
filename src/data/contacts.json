@@ -1,0 +1,11 @@
+{
+  "list": [
+    {
+      "label": "Correo",
+      "link": {
+        "label": "mailto",
+        "href": "mailto:pkcarrenodev@gmail.com"
+      }
+    }
+  ]
+}

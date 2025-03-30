@@ -76,6 +76,41 @@ export default config({
         )
       }
     }),
+    contacts: singleton({
+      label: 'Contacts',
+      path: 'src/data/contacts',
+      format: { data: 'json' },
+      schema: {
+        list: fields.array(
+          fields.object({
+            label: fields.text({
+              label: 'Label',
+              validation: {
+                isRequired: true
+              }
+            }),
+            link: fields.object({
+              label: fields.text({
+                label: 'Link Label',
+                validation: {
+                  isRequired: true
+                }
+              }),
+              href: fields.url({
+                label: 'URL',
+                validation: {
+                  isRequired: true
+                }
+              })
+            })
+          }),
+          {
+            label: 'Contacts',
+            itemLabel: props => props.fields.label.value
+          }
+        )
+      }
+    }),
     projects: singleton({
       label: 'Projects',
       path: 'src/data/projects',
