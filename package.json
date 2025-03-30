@@ -27,6 +27,7 @@
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
     "astro": "^5.5.4",
+    "astro-favicons": "^3.1.5",
     "astro-seo": "^0.8.4",
     "clsx": "^2.1.1",
     "markdown-it": "^14.1.0",

@@ -5,6 +5,7 @@ import tailwind from '@astrojs/tailwind'
 import vercel from '@astrojs/vercel'
 import keystatic from '@keystatic/astro'
 import { defineConfig } from 'astro/config'
+import favicons from 'astro-favicons'
 import Oxlint from 'unplugin-oxlint/vite'
 
 import { config } from './src/config'
@@ -27,6 +28,7 @@ export default defineConfig({
       applyBaseStyles: false,
       nesting: true
     }),
+    favicons(),
     sitemap(),
     markdoc(),
     react(),
