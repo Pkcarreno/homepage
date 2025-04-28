@@ -4,7 +4,8 @@ import sitemap from '@astrojs/sitemap'
 import tailwind from '@astrojs/tailwind'
 import vercel from '@astrojs/vercel'
 import keystatic from '@keystatic/astro'
-import { defineConfig } from 'astro/config'
+import umami from '@yeskunall/astro-umami'
+import { defineConfig, envField } from 'astro/config'
 import favicons from 'astro-favicons'
 import robots from 'astro-robots'
 import Oxlint from 'unplugin-oxlint/vite'
@@ -26,7 +27,20 @@ export default defineConfig({
   devToolbar: {
     enabled: false
   },
-
+  env: {
+    schema: {
+      UMAMI_ID: envField.string({
+        access: 'public',
+        context: 'client',
+        optional: false
+      }),
+      UMAMI_ENDPOINT: envField.string({
+        access: 'public',
+        context: 'client',
+        optional: false
+      })
+    }
+  },
   integrations: [
     tailwind({
       applyBaseStyles: false,
@@ -44,7 +58,14 @@ export default defineConfig({
     sitemap(),
     markdoc(),
     react(),
-    keystatic()
+    keystatic(),
+    !!process.env.UMAMI_ID &&
+      umami({
+        id: process.env.UMAMI_ID,
+        domains: ['pkcarreno.com', 'www.pkcarreno.com'],
+        endpointUrl: process.env.UMAMI_ENDPOINT,
+        hostUrl: process.env.UMAMI_ENDPOINT
+      })
   ],
 
   output: 'static',
