@@ -18,7 +18,6 @@ export default defineConfig({
     inlineStylesheets: 'always'
   },
   server: {
-    host: true,
     port: 4200
   },
   compressHTML: true,
