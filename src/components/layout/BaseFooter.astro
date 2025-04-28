@@ -7,12 +7,23 @@ import Qr from '@/components/generic/Qr.astro'
   <div class="w-24 self-start">
     <Qr string={Astro.request.url} />
   </div>
-  <div class="flex h-fit flex-col gap-4 p-0 leading-5 md:flex-row">
-    <Link href="/licencia" class="text-muted-foreground">CC BY-NC-SA 4.0</Link>
-    <Link
-      href="https://github.com/Pkcarreno/homepage"
-      class="text-muted-foreground">Código</Link
-    >
-    <Link href="/about-me" class="text-muted-foreground">English?</Link>
+  <div class="flex flex-col gap-1">
+    <small>
+      <Link href="/about-me" class="text-muted-foreground">english</Link>
+    </small>
+    <small>
+      <Link
+        href="https://github.com/Pkcarreno/homepage"
+        class="text-muted-foreground">repo</Link
+      >
+    </small>
+    <span class="text-xs">
+      contenido:
+      <Link
+        href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es"
+        class="text-muted-foreground">CC BY-NC-SA 4.0</Link
+      >
+      | código fuente: MIT
+    </span>
   </div>
 </footer>
