@@ -37,7 +37,7 @@ const entries = await getAllWritings()
       {
         entries.splice(0, 5).map(entry => (
           <div class="space-x-5">
-            <small class="text-muted-foreground text-xs">
+            <small class="text-xs text-muted-foreground">
               {entry.data.pubDate instanceof Date
                 ? entry.data.pubDate.toLocaleDateString('es', {
                     year: 'numeric',

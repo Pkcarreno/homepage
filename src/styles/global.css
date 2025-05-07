@@ -32,7 +32,7 @@
 
 @layer base {
 	body {
-		@apply bg-background text-foreground selection:bg-foreground selection:text-background font-mono leading-relaxed box-border;
+		@apply box-border bg-background font-mono leading-relaxed text-foreground selection:bg-foreground selection:text-background;
 		font-synthesis-weight: none;
 		text-rendering: optimizeLegibility;
 	}
@@ -135,14 +135,14 @@
 	}
 
 	pre code {
-		@apply bg-transparent text-current px-0;
+		@apply bg-transparent px-0 text-current;
 	}
 
 	code {
-		@apply bg-muted-foreground text-muted font-mono px-0.5;
+		@apply bg-muted-foreground px-0.5 font-mono text-muted;
 	}
 
 	blockquote {
-		@apply border-l-4 w-fit pl-4 my-4 bg-muted/20 hover:bg-muted/40 text-muted-foreground;
+		@apply my-4 w-fit border-l-4 bg-muted/20 pl-4 text-muted-foreground hover:bg-muted/40;
 	}
 }

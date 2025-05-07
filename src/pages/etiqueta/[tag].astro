@@ -41,7 +41,7 @@ const { entries, tag } = Astro.props
               {entry.data.description}
             </small>
             <div class="flex flex-wrap items-baseline gap-1">
-              <i class="text-muted-foreground/70 text-xs">
+              <i class="text-xs text-muted-foreground/70">
                 {date instanceof Date
                   ? date.toLocaleDateString('es', {
                       year: 'numeric',
@@ -54,7 +54,7 @@ const { entries, tag } = Astro.props
               <span>.</span>
 
               {tags && (
-                <small class="text-muted-foreground text-right text-xs capitalize">
+                <small class="text-right text-xs capitalize text-muted-foreground">
                   {tags.join(', ')}
                 </small>
               )}
