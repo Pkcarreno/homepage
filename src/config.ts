@@ -4,7 +4,7 @@ export const config = {
 			? 'https://www.pkcarreno.com'
 			: process.env.VERCEL_URL
 				? `https://${process.env.VERCEL_URL}`
-				: 'http://127.0.0.1:4321',
+				: 'http://127.0.0.1:4200',
 	iaBotAgents: [
 		'AI2Bot',
 		'Ai2Bot-Dolma',
