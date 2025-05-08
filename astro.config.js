@@ -1,13 +1,13 @@
 import markdoc from '@astrojs/markdoc'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
-import tailwind from '@astrojs/tailwind'
 import vercel from '@astrojs/vercel'
 import keystatic from '@keystatic/astro'
 import umami from '@yeskunall/astro-umami'
 import favicons from 'astro-favicons'
 import robots from 'astro-robots'
 import { defineConfig, envField } from 'astro/config'
+import tailwindcss from "@tailwindcss/vite";
 
 import { config } from './src/config'
 
@@ -40,10 +40,6 @@ export default defineConfig({
 		}
 	},
 	integrations: [
-		tailwind({
-			applyBaseStyles: false,
-			nesting: true
-		}),
 		favicons(),
 		robots({
 			policy: [
@@ -71,7 +67,10 @@ export default defineConfig({
 	vite: {
 		optimizeDeps: {
 			exclude: ['@resvg/resvg-js']
-		}
+		},
+    plugins: [
+tailwindcss()
+    ]
 	},
 
 	site: config.site,
