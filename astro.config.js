@@ -68,9 +68,9 @@ export default defineConfig({
 		optimizeDeps: {
 			exclude: ['@resvg/resvg-js']
 		},
-    css: {
-      transformer: "lightningcss"
-    },
+		css: {
+			transformer: 'lightningcss'
+		},
 		plugins: [tailwindcss()]
 	},
 
