@@ -1,12 +1,10 @@
 /** @type {import("prettier").Config} */
 export default {
-  plugins: ['prettier-plugin-astro'],
+  plugins: ['prettier-plugin-astro', 'prettier-plugin-tailwindcss'],
   arrowParens: 'avoid',
   singleQuote: true,
   bracketSpacing: true,
-  endOfLine: 'lf',
   semi: false,
-  tabWidth: 2,
   trailingComma: 'none',
   overrides: [
     {
