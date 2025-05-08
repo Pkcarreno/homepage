@@ -3,11 +3,11 @@ import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
 import vercel from '@astrojs/vercel'
 import keystatic from '@keystatic/astro'
+import tailwindcss from '@tailwindcss/vite'
 import umami from '@yeskunall/astro-umami'
 import favicons from 'astro-favicons'
 import robots from 'astro-robots'
 import { defineConfig, envField } from 'astro/config'
-import tailwindcss from "@tailwindcss/vite";
 
 import { config } from './src/config'
 
@@ -68,9 +68,7 @@ export default defineConfig({
 		optimizeDeps: {
 			exclude: ['@resvg/resvg-js']
 		},
-    plugins: [
-tailwindcss()
-    ]
+		plugins: [tailwindcss()]
 	},
 
 	site: config.site,
