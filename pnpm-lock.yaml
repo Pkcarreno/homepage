@@ -8,30 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@astrojs/check':
-        specifier: ^0.9.4
-        version: 0.9.4(prettier-plugin-astro@0.14.1)(prettier@3.5.3)(typescript@5.8.3)
-      '@astrojs/markdoc':
-        specifier: ^0.14.1
-        version: 0.14.1(@types/react@19.1.2)(astro@5.7.6(@types/node@22.5.2)(idb-keyval@6.2.1)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.40.1)(terser@5.31.6)(typescript@5.8.3)(yaml@2.7.1))(react@19.1.0)
-      '@astrojs/react':
-        specifier: ^4.2.5
-        version: 4.2.5(@types/node@22.5.2)(@types/react-dom@19.1.2(@types/react@19.1.2))(@types/react@19.1.2)(jiti@2.4.2)(lightningcss@1.29.3)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(terser@5.31.6)(yaml@2.7.1)
-      '@astrojs/rss':
-        specifier: ^4.0.11
-        version: 4.0.11
-      '@astrojs/sitemap':
-        specifier: ^3.3.1
-        version: 3.3.1
-      '@astrojs/tailwind':
-        specifier: ^6.0.2
-        version: 6.0.2(astro@5.7.6(@types/node@22.5.2)(idb-keyval@6.2.1)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.40.1)(terser@5.31.6)(typescript@5.8.3)(yaml@2.7.1))(tailwindcss@3.4.17)
-      '@astrojs/ts-plugin':
-        specifier: ^1.10.4
-        version: 1.10.4
-      '@astrojs/vercel':
-        specifier: ^8.1.4
-        version: 8.1.4(astro@5.7.6(@types/node@22.5.2)(idb-keyval@6.2.1)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.40.1)(terser@5.31.6)(typescript@5.8.3)(yaml@2.7.1))(react@19.1.0)(rollup@4.40.1)
       '@fontsource/ia-writer-duo':
         specifier: ^5.2.5
         version: 5.2.5
@@ -41,27 +17,6 @@ importers:
       '@keystatic/core':
         specifier: ^0.5.47
         version: 0.5.47(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@resvg/resvg-js':
-        specifier: ^2.6.2
-        version: 2.6.2
-      '@types/react':
-        specifier: ^19.1.2
-        version: 19.1.2
-      '@types/react-dom':
-        specifier: ^19.1.2
-        version: 19.1.2(@types/react@19.1.2)
-      '@yeskunall/astro-umami':
-        specifier: ^0.0.5
-        version: 0.0.5(astro@5.7.6(@types/node@22.5.2)(idb-keyval@6.2.1)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.40.1)(terser@5.31.6)(typescript@5.8.3)(yaml@2.7.1))
-      astro:
-        specifier: ^5.7.6
-        version: 5.7.6(@types/node@22.5.2)(idb-keyval@6.2.1)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.40.1)(terser@5.31.6)(typescript@5.8.3)(yaml@2.7.1)
-      astro-favicons:
-        specifier: ^3.1.5
-        version: 3.1.5(astro@5.7.6(@types/node@22.5.2)(idb-keyval@6.2.1)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.40.1)(terser@5.31.6)(typescript@5.8.3)(yaml@2.7.1))
-      astro-robots:
-        specifier: ^2.3.1
-        version: 2.3.1(astro@5.7.6(@types/node@22.5.2)(idb-keyval@6.2.1)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.40.1)(terser@5.31.6)(typescript@5.8.3)(yaml@2.7.1))
       astro-seo:
         specifier: ^0.8.4
         version: 0.8.4(prettier-plugin-astro@0.14.1)(prettier@3.5.3)(typescript@5.8.3)
@@ -89,22 +44,64 @@ importers:
       tailwind-merge:
         specifier: ^2.6.0
         version: 2.6.0
-      tailwindcss:
-        specifier: ^3.4.17
-        version: 3.4.17
       uqr:
         specifier: ^0.1.2
         version: 0.1.2
     devDependencies:
+      '@astrojs/check':
+        specifier: ^0.9.4
+        version: 0.9.4(prettier-plugin-astro@0.14.1)(prettier@3.5.3)(typescript@5.8.3)
+      '@astrojs/markdoc':
+        specifier: ^0.14.1
+        version: 0.14.1(@types/react@19.1.2)(astro@5.7.6(@types/node@22.5.2)(idb-keyval@6.2.1)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.40.1)(terser@5.31.6)(typescript@5.8.3)(yaml@2.7.1))(react@19.1.0)
+      '@astrojs/react':
+        specifier: ^4.2.5
+        version: 4.2.5(@types/node@22.5.2)(@types/react-dom@19.1.2(@types/react@19.1.2))(@types/react@19.1.2)(jiti@2.4.2)(lightningcss@1.29.3)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(terser@5.31.6)(yaml@2.7.1)
+      '@astrojs/rss':
+        specifier: ^4.0.11
+        version: 4.0.11
+      '@astrojs/sitemap':
+        specifier: ^3.3.1
+        version: 3.3.1
+      '@astrojs/tailwind':
+        specifier: ^6.0.2
+        version: 6.0.2(astro@5.7.6(@types/node@22.5.2)(idb-keyval@6.2.1)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.40.1)(terser@5.31.6)(typescript@5.8.3)(yaml@2.7.1))(tailwindcss@3.4.17)
+      '@astrojs/ts-plugin':
+        specifier: ^1.10.4
+        version: 1.10.4
+      '@astrojs/vercel':
+        specifier: ^8.1.4
+        version: 8.1.4(astro@5.7.6(@types/node@22.5.2)(idb-keyval@6.2.1)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.40.1)(terser@5.31.6)(typescript@5.8.3)(yaml@2.7.1))(react@19.1.0)(rollup@4.40.1)
       '@biomejs/biome':
         specifier: ^1.9.4
         version: 1.9.4
+      '@resvg/resvg-js':
+        specifier: ^2.6.2
+        version: 2.6.2
       '@types/markdown-it':
         specifier: ^14.1.2
         version: 14.1.2
+      '@types/react':
+        specifier: ^19.1.2
+        version: 19.1.2
+      '@types/react-dom':
+        specifier: ^19.1.2
+        version: 19.1.2(@types/react@19.1.2)
       '@types/sanitize-html':
         specifier: ^2.15.0
         version: 2.15.0
+      '@yeskunall/astro-umami':
+        specifier: ^0.0.5
+        version: 0.0.5(astro@5.7.6(@types/node@22.5.2)(idb-keyval@6.2.1)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.40.1)(terser@5.31.6)(typescript@5.8.3)(yaml@2.7.1))
+      astro:
+        specifier: ^5.7.6
+        version: 5.7.6(@types/node@22.5.2)(idb-keyval@6.2.1)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.40.1)(terser@5.31.6)(typescript@5.8.3)(yaml@2.7.1)
+      astro-favicons:
+        specifier: ^3.1.5
+        version: 3.1.5(astro@5.7.6(@types/node@22.5.2)(idb-keyval@6.2.1)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.40.1)(terser@5.31.6)(typescript@5.8.3)(yaml@2.7.1))
+      astro-robots:
+        specifier: ^2.3.1
+        version: 2.3.1(astro@5.7.6(@types/node@22.5.2)(idb-keyval@6.2.1)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.40.1)(terser@5.31.6)(typescript@5.8.3)(yaml@2.7.1))
       lightningcss:
         specifier: ^1.29.3
         version: 1.29.3
@@ -120,6 +117,9 @@ importers:
       sharp:
         specifier: ^0.34.1
         version: 0.34.1
+      tailwindcss:
+        specifier: ^3.4.17
+        version: 3.4.17
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
