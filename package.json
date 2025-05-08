@@ -9,7 +9,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check": "astro check && biome check . && prettier --check .",
+    "check": "biome check . && prettier --check . && astro check",
     "lint": "biome check . && prettier --check .",
     "lint:fix": "biome check --write . && prettier --write ."
   },
