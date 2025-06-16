@@ -92,7 +92,7 @@ const generateHtmlContent = ({
 		border: 0,
 		whiteColor: variant.colors.background,
 		blackColor: variant.colors['muted-foreground'],
-		pixelSize: 8
+		pixelSize: 7
 	})
 
 	const html = toReactElement(`
