@@ -84,17 +84,6 @@
 		@apply list-decimal;
 	}
 
-	main p,
-	main label,
-	main span,
-	main small,
-	main b,
-	main strong,
-	main i,
-	main u {
-		@apply text-foreground/90;
-	}
-
 	p,
 	label,
 	ul,
@@ -168,15 +157,26 @@
 		@apply px-2 py-3;
 	}
 
-	pre code {
-		@apply bg-transparent px-0 text-current;
-	}
-
 	code {
 		@apply bg-muted-foreground px-0.5 font-mono text-muted;
 	}
 
 	blockquote {
 		@apply my-4 w-fit border-l-4 bg-muted/20 pl-4 text-muted-foreground hover:bg-muted/40;
+	}
+
+	main p,
+	main label,
+	main span,
+	main small,
+	main b,
+	main strong,
+	main i,
+	main u {
+		@apply text-foreground/90;
+	}
+
+	pre code {
+		@apply bg-transparent px-0 text-current;
 	}
 }

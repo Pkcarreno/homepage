@@ -5,9 +5,9 @@ import vercel from '@astrojs/vercel'
 import keystatic from '@keystatic/astro'
 import tailwindcss from '@tailwindcss/vite'
 import umami from '@yeskunall/astro-umami'
+import { defineConfig, envField } from 'astro/config'
 import favicons from 'astro-favicons'
 import robots from 'astro-robots'
-import { defineConfig, envField } from 'astro/config'
 
 import { config } from './src/config'
 
