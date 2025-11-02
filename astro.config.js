@@ -1,8 +1,5 @@
 import markdoc from '@astrojs/markdoc'
-import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
-import vercel from '@astrojs/vercel'
-import keystatic from '@keystatic/astro'
 import tailwindcss from '@tailwindcss/vite'
 import umami from '@yeskunall/astro-umami'
 import { defineConfig, envField } from 'astro/config'
@@ -51,8 +48,6 @@ export default defineConfig({
 		}),
 		sitemap(),
 		markdoc(),
-		react(),
-		keystatic(),
 		!!process.env.UMAMI_ID &&
 			umami({
 				id: process.env.UMAMI_ID,
@@ -75,5 +70,4 @@ export default defineConfig({
 	},
 
 	site: config.site,
-	adapter: vercel()
 })
