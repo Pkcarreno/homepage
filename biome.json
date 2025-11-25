@@ -50,7 +50,7 @@
   },
   "css": {
     "parser": {
-      "tailwindDirectives": true 
+      "tailwindDirectives": true
     }
   },
   "json": {

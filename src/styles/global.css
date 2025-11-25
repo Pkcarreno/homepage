@@ -7,8 +7,9 @@
 	--color-muted: hsl(var(--muted));
 	--color-muted-foreground: hsl(var(--muted-foreground));
 
-	--font-mono: "iA Writer Duo", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-		"Liberation Mono", "Courier New", monospace;
+	--font-mono:
+		"iA Writer Duo", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+		"Courier New", monospace;
 
 	--text-xs: 0.878rem;
 	--text-xs--line-height: 1.6;

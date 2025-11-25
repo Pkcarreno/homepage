@@ -69,5 +69,5 @@ export default defineConfig({
 		plugins: [tailwindcss()]
 	},
 
-	site: config.site,
+	site: config.site
 })
