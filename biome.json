@@ -18,6 +18,7 @@
     ]
   },
   "formatter": {
+    "includes": ["!**/*.png.ts"],
     "lineWidth": 100
   },
   "assist": { "actions": { "source": { "organizeImports": "on" } } },
@@ -46,6 +47,11 @@
       "arrowParentheses": "asNeeded",
       "bracketSpacing": true,
       "semicolons": "asNeeded"
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
     }
   },
   "json": {
