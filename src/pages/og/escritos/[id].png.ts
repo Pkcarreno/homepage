@@ -25,6 +25,7 @@ export const GET: APIRoute = async ({ params, props }) => {
 		url: link
 	})
 
+  // @ts-ignore
 	return new Response(png, {
 		headers: {
 			'content-type': 'image/png',

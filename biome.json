@@ -18,6 +18,7 @@
     ]
   },
   "formatter": {
+    "includes": ["!**/*.png.ts"],
     "lineWidth": 100
   },
   "assist": { "actions": { "source": { "organizeImports": "on" } } },

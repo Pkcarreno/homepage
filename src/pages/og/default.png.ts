@@ -12,6 +12,7 @@ export const GET: APIRoute = async () => {
 		url: link
 	})
 
+  // @ts-ignore
 	return new Response(png, {
 		headers: {
 			'content-type': 'image/png',

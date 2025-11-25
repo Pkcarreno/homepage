@@ -26,7 +26,7 @@ const generateOgImage = async (props: generateImage): Promise<Buffer> => {
 
 	const htmlContent = generateHtmlContent(props)
 
-	const image = await satori(htmlContent as React.ReactNode, {
+	const image = await satori(htmlContent, {
 		width,
 		height,
 		fonts: [
