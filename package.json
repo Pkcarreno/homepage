@@ -9,9 +9,10 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check": "biome check . && prettier --check . && astro check",
-    "lint": "biome check . && prettier --check .",
-    "lint:fix": "biome check --write . && prettier --write ."
+    "check": "biome check . && astro check",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "typecheck": "tsc --project tsconfig.json --noEmit"
   },
   "dependencies": {
     "@fontsource/ia-writer-duo": "^5.2.5",
@@ -31,7 +32,7 @@
     "@astrojs/rss": "^4.0.13",
     "@astrojs/sitemap": "^3.6.0",
     "@astrojs/ts-plugin": "^1.10.5",
-    "@biomejs/biome": "^2.3.4",
+    "@biomejs/biome": "^2.3.7",
     "@resvg/resvg-js": "^2.6.2",
     "@tailwindcss/vite": "^4.1.17",
     "@types/markdown-it": "^14.1.2",
@@ -41,9 +42,6 @@
     "astro-favicons": "^3.1.5",
     "astro-robots": "^2.3.1",
     "lightningcss": "^1.30.2",
-    "prettier": "^3.6.2",
-    "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-tailwindcss": "^0.7.1",
     "sharp": "^0.34.5",
     "tailwindcss": "^4.1.17",
     "typescript": "^5.9.3"
