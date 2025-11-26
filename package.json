@@ -19,7 +19,7 @@
     "tailwind-merge": "^3.4.0",
     "uqr": "^0.1.2"
   },
-  "packageManager": "pnpm@9.15.2+sha256.022309bb31359142b65bfa889e0406d2eebd5acfffca47e6944acf29d9d6a66b",
+  "packageManager": "pnpm@10.23.0+sha512.21c4e5698002ade97e4efe8b8b4a89a8de3c85a37919f957e7a0f30f38fbc5bbdd05980ffe29179b2fb6e6e691242e098d945d1601772cad0fef5fb6411e2a4b",
   "devDependencies": {
     "@astrojs/check": "^0.9.5",
     "@astrojs/markdoc": "^0.15.8",
