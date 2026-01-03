@@ -1,0 +1,12 @@
+pre-commit:
+  jobs:
+    - run: pnpm check
+      glob:
+        - "*.js"
+        - "*.jsx"
+        - "*.ts"
+        - "*.tsx"
+        - "*.json"
+        - "*.jsonc"
+        - "*.css"
+        - "*.astro"
