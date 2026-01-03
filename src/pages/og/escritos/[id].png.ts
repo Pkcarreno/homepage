@@ -17,7 +17,7 @@ export const GET: APIRoute = async ({ params, props }) => {
 	const description = props.description ?? null
 	const link = `${import.meta.env.SITE}/escritos/${params.id}`
 
-	const png = await generateOgImage({
+	const pngBuffer = await generateOgImage({
 		title: title,
 		subtitle: 'by pkcarreno',
 		description: description,
@@ -25,8 +25,7 @@ export const GET: APIRoute = async ({ params, props }) => {
 		url: link
 	})
 
-  // @ts-ignore
-	return new Response(png, {
+	return new Response(new Uint8Array(pngBuffer), {
 		headers: {
 			'content-type': 'image/png',
 			'Cache-Control': 'public, max-age=31536000, immutable'

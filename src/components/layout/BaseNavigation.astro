@@ -1,36 +1,37 @@
 ---
-import { getNavigations } from '@/api/data'
-import Link from '@/components/generic/Link.astro'
+import { getNavigations } from "@/api/data";
+import Anchor from "@/components/generic/Anchor.astro";
 
-const navigations = await getNavigations()
+const navigations = await getNavigations();
 ---
 
 <aside>
-  <nav id="barra-navegacion">
-    <label>Navegación</label>
-    <ul class="list-outside list-none">
-      {
-        navigations.map(navigation => (
-          <li class="mb-2">
-            <Link
-              href={navigation.href}
-              target={
-                navigation.options.target &&
-                navigation.options.target.length > 0
-                  ? navigation.options.target
-                  : undefined
-              }
-              rel={
-                navigation.options.rel && navigation.options.rel.length > 0
-                  ? navigation.options.rel
-                  : undefined
-              }
-            >
-              {navigation.label}
-            </Link>
-          </li>
-        ))
-      }
-    </ul>
-  </nav>
+    <nav id="barra-navegacion">
+        <label>Navegación</label>
+        <ul class="list-outside list-none">
+            {
+                navigations.map((navigation) => (
+                    <li class="mb-2">
+                        <Anchor
+                            href={navigation.href}
+                            target={
+                                navigation.options.target &&
+                                navigation.options.target.length > 0
+                                    ? navigation.options.target
+                                    : undefined
+                            }
+                            rel={
+                                navigation.options.rel &&
+                                navigation.options.rel.length > 0
+                                    ? navigation.options.rel
+                                    : undefined
+                            }
+                        >
+                            {navigation.label}
+                        </Anchor>
+                    </li>
+                ))
+            }
+        </ul>
+    </nav>
 </aside>

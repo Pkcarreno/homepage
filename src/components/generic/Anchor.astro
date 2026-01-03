@@ -31,7 +31,7 @@ const isActive =
     ? true
     : undefined
 
-let contact: string | undefined = undefined
+let contact: string | undefined
 if (isMail) {
   contact = dir.replace('mailto:', '')
 } else if (isTel) {
@@ -91,9 +91,9 @@ const attributes = {
 }
 ---
 
-<>
+<Fragment>
   <a {...attributes}><slot /></a>
-</>
+</Fragment>
 
 {
   dataContact && (

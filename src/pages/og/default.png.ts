@@ -5,15 +5,14 @@ import generateOgImage from '@/lib/generate-og-image'
 export const GET: APIRoute = async () => {
 	const link = import.meta.env.SITE
 
-	const png = await generateOgImage({
+	const pngBuffer = await generateOgImage({
 		title: 'Pedro C',
 		subtitle: 'frontend & mobile dev',
 		mode: 'dark',
 		url: link
 	})
 
-  // @ts-ignore
-	return new Response(png, {
+	return new Response(new Uint8Array(pngBuffer), {
 		headers: {
 			'content-type': 'image/png',
 			'Cache-Control': 'public, max-age=31536000, immutable'

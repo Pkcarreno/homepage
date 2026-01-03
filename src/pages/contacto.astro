@@ -1,26 +1,26 @@
 ---
-import { getContacts } from '@/api/data'
-import Link from '@/components/generic/Link.astro'
-import Qr from '@/components/generic/Qr.astro'
-import Layout from '@/layouts/Layout.astro'
-import { cn } from '@/utils'
+import { getContacts } from "@/api/data";
+import Anchor from "@/components/generic/Anchor.astro";
+import Qr from "@/components/generic/Qr.astro";
+import Layout from "@/layouts/Layout.astro";
+import { cn } from "@/utils";
 
-const contacts = await getContacts()
+const contacts = await getContacts();
 ---
 
 <Layout
-  title="Contacto"
-  description="Información para ponerse en contacto conmigo."
+    title="Contacto"
+    description="Información para ponerse en contacto conmigo."
 >
-  {
-    contacts.map((contact, index) => (
-      <div>
-        <h2 class={cn(index === 0 && 'mt-0')}>{contact.label}</h2>
-        <div class="w-36">
-          <Qr string={contact.link.href} />
-        </div>
-        <Link href={contact.link.href}>{contact.link.label}</Link>
-      </div>
-    ))
-  }
+    {
+        contacts.map((contact, index) => (
+            <div>
+                <h2 class={cn(index === 0 && "mt-0")}>{contact.label}</h2>
+                <div class="w-36">
+                    <Qr string={contact.link.href} />
+                </div>
+                <Anchor href={contact.link.href}>{contact.link.label}</Anchor>
+            </div>
+        ))
+    }
 </Layout>

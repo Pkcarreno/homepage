@@ -1,56 +1,60 @@
 ---
-import { getAllWritings } from '@/api/collections'
-import Link from '@/components/generic/Link.astro'
-import Layout from '@/layouts/Layout.astro'
+import { getAllWritings } from "@/api/collections";
+import Anchor from "@/components/generic/Anchor.astro";
+import Layout from "@/layouts/Layout.astro";
 
-const entries = await getAllWritings()
+const entries = await getAllWritings();
 ---
 
 <Layout
-  title="Intro"
-  description="Sitio de Pedro Carreño, donde se comparte contenido sobre desarrollo, software libre y privacidad. Además, están expuestos algunos proyectos destacados."
-  metaTitle="Pedro Carreño"
-  noTemplate
+    title="Intro"
+    description="Sitio de Pedro Carreño, donde se comparte contenido sobre desarrollo, software libre y privacidad. Además, están expuestos algunos proyectos destacados."
+    metaTitle="Pedro Carreño"
+    noTemplate
 >
-  <h1>Pedro Carreño</h1>
+    <h1>Pedro Carreño</h1>
 
-  <p>Bienvenido a mi pequeño jardín de experimentación.</p>
+    <p>Bienvenido a mi pequeño jardín de experimentación.</p>
 
-  <p>
-    La principal razón de existencia de este sitio es poder practicar mi
-    escritura. Lo que puedes esperar de mí, los temas que más me gustan, es:
-    tecnología, programación, diseño, open source y la filosofía detrás del
-    software.
-  </p>
+    <p>
+        La principal razón de existencia de este sitio es poder practicar mi
+        escritura. Lo que puedes esperar de mí, los temas que más me gustan, es:
+        tecnología, programación, diseño, open source y la filosofía detrás del
+        software.
+    </p>
 
-  <p>
-    Puedes encontrar mis proyectos personales en la sección de <Link
-      href="/proyectos">proyectos</Link
-    >.
-  </p>
+    <p>
+        Puedes encontrar mis proyectos personales en la sección de <Anchor
+            href="/proyectos">proyectos</Anchor
+        >.
+    </p>
 
-  <br />
+    <br />
 
-  <section aria-labelledby="Mis últimos escritos">
-    <h2>Mis últimos escritos</h2>
-    <div class="flex flex-col gap-4">
-      {
-        entries.splice(0, 5).map(entry => (
-          <div class="space-x-5">
-            <small class="text-muted-foreground text-xs">
-              {entry.data.pubDate instanceof Date
-                ? entry.data.pubDate.toLocaleDateString('es', {
-                    year: 'numeric',
-                    month: 'numeric',
-                    day: 'numeric'
-                  })
-                : entry.data.pubDate}
-            </small>
-            <Link href={`/escritos/${entry.id}`}>{entry.data.title}</Link>
-          </div>
-        ))
-      }
-      <Link class="w-fit leading-none" href="/escritos">Ver todos</Link>
-    </div>
-  </section>
+    <section aria-labelledby="Mis últimos escritos">
+        <h2>Mis últimos escritos</h2>
+        <div class="flex flex-col gap-4">
+            {
+                entries.splice(0, 5).map((entry) => (
+                    <div class="space-x-5">
+                        <small class="text-muted-foreground text-xs">
+                            {entry.data.pubDate instanceof Date
+                                ? entry.data.pubDate.toLocaleDateString("es", {
+                                      year: "numeric",
+                                      month: "numeric",
+                                      day: "numeric",
+                                  })
+                                : entry.data.pubDate}
+                        </small>
+                        <Anchor href={`/escritos/${entry.id}`}>
+                            {entry.data.title}
+                        </Anchor>
+                    </div>
+                ))
+            }
+            <Anchor class="w-fit leading-none" href="/escritos"
+                >Ver todos</Anchor
+            >
+        </div>
+    </section>
 </Layout>

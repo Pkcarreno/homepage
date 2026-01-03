@@ -1,32 +1,34 @@
 ---
-import Link from '@/components/generic/Link.astro'
-import Qr from '@/components/generic/Qr.astro'
+import Anchor from "@/components/generic/Anchor.astro";
+import Qr from "@/components/generic/Qr.astro";
 ---
 
 <footer class="mb-6 flex w-fit flex-col items-end gap-4 md:flex-row">
-  <div class="w-24 self-start">
-    <Qr string={Astro.request.url} />
-  </div>
-  <div class="flex flex-col gap-1">
-    <small>
-      <Link href="/about-me" class="text-muted-foreground">english</Link>
-    </small>
-    <small>
-      <Link
-        href="https://github.com/Pkcarreno/homepage"
-        class="text-muted-foreground">repo</Link
-      >
-    </small>
-    <div class="flex flex-col gap-x-2 gap-y-1 text-xs md:flex-row">
-      <span
-        >contenido: <Link
-          href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es"
-          class="text-muted-foreground">CC BY-NC-SA 4.0</Link
-        ></span
-      >
-
-      <span class="hidden md:block"> | </span>
-      <span>código fuente: MIT</span>
+    <div class="w-24 self-start">
+        <Qr string={Astro.request.url} />
     </div>
-  </div>
+    <div class="flex flex-col gap-1">
+        <small>
+            <Anchor href="/about-me" class="text-muted-foreground"
+                >english</Anchor
+            >
+        </small>
+        <small>
+            <Anchor
+                href="https://github.com/Pkcarreno/homepage"
+                class="text-muted-foreground">repo</Anchor
+            >
+        </small>
+        <div class="flex flex-col gap-x-2 gap-y-1 text-xs md:flex-row">
+            <span
+                >contenido: <Anchor
+                    href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es"
+                    class="text-muted-foreground">CC BY-NC-SA 4.0</Anchor
+                ></span
+            >
+
+            <span class="hidden md:block"> | </span>
+            <span>código fuente: MIT</span>
+        </div>
+    </div>
 </footer>

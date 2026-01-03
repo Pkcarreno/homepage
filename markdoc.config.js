@@ -5,7 +5,7 @@ export default defineMarkdocConfig({
 	nodes: {
 		link: {
 			...nodes.link,
-			render: component('./src/components/generic/Link.astro')
+			render: component('./src/components/generic/Anchor.astro')
 		},
 		image: {
 			...nodes.image,

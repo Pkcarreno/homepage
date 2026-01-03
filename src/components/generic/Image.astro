@@ -1,46 +1,50 @@
 ---
-import type { ComponentProps } from 'astro/types'
-import { Picture } from 'astro:assets'
+import { Picture } from "astro:assets";
+import type { ComponentProps } from "astro/types";
 
 type Props = Pick<
-  ComponentProps<typeof Picture>,
-  'class' | 'class:list' | 'src'
+    ComponentProps<typeof Picture>,
+    "class" | "class:list" | "src"
 > & {
-  title?: string
-  alt?: string
-}
+    title?: string;
+    alt?: string;
+};
 
-const { title, alt, src: imageSrc, ...props } = Astro.props as Props
+const { title, alt, src: imageSrc, ...props } = Astro.props as Props;
 
 const href =
-  typeof imageSrc === 'string' ? imageSrc : imageSrc ? imageSrc.toString() : ''
+    typeof imageSrc === "string"
+        ? imageSrc
+        : imageSrc
+          ? imageSrc.toString()
+          : "";
 
-const isExternal = URL.canParse(href)
+const isExternal = URL.canParse(href);
 ---
 
 <figure
-  class="text-muted-foreground/70 hover:text-muted-foreground/90 mb-3 flex flex-col items-center justify-center gap-0 bg-transparent no-underline hover:bg-transparent"
+    class="text-muted-foreground/70 hover:text-muted-foreground/90 mb-3 flex flex-col items-center justify-center gap-0 bg-transparent no-underline hover:bg-transparent"
 >
-  {
-    isExternal ? (
-      <img
-        alt={alt ? alt : title}
-        title={alt ? alt : title}
-        src={imageSrc as string}
-        loading="lazy"
-        class:list={['mb-0', props.class, props['class:list']]}
-      />
-    ) : (
-      <Picture
-        formats={['avif', 'webp']}
-        title={alt ? alt : title}
-        alt={alt ? alt : (title ?? null)}
-        widths={[300, 600, 720, 1200]}
-        loading="lazy"
-        src={imageSrc as ImageMetadata}
-        class:list={['mb-0', props.class, props['class:list']]}
-      />
-    )
-  }
-  {title && <figcaption>{title}</figcaption>}
+    {
+        isExternal ? (
+            <img
+                alt={alt ? alt : title}
+                title={alt ? alt : title}
+                src={imageSrc as string}
+                loading="lazy"
+                class:list={["mb-0", props.class, props["class:list"]]}
+            />
+        ) : (
+            <Picture
+                formats={["avif", "webp"]}
+                title={alt ? alt : title}
+                alt={alt ? alt : (title ?? null)}
+                widths={[300, 600, 720, 1200]}
+                loading="lazy"
+                src={imageSrc as ImageMetadata}
+                class:list={["mb-0", props.class, props["class:list"]]}
+            />
+        )
+    }
+    {title && <figcaption>{title}</figcaption>}
 </figure>
