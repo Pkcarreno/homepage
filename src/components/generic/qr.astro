@@ -1,0 +1,19 @@
+---
+import { renderSVG } from "uqr";
+
+interface Props {
+  string: string;
+}
+
+const { string } = Astro.props as Props;
+
+const raw = renderSVG(string, {
+  ecc: "L",
+  border: 0,
+  whiteColor: "hsl(var(--background))",
+  blackColor: "hsl(var(--muted-foreground))",
+  pixelSize: 4,
+});
+---
+
+<Fragment set:html={raw}/>

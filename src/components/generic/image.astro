@@ -3,29 +3,32 @@ import { Picture } from "astro:assets";
 import type { ComponentProps } from "astro/types";
 
 type Props = Pick<
-    ComponentProps<typeof Picture>,
-    "class" | "class:list" | "src"
+  ComponentProps<typeof Picture>,
+  "class" | "class:list" | "src"
 > & {
-    title?: string;
-    alt?: string;
+  title?: string;
+  alt?: string;
 };
 
 const { title, alt, src: imageSrc, ...props } = Astro.props as Props;
 
-const href =
-    typeof imageSrc === "string"
-        ? imageSrc
-        : imageSrc
-          ? imageSrc.toString()
-          : "";
+const getSrc = (src: Props["src"]) => {
+  if (typeof src === "string") {
+    return src;
+  }
+
+  return src ? src.toString() : "";
+};
+
+const href = getSrc(imageSrc);
 
 const isExternal = URL.canParse(href);
 ---
 
 <figure
-    class="text-muted-foreground/70 hover:text-muted-foreground/90 mb-3 flex flex-col items-center justify-center gap-0 bg-transparent no-underline hover:bg-transparent"
+  class="text-muted-foreground/70 hover:text-muted-foreground/90 mb-3 flex flex-col items-center justify-center gap-0 bg-transparent no-underline hover:bg-transparent"
 >
-    {
+  {
         isExternal ? (
             <img
                 alt={alt ? alt : title}
@@ -46,5 +49,5 @@ const isExternal = URL.canParse(href);
             />
         )
     }
-    {title && <figcaption>{title}</figcaption>}
+  {title && <figcaption>{title}</figcaption>}
 </figure>

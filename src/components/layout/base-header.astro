@@ -1,19 +1,19 @@
 ---
 import type { ComponentProps } from "astro/types";
 
-import Anchor from "@/components/generic/Anchor.astro";
-import BaseHead from "@/components/layout/BaseHead.astro";
+import Anchor from "@/components/generic/anchor.astro";
+import BaseHead from "@/components/layout/base-head.astro";
 
-type Props = {
-    title: ComponentProps<typeof BaseHead>["title"];
-};
+interface Props {
+  title: ComponentProps<typeof BaseHead>["title"];
+}
 
 const { title } = Astro.props;
 ---
 
 <header class="flex flex-col flex-wrap items-baseline gap-2 sm:flex-row">
-    <Anchor href="/" class="text-lg font-bold">PK</Anchor>
-    {
+  <Anchor href="/" class="text-lg font-bold">PK</Anchor>
+  {
         title && (
             <>
                 <span class="hidden sm:block">-</span>

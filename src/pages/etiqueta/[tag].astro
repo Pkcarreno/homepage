@@ -1,30 +1,30 @@
 ---
 import { getWritingsByTag, type writingsType } from "@/api/collections";
-import Anchor from "@/components/generic/Anchor.astro";
-import Layout from "@/layouts/Layout.astro";
+import Anchor from "@/components/generic/anchor.astro";
+import Layout from "@/layouts/layout.astro";
 
 export async function getStaticPaths() {
-    return await getWritingsByTag();
+  return await getWritingsByTag();
 }
 
 interface Props {
-    entries: writingsType[];
-    tag: string;
+  entries: writingsType[];
+  tag: string;
 }
 
 const { entries, tag } = Astro.props;
 ---
 
 <Layout
-    title={`Etiqueta ${tag}`}
-    description="Contenido existente filtrado por etiquetas."
+  title={`Etiqueta ${tag}`}
+  description="Contenido existente filtrado por etiquetas."
 >
-    <p>Lista de escritos por etiqueta</p>
+  <p>Lista de escritos por etiqueta</p>
 
-    <br />
+  <br>
 
-    <ul class="list-none p-0">
-        {
+  <ul class="list-none p-0">
+    {
             entries.map((entry) => {
                 const tags = entry.data.tags;
                 const date = entry.data.pubDate;
@@ -63,5 +63,5 @@ const { entries, tag } = Astro.props;
                 );
             })
         }
-    </ul>
+  </ul>
 </Layout>

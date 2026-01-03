@@ -2,15 +2,15 @@
 import { render } from "astro:content";
 
 import { getWritingsById, type writingsType } from "@/api/collections";
-import Anchor from "@/components/generic/Anchor.astro";
-import Layout from "@/layouts/Layout.astro";
+import Anchor from "@/components/generic/anchor.astro";
+import Layout from "@/layouts/layout.astro";
 
 export async function getStaticPaths() {
-    return await getWritingsById();
+  return await getWritingsById();
 }
 
 interface Props {
-    entry: writingsType;
+  entry: writingsType;
 }
 
 const { entry } = Astro.props;
@@ -18,28 +18,26 @@ const { Content } = await render(entry);
 ---
 
 <Layout
-    title={entry.data.title}
-    description={entry.data.description}
-    ogImage={new URL(`/og/escritos/${entry.id}.png`, Astro.url)}
+  title={entry.data.title}
+  description={entry.data.description}
+  ogImage={new URL(`/og/escritos/${entry.id}.png`, Astro.url)}
 >
-    <Content />
+  <Content/>
 
-    <br />
+  <br>
 
-    <aside>
-        <div class="flex flex-col gap-0.5">
-            <small>
-                Este escrito fue publicado el{" "}
-                <b>{entry.data.pubDate.toLocaleDateString()}</b> y fue actualizado
-                por última vez el <b
-                    >{entry.data.lastMod.toLocaleDateString()}</b
-                >.
-                {
+  <aside>
+    <div class="flex flex-col gap-0.5">
+      <small>
+        Este escrito fue publicado el{" "}
+        <b>{entry.data.pubDate.toLocaleDateString()}</b>y fue actualizado por
+        última vez el <b>{entry.data.lastMod.toLocaleDateString()}</b>.
+        {
                     entry.data.tags &&
                         entry.data.tags.length > 0 &&
                         " Contiene las etiquetas: "
                 }
-                {
+        {
                     entry.data.tags &&
                         entry.data.tags.length > 0 &&
                         entry.data.tags.map((tag: string) => {
@@ -53,7 +51,7 @@ const { Content } = await render(entry);
                             );
                         })
                 }
-            </small>
-        </div>
-    </aside>
+      </small>
+    </div>
+  </aside>
 </Layout>

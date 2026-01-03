@@ -1,21 +1,21 @@
-import type { APIRoute } from 'astro'
+import type { APIRoute } from "astro";
 
-import generateOgImage from '@/lib/generate-og-image'
+import generateOgImage from "@/lib/generate-og-image";
 
 export const GET: APIRoute = async () => {
-	const link = import.meta.env.SITE
+  const link = import.meta.env.SITE;
 
-	const pngBuffer = await generateOgImage({
-		title: 'Pedro C',
-		subtitle: 'frontend & mobile dev',
-		mode: 'dark',
-		url: link
-	})
+  const pngBuffer = await generateOgImage({
+    title: "Pedro C",
+    subtitle: "frontend & mobile dev",
+    mode: "dark",
+    url: link,
+  });
 
-	return new Response(new Uint8Array(pngBuffer), {
-		headers: {
-			'content-type': 'image/png',
-			'Cache-Control': 'public, max-age=31536000, immutable'
-		}
-	})
-}
+  return new Response(new Uint8Array(pngBuffer), {
+    headers: {
+      "content-type": "image/png",
+      "Cache-Control": "public, max-age=31536000, immutable",
+    },
+  });
+};

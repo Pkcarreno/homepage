@@ -1,0 +1,56 @@
+---
+import "@/styles/global.css";
+
+import type { ComponentProps, HTMLAttributes } from "astro/types";
+
+import BaseFooter from "@/components/layout/base-footer.astro";
+import BaseHead from "@/components/layout/base-head.astro";
+import BaseHeader from "@/components/layout/base-header.astro";
+import BaseNavigation from "@/components/layout/base-navigation.astro";
+import { cn } from "@/utils";
+
+type Props = ComponentProps<typeof BaseHead> &
+  HTMLAttributes<"body"> & {
+    lang?: "es" | "en" | string;
+    metaTitle?: ComponentProps<typeof BaseHead>["title"];
+  };
+
+const {
+  title,
+  metaTitle,
+  description,
+  noTemplate,
+  lang = "es",
+  ogImage,
+  class: className,
+  ...props
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <BaseHead
+    title={metaTitle ?? title}
+    description={description}
+    noTemplate={noTemplate}
+    ogImage={ogImage}
+  />
+  <body
+    class={cn("space-y-6 p-6 2xl:container md:space-y-12", className)}
+    {...props}
+  >
+    <BaseHeader title={title}/>
+
+    <div class="flex flex-wrap gap-x-4 gap-y-6 md:gap-x-6 md:gap-y-8">
+      <BaseNavigation/>
+
+      <div class="w-screen lg:ml-auto lg:w-fit">
+        <main class="max-w-[75ch] hyphens-auto lg:w-[75ch]">
+          <slot>Empty slot </slot>
+        </main>
+      </div>
+    </div>
+
+    <BaseFooter/>
+  </body>
+</html>

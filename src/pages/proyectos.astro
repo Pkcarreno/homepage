@@ -1,30 +1,29 @@
 ---
 import { getProjects } from "@/api/data";
-import Anchor from "@/components/generic/Anchor.astro";
-import Layout from "@/layouts/Layout.astro";
+import Anchor from "@/components/generic/anchor.astro";
+import Layout from "@/layouts/layout.astro";
 
-const projects = await getProjects();
+const projects = getProjects();
 ---
 
 <Layout
-    title="Proyectos"
-    description="Lista de utilidades desarrolladas por Pedro Carreño y que son Open Source. Estas pueden ser utilidades web o herramientas CLI."
+  title="Proyectos"
+  description="Lista de utilidades desarrolladas por Pedro Carreño y que son Open Source. Estas pueden ser utilidades web o herramientas CLI."
 >
-    <p>
-        Me fascina el software. La idea de tener la capacidad de solucionar,
-        reducir o automatizar una problemática por más simple que sea me motiva
-        a crear.
-    </p>
+  <p>
+    Me fascina el software. La idea de tener la capacidad de solucionar, reducir
+    o automatizar una problemática por más simple que sea me motiva a crear.
+  </p>
 
-    <p>
-        Es por eso que cuando no consigo herramientas que satisfacen mis
-        necesidades, opto por crearlas yo mismo. Aquí dejo mis favoritas.
-    </p>
+  <p>
+    Es por eso que cuando no consigo herramientas que satisfacen mis
+    necesidades, opto por crearlas yo mismo. Aquí dejo mis favoritas.
+  </p>
 
-    <br />
+  <br>
 
-    <ul class="list-none p-0">
-        {
+  <ul class="list-none p-0">
+    {
             projects.map((project) => (
                 <li class="flex flex-col space-y-1">
                     <Anchor
@@ -39,14 +38,13 @@ const projects = await getProjects();
                 </li>
             ))
         }
-    </ul>
+  </ul>
 
-    <br />
+  <br>
 
-    <p>
-        Puedes ver la lista completa de proyectos y experimentos que tengo
-        publicados <Anchor href="https://github.com/Pkcarreno?tab=repositories"
-            >aquí</Anchor
-        >.
-    </p>
+  <p>
+    Puedes ver la lista completa de proyectos y experimentos que tengo
+    publicados
+    <Anchor href="https://github.com/Pkcarreno?tab=repositories">aquí</Anchor>.
+  </p>
 </Layout>

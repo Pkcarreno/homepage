@@ -1,15 +1,15 @@
 ---
 import { getNavigations } from "@/api/data";
-import Anchor from "@/components/generic/Anchor.astro";
+import Anchor from "@/components/generic/anchor.astro";
 
-const navigations = await getNavigations();
+const navigations = getNavigations();
 ---
 
 <aside>
-    <nav id="barra-navegacion">
-        <label>Navegación</label>
-        <ul class="list-outside list-none">
-            {
+  <nav id="barra-navegacion">
+    <label>Navegación</label>
+    <ul class="list-outside list-none">
+      {
                 navigations.map((navigation) => (
                     <li class="mb-2">
                         <Anchor
@@ -32,6 +32,6 @@ const navigations = await getNavigations();
                     </li>
                 ))
             }
-        </ul>
-    </nav>
+    </ul>
+  </nav>
 </aside>

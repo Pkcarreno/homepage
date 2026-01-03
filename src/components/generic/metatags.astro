@@ -1,25 +1,25 @@
 ---
-import { localizedHTML as favicons } from 'astro-favicons/middleware'
-import { SEO } from 'astro-seo'
+import { localizedHTML as favicons } from "astro-favicons/middleware";
+import { SEO } from "astro-seo";
 
-import { metaConfig } from '@/config'
+import { metaConfig } from "@/config";
 
 interface Props {
-  title: string
-  noTemplate?: boolean
-  description: string
-  ogImage?: URL
+  title: string;
+  noTemplate?: boolean;
+  description: string;
+  ogImage?: URL;
 }
 
 const {
   title,
   description,
   noTemplate,
-  ogImage = new URL('/og/default.png', Astro.url)
-} = Astro.props
+  ogImage = new URL("/og/default.png", Astro.url),
+} = Astro.props;
 ---
 
-<meta charset="utf-8" />
+<meta charset="utf-8">
 <SEO
   title={title}
   titleTemplate={noTemplate ? undefined : `%s ${metaConfig.titleTemplate}`}
@@ -71,4 +71,4 @@ const {
     ]
   }}
 />
-<Fragment set:html={favicons(Astro.currentLocale)} />
+<Fragment set:html={favicons(Astro.currentLocale)}/>

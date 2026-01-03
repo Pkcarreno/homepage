@@ -1,21 +1,21 @@
 ---
 import { getAllWritings } from "@/api/collections";
-import Anchor from "@/components/generic/Anchor.astro";
-import Layout from "@/layouts/Layout.astro";
+import Anchor from "@/components/generic/anchor.astro";
+import Layout from "@/layouts/layout.astro";
 
 const entries = await getAllWritings();
 ---
 
 <Layout
-    title="Escritos"
-    description="Ocurrencias que creo que valen la pena ser compartidas."
+  title="Escritos"
+  description="Ocurrencias que creo que valen la pena ser compartidas."
 >
-    <p>Lista de escritos.</p>
+  <p>Lista de escritos.</p>
 
-    <br />
+  <br>
 
-    <ul class="list-none p-0">
-        {
+  <ul class="list-none p-0">
+    {
             entries.map((entry) => {
                 const tags = entry.data.tags;
                 const date = entry.data.pubDate;
@@ -54,5 +54,5 @@ const entries = await getAllWritings();
                 );
             })
         }
-    </ul>
+  </ul>
 </Layout>
