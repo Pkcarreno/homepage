@@ -8,7 +8,7 @@ interface Props {
   collection: CollectionKey;
   title: string;
   description?: string;
-  date: Date;
+  date?: Date;
 }
 
 const { id, collection, title, date, description } = Astro.props;
@@ -23,13 +23,13 @@ const generatePath = (collection: CollectionKey, id: string) => {
 };
 ---
 
-<small
-  ><em
-    ><time datetime={date.toISOString()}>{getFormattedDate(date)}</time></em
-  ></small
->
-<span class="text-lesslight" aria-hidden="true">//</span>
+{date && (
+  <small
+    ><em
+      ><time datetime={date.toISOString()}>{getFormattedDate(date)}</time></em
+    ></small
+  >
+  <span class="text-lesslight" aria-hidden="true">//</span>
+)}
 <Anchor class="w-fit" href={generatePath(collection, id)}>{title}</Anchor>
-<div>
-  <small>{description}</small>
-</div>
+<div><small>{description}</small></div>

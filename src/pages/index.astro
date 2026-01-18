@@ -59,7 +59,6 @@ const structuredData: ComponentProps<typeof Template>["structuredData"] = {
           collection={project.collection} 
           title={project.data.title} 
           description={project.data.description}
-          date={project.data.created}
         />
       </li>
       ))}
@@ -69,26 +68,14 @@ const structuredData: ComponentProps<typeof Template>["structuredData"] = {
 
   <br>
 
-  <Separator/>
+  <Separator />
 
   <section aria-labelledby="site info">
-    <div>
-      <small>[SITE_INFO]</small>
-    </div>
-    <div>
-      <small>owner: pk - frontend engineer</small>
-    </div>
-    <div>
-      <small>js: minimal (umami analytics only)</small>
-    </div>
-    <div>
-      <small>license: CC BY-NC-SA 4.0</small>
-    </div>
-    <div>
-      <small>version: 3.1.0</small>
-    </div>
-    <div>
-      <small>build: {Astro.generator.toLowerCase()}</small>
-    </div>
+    <div><small>[SITE_INFO]</small></div>
+    <div><small>owner: pk - frontend engineer</small></div>
+    <div><small>js: minimal (umami analytics only)</small></div>
+    <div><small>license: CC BY-NC-SA 4.0</small></div>
+    <div><small>version: 3.1.0</small></div>
+    <div><small>build: {Astro.generator.toLowerCase()}</small></div>
   </section>
 </Template>
