@@ -1,25 +1,26 @@
 import type { APIRoute } from "astro";
+import generateOgImage from "@/helpers/og";
+import { getCollectionWithDates } from "@/helpers/time";
 
-import { getAllWritings } from "@/api/collections";
-import generateOgImage from "@/lib/generate-og-image";
-
-const writtings = await getAllWritings();
-
-export function getStaticPaths() {
-  return writtings.map((entry) => ({
+export async function getStaticPaths() {
+  return (await getCollectionWithDates("projects")).map((entry) => ({
     params: { id: entry.id },
-    props: { title: entry.data.title, description: entry.data.description },
+    props: {
+      title: entry.data.title,
+      description: entry.data.description,
+      date: entry.data.created,
+    },
   }));
 }
 
 export const GET: APIRoute = async ({ params, props }) => {
-  const title = props.title.trim() ?? "Blogpost";
+  const title = props.title.trim();
   const description = props.description ?? null;
-  const link = `${import.meta.env.SITE}/escritos/${params.id}`;
+  const link = `${import.meta.env.SITE}/projects/${params.id}`;
 
   const pngBuffer = await generateOgImage({
     title,
-    subtitle: "by pkcarreno",
+    subtitle: "project",
     description,
     mode: "light",
     url: link,

@@ -1,57 +1,94 @@
 ---
-import { getAllWritings } from "@/api/collections";
-import Anchor from "@/components/generic/anchor.astro";
-import Layout from "@/layouts/layout.astro";
+import type { ComponentProps } from "astro/types";
+import Anchor from "@/components/atoms/anchor.astro";
+import Entry from "@/components/atoms/entry.astro";
+import Separator from "@/components/atoms/separator.astro";
+import Template from "@/components/layouts/template.astro";
+import { getCollectionWithDates } from "@/helpers/time";
 
-const entries = await getAllWritings();
+const journals = await getCollectionWithDates("journals");
+const projects = await getCollectionWithDates("projects");
+
+const description = "Pk experimental garden.";
+
+const metadata: ComponentProps<typeof Template>["meta"] = {
+  title: "The Index",
+  description,
+};
+
+const structuredData: ComponentProps<typeof Template>["structuredData"] = {
+  description,
+};
 ---
 
-<Layout
-  title="Intro"
-  description="Sitio de Pedro Carreño, donde se comparte contenido sobre desarrollo, software libre y privacidad. Además, están expuestos algunos proyectos destacados."
-  metaTitle="Pedro Carreño"
-  noTemplate
->
-  <h1>Pedro Carreño</h1>
-
-  <p>Bienvenido a mi pequeño jardín de experimentación.</p>
+<Template meta={metadata} structuredData={structuredData}>
+  <h1>The Index</h1>
 
   <p>
-    La principal razón de existencia de este sitio es poder practicar mi
-    escritura. Lo que puedes esperar de mí, los temas que más me gustan, es:
-    tecnología, programación, diseño, open source y la filosofía detrás del
-    software.
-  </p>
-
-  <p>
-    Puedes encontrar mis proyectos personales en la sección de
-    <Anchor href="/proyectos">proyectos</Anchor>.
+    Software, simplicity, and the build-it-yourself mindset. A minimal
+    laboratory for technical notes and experiments.
   </p>
 
   <br>
 
-  <section aria-labelledby="Mis últimos escritos">
-    <h2>Mis últimos escritos</h2>
-    <div class="flex flex-col gap-4">
-      {
-                entries.splice(0, 5).map((entry) => (
-                    <div class="space-x-5">
-                        <small class="text-muted-foreground text-xs">
-                            {entry.data.pubDate instanceof Date
-                                ? entry.data.pubDate.toLocaleDateString("es", {
-                                      year: "numeric",
-                                      month: "numeric",
-                                      day: "numeric",
-                                  })
-                                : entry.data.pubDate}
-                        </small>
-                        <Anchor href={`/escritos/${entry.id}`}>
-                            {entry.data.title}
-                        </Anchor>
-                    </div>
-                ))
-            }
-      <Anchor class="w-fit leading-none" href="/escritos">Ver todos</Anchor>
+  <section aria-labelledby="journals">
+    <h2>journals</h2>
+    <ul class="list-none p-0 space-y-2">
+      {journals.splice(0,5).map((journal) => (
+      <li>
+        <Entry 
+          id={journal.id} 
+          collection={journal.collection} 
+          title={journal.data.title} 
+          description={journal.data.description}
+          date={journal.data.created}
+        />
+      </li>
+      ))}
+    </ul>
+    <Anchor href="/journal">view all</Anchor>
+  </section>
+
+  <section aria-labelledby="projects">
+    <h2>projects</h2>
+    <ul class="list-none p-0 space-y-2">
+      {projects.splice(0,5).map((project) => (
+      <li>
+        <Entry 
+          id={project.id} 
+          collection={project.collection} 
+          title={project.data.title} 
+          description={project.data.description}
+          date={project.data.created}
+        />
+      </li>
+      ))}
+    </ul>
+    <Anchor href="/projects">view all</Anchor>
+  </section>
+
+  <br>
+
+  <Separator/>
+
+  <section aria-labelledby="site info">
+    <div>
+      <small>[SITE_INFO]</small>
+    </div>
+    <div>
+      <small>owner: pk - frontend engineer</small>
+    </div>
+    <div>
+      <small>js: minimal (umami analytics only)</small>
+    </div>
+    <div>
+      <small>license: CC BY-NC-SA 4.0</small>
+    </div>
+    <div>
+      <small>version: 3.1.0</small>
+    </div>
+    <div>
+      <small>build: {Astro.generator.toLowerCase()}</small>
     </div>
   </section>
-</Layout>
+</Template>

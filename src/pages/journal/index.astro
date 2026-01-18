@@ -1,0 +1,38 @@
+---
+import type { ComponentProps } from "astro/types";
+import Entry from "@/components/atoms/entry.astro";
+import Template from "@/components/layouts/template.astro";
+import { getCollectionWithDates, getFormattedDate } from "@/helpers/time";
+
+// TODO: fix SEO
+const description = "pending description";
+
+const metadata: ComponentProps<typeof Template>["meta"] = {
+  title: "Journal",
+  description,
+};
+
+const structuredData: ComponentProps<typeof Template>["structuredData"] = {
+  description,
+};
+
+const journals = await getCollectionWithDates("journals");
+---
+
+<Template meta={metadata} structuredData={structuredData}>
+  <h1>Journals</h1>
+
+  <ul class="list-none p-0 space-y-2">
+    {journals.map((journal) => (
+      <li>
+        <Entry 
+          id={journal.id} 
+          collection={journal.collection} 
+          title={journal.data.title} 
+          description={journal.data.description}
+          date={journal.data.created}
+        />
+      </li>
+      ))}
+  </ul>
+</Template>

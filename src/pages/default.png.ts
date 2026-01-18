@@ -1,13 +1,13 @@
 import type { APIRoute } from "astro";
 
-import generateOgImage from "@/lib/generate-og-image";
+import generateOgImage from "@/helpers/og";
 
 export const GET: APIRoute = async () => {
   const link = import.meta.env.SITE;
 
   const pngBuffer = await generateOgImage({
     title: "Pedro C",
-    subtitle: "frontend & mobile dev",
+    subtitle: "Frontend Engineer",
     mode: "dark",
     url: link,
   });

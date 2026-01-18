@@ -1,0 +1,46 @@
+---
+import { render } from "astro:content";
+import type { ComponentProps } from "astro/types";
+import ContentProperties from "@/components/atoms/content-properties.astro";
+import Separator from "@/components/atoms/separator.astro";
+import Template from "@/components/layouts/template.astro";
+import { type EntryWithDates, getCollectionWithDates } from "@/helpers/time";
+
+export async function getStaticPaths() {
+  return (await getCollectionWithDates("projects")).map((entry) => ({
+    params: { id: entry.id },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: EntryWithDates<"projects">;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const metadata: ComponentProps<typeof Template>["meta"] = {
+  title: entry.data.title,
+  description: entry.data.description,
+  ogImage: new URL(`/projects/${entry.id}.png`, Astro.url),
+};
+
+const structuredData: ComponentProps<typeof Template>["structuredData"] = {
+  description: entry.data.description,
+};
+---
+
+<Template meta={metadata} structuredData={structuredData}>
+  <Content/>
+
+  <br>
+
+  <Separator/>
+
+  <ContentProperties
+    created={entry.data.created}
+    updated={entry.data.updated}
+    tags={entry.data.tags}
+  />
+</Template>
