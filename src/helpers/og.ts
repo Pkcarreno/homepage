@@ -4,21 +4,24 @@ import { Resvg, type ResvgRenderOptions } from "@resvg/resvg-js";
 import satori from "satori";
 import { html as toReactElement } from "satori-html";
 import { renderSVG } from "uqr";
+import { generateHash } from "./visuals";
+import { getFormattedDate } from "./time";
 
 interface generateImage {
   title: string;
   subtitle?: string;
   description?: string;
   url: string;
+  date?: Date;
   mode?: "dark" | "light";
 }
 
 const generateOgImage = async (props: generateImage): Promise<Buffer> => {
   const fontDataRegular = readFileSync(
-    "node_modules/@fontsource/ia-writer-duo/files/ia-writer-duo-latin-400-normal.woff"
+    "node_modules/@fontsource/ia-writer-duo/files/ia-writer-duo-latin-400-normal.woff",
   );
   const fontDataBold = readFileSync(
-    "node_modules/@fontsource/ia-writer-duo/files/ia-writer-duo-latin-700-normal.woff"
+    "node_modules/@fontsource/ia-writer-duo/files/ia-writer-duo-latin-700-normal.woff",
   );
 
   const height = 630;
@@ -61,16 +64,18 @@ const generateOgImage = async (props: generateImage): Promise<Buffer> => {
 const htmlVariants = {
   dark: {
     colors: {
-      background: "#140f00",
-      foreground: "#d8cec2",
-      "muted-foreground": "#a29b86",
+      light: "#140f00",
+      lesslight: "#282213",
+      dark: "#bbb1a5",
+      moredark: "#d8cec2",
     },
   },
   light: {
     colors: {
-      background: "#fffaeb",
-      foreground: "#140d05",
-      "muted-foreground": "#68614a",
+      light: "#fffaeb",
+      lesslight: "#e8e2d4",
+      dark: "#4c453b",
+      moredark: "#140d05",
     },
   },
 };
@@ -79,6 +84,7 @@ const generateHtmlContent = ({
   title,
   subtitle,
   description,
+  date,
   url,
   mode = "light",
 }: generateImage) => {
@@ -90,37 +96,52 @@ const generateHtmlContent = ({
   const svg = renderSVG(url, {
     ecc: "L",
     border: 0,
-    whiteColor: variant.colors.background,
-    blackColor: variant.colors["muted-foreground"],
+    whiteColor: variant.colors.light,
+    blackColor: variant.colors.dark,
     pixelSize: 7,
   });
 
+  const hash = generateHash(url);
+
   const html = toReactElement(`
-    <div tw="flex h-screen flex-col bg-[${variant.colors.background}] px-12 py-6 text-[${variant.colors.foreground}]" style={{ fontFamily: 'IA Writer Duo' }}>
-      <div tw="flex flex-1 gap-4">
-        <div tw="flex flex-col flex-1 mr-2">
-          <h2 tw="text-6xl mb-0">${fmtTitle}</h2>
-          ${subtitle ? `<span tw="text-4xl italic text-[${variant.colors["muted-foreground"]}]">${subtitle}</span>` : ""}
+<div tw="flex h-screen flex-col bg-[${variant.colors.light}] p-12 text-[${variant.colors.dark}] relative" style="font-family: 'IA Writer Duo'">
+    
+    <div tw="absolute top-4 right-12 text-2xl opacity-50 text-[${variant.colors.lesslight}]">
+      ${hash}
+    </div>
+
+    <div tw="flex flex-col mb-4">
+      <h1 tw="text-7xl font-bold m-0 leading-none text-[${variant.colors.moredark}]">
+        ${fmtTitle}
+      </h1>
+      ${subtitle ? `<span tw="text-4xl mt-2 lowercase">${subtitle}</span>` : ""}
+    </div>
+
+    <div tw="text-4xl mb-6 opacity-40">/////////</div>
+
+    <div tw="flex flex-1">
+      <div tw="flex flex-col flex-1 w-full gap-10">
+        
+        <div tw="flex flex-col flex-1 justify-between">
+          <div tw="flex flex-col">
+            ${fmtDescription ? `<p tw="text-4xl text-[${variant.colors.moredark}] leading-tight m-0">${fmtDescription}</p>` : ""}
+          </div>
+
+          <div tw="flex text-2xl my-2 uppercase tracking-widest opacity-90">
+            ${date ? `<span>${getFormattedDate(date)}</span>` : ""}
+          </div>
         </div>
 
-        <div tw="flex">${svg}</div>
+        <div tw="text-2xl mt-8 opacity-60">
+          ${url}
+        </div>
       </div>
 
-      ${
-        fmtDescription
-          ? `
-        <span tw="text-4xl text-[${variant.colors["muted-foreground"]}]">---</span>
-        <div tw="flex flex-1 hyphens-auto break-words">
-          <p tw="m-0 text-4xl">${fmtDescription}</p>
-        </div>
-`
-          : ""
-      }
-
-      <span tw="text-4xl text-[${variant.colors["muted-foreground"]}]">
-        ${url}
-      </span>
+      <div tw="flex items-end h-fit">
+        <div tw="flex">${svg}</div>
+      </div>
     </div>
+  </div>
   `);
 
   return html;
@@ -128,7 +149,7 @@ const generateHtmlContent = ({
 
 const setStringSizeLimit = (
   string: string | undefined,
-  maxCharacters: number
+  maxCharacters: number,
 ) => {
   return (
     string &&

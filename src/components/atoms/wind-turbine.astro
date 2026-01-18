@@ -1,0 +1,27 @@
+<span class="wind-turbine"></span>
+
+<style>
+  .wind-turbine {
+    font-family: monospace;
+  }
+
+  .wind-turbine::after {
+    content: "|";
+    animation: turbine-spin 1s steps(4) infinite;
+  }
+
+  @keyframes turbine-spin {
+    0% {
+      content: "|";
+    }
+    25% {
+      content: "/";
+    }
+    50% {
+      content: "—";
+    }
+    75% {
+      content: "\\";
+    }
+  }
+</style>

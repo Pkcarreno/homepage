@@ -10,10 +10,10 @@ const { string } = Astro.props as Props;
 const raw = renderSVG(string, {
   ecc: "L",
   border: 0,
-  whiteColor: "hsl(var(--background))",
-  blackColor: "hsl(var(--muted-foreground))",
+  whiteColor: "var(--light)",
+  blackColor: "var(--dark)",
   pixelSize: 4,
 });
 ---
 
-<Fragment set:html={raw}/>
+<Fragment set:html={raw} />

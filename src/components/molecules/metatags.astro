@@ -1,7 +1,6 @@
 ---
 import { localizedHTML as favicons } from "astro-favicons/middleware";
-import { SEO } from "astro-seo";
-
+import { SEO, type SEOProps } from "astro-seo";
 import { metaConfig } from "@/config";
 
 interface Props {
@@ -9,12 +8,14 @@ interface Props {
   noTemplate?: boolean;
   description: string;
   ogImage?: URL;
+  article?: NonNullable<SEOProps["openGraph"]>["article"];
 }
 
 const {
   title,
   description,
   noTemplate,
+  article,
   ogImage = new URL("/og/default.png", Astro.url),
 } = Astro.props;
 ---
@@ -29,6 +30,10 @@ const {
       title: title,
       type: 'website',
       image: ogImage.toString()
+    },
+    article,
+    optional: {
+      description
     },
     image: {
       height: 630,
@@ -51,15 +56,6 @@ const {
       }
     ],
     meta: [
-      {
-        name: 'theme-color',
-        content: metaConfig.themeColor.light
-      },
-      {
-        name: 'theme-color',
-        content: metaConfig.themeColor.dark,
-        media: '(prefers-color-scheme: dark)'
-      },
       {
         name: 'viewport',
         content: 'width=device-width,initial-scale=1'

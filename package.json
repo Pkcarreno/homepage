@@ -1,7 +1,7 @@
 {
   "name": "homepage",
   "type": "module",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "private": true,
   "scripts": {
     "dev": "astro dev",
@@ -9,13 +9,15 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check": "ultracite check && tsc --project tsconfig.json --noEmit && astro check",
+    "sync:dates": "node scripts/update-timestamps.js",
+    "check": "astro check",
     "lint": "ultracite check",
     "lint:fix": "ultracite fix",
-    "typecheck": "tsc --project tsconfig.json --noEmit",
+    "tsc": "tsc --project tsconfig.json --noEmit",
     "prepare": "lefthook install"
   },
   "dependencies": {
+    "@astrojs/mdx": "^4.3.13",
     "clsx": "^2.1.1",
     "tailwind-merge": "^3.4.0",
     "uqr": "^0.1.2"
@@ -38,6 +40,7 @@
     "astro-favicons": "^3.1.5",
     "astro-robots": "^2.3.1",
     "astro-seo": "^0.8.4",
+    "fast-glob": "^3.3.3",
     "lefthook": "^2.0.13",
     "lightningcss": "^1.30.2",
     "markdown-it": "^14.1.0",

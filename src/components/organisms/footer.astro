@@ -1,0 +1,24 @@
+---
+import Anchor from "@/components/atoms/anchor.astro";
+import Qr from "@/components/atoms/qr.astro";
+import WindTurbine from "@/components/atoms/wind-turbine.astro";
+---
+
+<footer class="mb-6 w-fit space-y-2">
+  <div class="w-24">
+    <Qr string={Astro.request.url}/>
+  </div>
+  <div>
+    <WindTurbine/>
+    <WindTurbine/>
+    <WindTurbine/>
+    <WindTurbine/>
+    <WindTurbine/>
+  </div>
+  <Anchor
+    href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es"
+    class="text-muted-foreground"
+  >
+    CC BY-NC-SA 4.0
+  </Anchor>
+</footer>

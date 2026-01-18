@@ -1,12 +1,16 @@
 pre-commit:
-  jobs:
-    - run: pnpm check
-      glob:
-        - "*.js"
-        - "*.jsx"
-        - "*.ts"
-        - "*.tsx"
-        - "*.json"
-        - "*.jsonc"
-        - "*.css"
-        - "*.astro"
+  parallel: true
+  commands:
+    check:
+      glob: "*.{js,jsx,ts,tsx,json,jsonc,css,astro}"
+      run: pnpm check
+    lint:
+      glob: "*.{js,jsx,ts,tsx,json,jsonc,css,astro}"
+      run: pnpm lint
+
+post-commit:
+  commands:
+    sync-dates:
+      glob: "src/{content,pages}/**/*.{md,mdx,mdoc}"
+      run: pnpm sync:dates
+      stage_fixed: true

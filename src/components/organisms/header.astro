@@ -1,0 +1,27 @@
+---
+import Anchor from "@/components/atoms/anchor.astro";
+import { generateHash } from "@/helpers/visuals";
+
+interface Props {
+  pageTitle: string | undefined;
+}
+
+const { pageTitle } = Astro.props;
+
+const pathHash = generateHash(Astro.request.url);
+---
+
+<header>
+  <div class="flex flex-col flex-wrap items-baseline gap-2 sm:flex-row">
+    <div>
+      <Anchor href="/" class="text-lg font-bold">PK</Anchor>
+      <span aria-hidden="true">/////////</span>
+    </div>
+    {pageTitle && (
+      <span class="text-muted-foreground m-0 text-sm font-light italic">
+          {pageTitle}
+      </span>
+    )}
+  </div>
+  <small class="text-lesslight break-all" aria-hidden="true">{pathHash}</small>
+</header>

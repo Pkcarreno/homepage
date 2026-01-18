@@ -1,12 +1,12 @@
 import markdoc from "@astrojs/markdoc";
+import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import umami from "@yeskunall/astro-umami";
 import { defineConfig, envField } from "astro/config";
 import favicons from "astro-favicons";
 import robots from "astro-robots";
-
-import { config } from "./src/config";
+import { config, metaConfig } from "./src/config";
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,6 +15,10 @@ export default defineConfig({
   },
   server: {
     port: 4200,
+  },
+  redirects: {
+    "/about-me": "/about",
+    "/sobre-mi": "/about",
   },
   compressHTML: true,
   prefetch: true,
@@ -37,7 +41,9 @@ export default defineConfig({
     },
   },
   integrations: [
-    favicons(),
+    favicons({
+      themes: [metaConfig.themeColor.light, metaConfig.themeColor.dark],
+    }),
     robots({
       policy: [
         {
@@ -55,7 +61,12 @@ export default defineConfig({
         endpointUrl: process.env.UMAMI_ENDPOINT,
         hostUrl: process.env.UMAMI_ENDPOINT,
       }),
+    mdx(),
   ],
+
+  markdown: {
+    syntaxHighlight: false,
+  },
 
   output: "static",
 

@@ -1,0 +1,28 @@
+---
+import { type StructuredData, StructuredDataSchema } from "@/helpers/schemas";
+
+interface Props {
+  data: Pick<StructuredData, "description">;
+}
+
+const { data } = Astro.props;
+
+const structuredData: StructuredData = {
+  ...data,
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  publisher: {
+    "@type": "Person",
+    givenName: "pk",
+  },
+  url: Astro.url.origin,
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": Astro.url.origin,
+  },
+};
+
+const schema = StructuredDataSchema.parse(structuredData);
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(schema)}/>

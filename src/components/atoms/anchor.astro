@@ -1,15 +1,10 @@
 ---
 import path from "node:path";
-
 import type { HTMLAttributes } from "astro/types";
 
-import { cn } from "@/utils";
+type Props = HTMLAttributes<"a">;
 
-type Props = HTMLAttributes<"a"> & {
-  unstyled?: boolean;
-};
-
-const { href, class: className, ...props } = Astro.props;
+const { href, ...props } = Astro.props;
 
 const { pathname } = Astro.url;
 
@@ -43,14 +38,6 @@ const isActive =
     ? true
     : undefined;
 
-let contact: string | undefined;
-
-if (isMail) {
-  contact = dir.replace("mailto:", "");
-} else if (isTel) {
-  contact = dir.replace("tel:", "");
-}
-
 let parsedUrl = dir;
 if (isExternal !== true && isHash !== true) {
   const basePrefix = import.meta.env.BASE_URL;
@@ -60,22 +47,12 @@ if (isExternal !== true && isHash !== true) {
     : dir;
 }
 
-let dataContact: string | null = null;
-if (contact) {
-  parsedUrl = "#";
-  dataContact = btoa(dir);
-}
-
-const uniqueId = dataContact
-  ? `link-${Math.random().toString(16).slice(2)}`
-  : undefined;
-
 const getRelValue = (
   rel: Props["rel"],
   isExternal: boolean | undefined,
   isInternal: boolean | undefined,
   isActive: boolean | undefined
-) => {
+): Props["rel"] => {
   if (rel) {
     return rel;
   }
@@ -92,21 +69,8 @@ const getRelValue = (
 
 const relValue = getRelValue(props.rel, isExternal, isInternal, isActive);
 
-const defaultStyles =
-  "hover:bg-foreground hover:text-background size-fit underline decoration-dotted underline-offset-2 hover:no-underline";
-
-const activeLinkStyles =
-  "data-[is-active=true]:bg-muted data-[is-active=true]:text-muted-foreground data-[is-active=true]:hover:text-muted-foreground/70 data-[is-active=true]:decoration-solid";
-
 const attributes = {
   href: parsedUrl,
-  class: cn(
-    !props.unstyled && defaultStyles,
-    !props.unstyled && activeLinkStyles,
-    className
-  ),
-  "unique-id": uniqueId,
-  "data-contact": dataContact,
   "data-is-external": isExternal,
   "data-is-internal": isInternal,
   "data-is-hash": isHash,
@@ -123,22 +87,3 @@ const attributes = {
     ><slot/></a
   >
 </Fragment>
-
-{
-  dataContact && (
-    <script>
-      const anchorElements = document.querySelectorAll('a[unique-id]')
-      anchorElements.forEach(anchor =>
-      {anchor.addEventListener('click', e => {
-        e.preventDefault()
-
-        const contactHrefRaw = anchor.getAttribute('data-contact')
-        if (contactHrefRaw) {
-          const contactHref = atob(contactHrefRaw)
-          window.location.href = contactHref
-        }
-      })}
-      )
-    </script>
-  )
-}
