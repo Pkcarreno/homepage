@@ -2,7 +2,11 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "baseUrl": ".",
+    "declaration": true,
+    "declarationMap": true,
+    "incremental": false,
+    "lib": ["es2022", "DOM", "DOM.Iterable"],
+    "moduleDetection": "force",
     "strictNullChecks": true,
     "paths": {
       "@/*": ["./src/*"],
@@ -13,17 +17,7 @@
         "name": "@astrojs/ts-plugin"
       }
     ],
-    "types": ["astro/client"],
-    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
-
-    "incremental": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "target": "ES2022",
-    "module": "ESNext",
-    "composite": true,
-    "preserveSymlinks": false,
-    "declarationMap": true
+    "types": ["astro/client"]
   },
   "exclude": ["node_modules", "dist", "dev-dist"],
   "include": [".astro/types.d.ts", "**/*", "src"]
