@@ -34,7 +34,7 @@ const structuredData: ComponentProps<typeof Template>["structuredData"] = {
   <section aria-labelledby="journals">
     <h2>journals</h2>
     <ul class="list-none p-0 space-y-2">
-      {journals.splice(0,5).map((journal) => (
+      {journals.splice(0,3).map((journal) => (
       <li>
         <Entry 
           id={journal.id} 
@@ -52,7 +52,7 @@ const structuredData: ComponentProps<typeof Template>["structuredData"] = {
   <section aria-labelledby="projects">
     <h2>projects</h2>
     <ul class="list-none p-0 space-y-2">
-      {projects.splice(0,5).map((project) => (
+      {projects.splice(0,3).map((project) => (
       <li>
         <Entry 
           id={project.id} 
