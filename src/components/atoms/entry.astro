@@ -23,14 +23,14 @@ const generatePath = (collection: CollectionKey, id: string) => {
 };
 ---
 
+<Anchor class="w-fit" href={generatePath(collection, id)}>{title}</Anchor>
 {date && 
   <Fragment>
+    <span class="text-lesslight" aria-hidden="true">{" // "}</span>
     <small
       ><em
         ><time datetime={date.toISOString()}>{getFormattedDate(date)}</time></em
       ></small
     >
-    <span class="text-lesslight" aria-hidden="true">{" // "}</span>
   </Fragment>}
-<Anchor class="w-fit" href={generatePath(collection, id)}>{title}</Anchor>
 <div><small>{description}</small></div>
