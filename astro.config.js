@@ -10,9 +10,6 @@ import { config, metaConfig } from "./src/config";
 
 // https://astro.build/config
 export default defineConfig({
-  build: {
-    inlineStylesheets: "always",
-  },
   server: {
     port: 4200,
   },
