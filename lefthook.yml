@@ -1,16 +1,19 @@
 pre-commit:
   parallel: true
-  commands:
-    check:
+  jobs:
+    - run: pnpm check
       glob: "*.{js,jsx,ts,tsx,json,jsonc,css,astro}"
-      run: pnpm check
-    lint:
+    - run: pnpm lint:fix {staged_files}
       glob: "*.{js,jsx,ts,tsx,json,jsonc,css,astro}"
-      run: pnpm lint
+      stage_fixed: true
 
 post-commit:
-  commands:
-    sync-dates:
+  jobs:
+    - run: pnpm sync:dates
       glob: "src/{content,pages}/**/*.{md,mdx,mdoc}"
-      run: pnpm sync:dates
       stage_fixed: true
+
+post-merge:
+  jobs:
+    - run: pnpm install
+      glob: "pnpm-lock.yaml"
