@@ -1,24 +1,14 @@
 import { component, defineMarkdocConfig, nodes } from "@astrojs/markdoc/config";
-import shiki from "@astrojs/markdoc/shiki";
 
 export default defineMarkdocConfig({
   nodes: {
     link: {
       ...nodes.link,
-      render: component("./src/components/generic/Anchor.astro"),
+      render: component("./src/components/atoms/anchor.astro"),
     },
     image: {
       ...nodes.image,
-      render: component("./src/components/generic/Image.astro"),
+      render: component("./src/components/atoms/image.astro"),
     },
   },
-  extends: [
-    shiki({
-      themes: {
-        light: "rose-pine-dawn",
-        dark: "rose-pine",
-      },
-      defaultColor: false,
-    }),
-  ],
 });
