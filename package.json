@@ -51,5 +51,10 @@
     "tailwindcss": "^4.1.17",
     "typescript": "^5.9.3",
     "ultracite": "7.0.5"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "lefthook"
+    ]
   }
 }
