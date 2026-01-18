@@ -74,6 +74,9 @@ export default defineConfig({
     css: {
       transformer: "lightningcss",
     },
+    build: {
+      cssMinify: "lightningcss",
+    },
     plugins: [tailwindcss()],
   },
 
