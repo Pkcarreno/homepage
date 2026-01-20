@@ -4,9 +4,8 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import umami from "@yeskunall/astro-umami";
 import { defineConfig, envField } from "astro/config";
-import favicons from "astro-favicons";
 import robots from "astro-robots";
-import { config, metaConfig } from "./src/config";
+import { config } from "./src/config";
 
 // https://astro.build/config
 export default defineConfig({
@@ -38,9 +37,6 @@ export default defineConfig({
     },
   },
   integrations: [
-    favicons({
-      themes: [metaConfig.themeColor.light, metaConfig.themeColor.dark],
-    }),
     robots({
       policy: [
         {

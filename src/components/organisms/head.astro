@@ -1,7 +1,6 @@
 ---
 import "@/global.css";
 import type { ComponentProps } from "astro/types";
-import StructuredData from "@/components/atoms/structured-data.astro";
 import Font from "@/components/molecules/font.astro";
 import Metatags from "@/components/molecules/metatags.astro";
 
@@ -10,13 +9,11 @@ interface Props {
     ComponentProps<typeof Metatags>,
     "title" | "description" | "noTemplate" | "ogImage" | "article"
   >;
-  structuredData: ComponentProps<typeof StructuredData>["data"];
 }
-const { meta, structuredData } = Astro.props;
+const { meta } = Astro.props;
 ---
 
 <head>
-  <Metatags {...meta}/>
-  <Font/>
-  <StructuredData data={structuredData}/>
+  <Metatags {...meta} />
+  <Font />
 </head>

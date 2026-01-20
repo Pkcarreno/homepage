@@ -25,13 +25,9 @@ const metadata: ComponentProps<typeof Template>["meta"] = {
   description: entry.data.description,
   ogImage: new URL(`/projects/${entry.id}.png`, Astro.url),
 };
-
-const structuredData: ComponentProps<typeof Template>["structuredData"] = {
-  description: entry.data.description,
-};
 ---
 
-<Template meta={metadata} structuredData={structuredData}>
+<Template meta={metadata}>
   <Content/>
 
   <br>

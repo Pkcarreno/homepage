@@ -5,21 +5,15 @@ import Template from "@/components/layouts/template.astro";
 import { getCollectionWithDates } from "@/helpers/time";
 
 // TODO: fix SEO
-const description = "pending description";
-
 const metadata: ComponentProps<typeof Template>["meta"] = {
   title: "Journal",
-  description,
-};
-
-const structuredData: ComponentProps<typeof Template>["structuredData"] = {
-  description,
+  description: "pending description",
 };
 
 const journals = await getCollectionWithDates("journals");
 ---
 
-<Template meta={metadata} structuredData={structuredData}>
+<Template meta={metadata}>
   <h1>Journals</h1>
 
   <ul class="list-none p-0 space-y-2">

@@ -9,19 +9,13 @@ import { getCollectionWithDates } from "@/helpers/time";
 const journals = await getCollectionWithDates("journals");
 const projects = await getCollectionWithDates("projects");
 
-const description = "Pk experimental garden.";
-
 const metadata: ComponentProps<typeof Template>["meta"] = {
   title: "The Index",
-  description,
-};
-
-const structuredData: ComponentProps<typeof Template>["structuredData"] = {
-  description,
+  description: "Pk experimental garden.",
 };
 ---
 
-<Template meta={metadata} structuredData={structuredData}>
+<Template meta={metadata}>
   <h1>The Index</h1>
 
   <p>

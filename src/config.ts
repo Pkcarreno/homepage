@@ -62,11 +62,3 @@ export const config = {
     "YouBot",
   ],
 };
-
-export const metaConfig = {
-  titleTemplate: "- PK",
-  themeColor: {
-    light: "#fffaeb",
-    dark: "#140f00",
-  },
-};

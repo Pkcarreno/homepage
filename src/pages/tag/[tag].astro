@@ -33,20 +33,13 @@ interface Props {
 const { entries, tag } = Astro.props;
 
 // TODO: fix SEO
-
-const description = "description pendiente";
-
 const metadata: ComponentProps<typeof Template>["meta"] = {
   title: `Etiqueta ${tag}`,
-  description,
-};
-
-const structuredData: ComponentProps<typeof Template>["structuredData"] = {
-  description,
+  description: "description pendiente",
 };
 ---
 
-<Template meta={metadata} structuredData={structuredData}>
+<Template meta={metadata}>
   <h1>Tag: {tag}</h1>
 
   <ul class="list-none p-0 space-y-2">

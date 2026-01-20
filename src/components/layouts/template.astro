@@ -8,21 +8,20 @@ import Header from "@/components/organisms/header.astro";
 
 type Props = HTMLAttributes<"html"> & {
   meta: ComponentProps<typeof Head>["meta"];
-  structuredData: ComponentProps<typeof Head>["structuredData"];
   header?: ComponentProps<typeof Header>;
 };
 
-const { meta, structuredData, header, lang = "en", ...props } = Astro.props;
+const { meta, header, lang = "en", ...props } = Astro.props;
 ---
 
 <!doctype html>
 <html lang={lang} {...props}>
-  <Head meta={meta} structuredData={structuredData}/>
+  <Head meta={meta} />
   <body class="space-y-6 p-6 md:px-10 md:space-y-12 2xl:container">
-    <Header pageTitle={header?.pageTitle}/>
+    <Header pageTitle={header?.pageTitle} />
 
     <div class="flex flex-wrap gap-x-4 gap-y-6 md:gap-x-6 md:gap-y-8">
-      <Navigation/>
+      <Navigation />
 
       <div class="w-full lg:ml-auto lg:w-fit">
         <main class="max-w-[800px] lg:w-[800px]">
@@ -31,6 +30,6 @@ const { meta, structuredData, header, lang = "en", ...props } = Astro.props;
       </div>
     </div>
 
-    <Footer/>
+    <Footer />
   </body>
 </html>

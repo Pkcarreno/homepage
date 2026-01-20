@@ -2,19 +2,13 @@
 import type { ComponentProps } from "astro/types";
 import Template from "@/components/layouts/template.astro";
 
-const description = "Page not found";
-
 const metadata: ComponentProps<typeof Template>["meta"] = {
   title: "404 Error",
-  description,
-};
-
-const structuredData: ComponentProps<typeof Template>["structuredData"] = {
-  description,
+  description: "Page not found",
 };
 ---
 
-<Template meta={metadata} structuredData={structuredData}>
+<Template meta={metadata}>
   <h1>Upss...</h1>
 
   <p>It seems that this specific page does not exist.</p>

@@ -18,8 +18,10 @@
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.13",
+    "@unhead/schema-org": "^2.1.2",
     "clsx": "^2.1.1",
     "tailwind-merge": "^3.4.0",
+    "unhead": "^2.1.2",
     "uqr": "^0.1.2"
   },
   "packageManager": "pnpm@10.23.0+sha512.21c4e5698002ade97e4efe8b8b4a89a8de3c85a37919f957e7a0f30f38fbc5bbdd05980ffe29179b2fb6e6e691242e098d945d1601772cad0fef5fb6411e2a4b",
@@ -37,9 +39,7 @@
     "@types/sanitize-html": "^2.16.0",
     "@yeskunall/astro-umami": "^0.0.7",
     "astro": "^5.15.4",
-    "astro-favicons": "^3.1.5",
     "astro-robots": "^2.3.1",
-    "astro-seo": "^0.8.4",
     "fast-glob": "^3.3.3",
     "lefthook": "^2.0.13",
     "lightningcss": "^1.30.2",

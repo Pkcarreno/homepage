@@ -17,10 +17,6 @@ const metadata: ComponentProps<typeof Template>["meta"] = {
   description: frontmatter.description,
 };
 
-const structuredData: ComponentProps<typeof Template>["structuredData"] = {
-  description: frontmatter.description,
-};
-
 const header: ComponentProps<typeof Template>["header"] = {
   pageTitle: frontmatter.pageTitle,
 };
@@ -28,12 +24,12 @@ const header: ComponentProps<typeof Template>["header"] = {
 const dates = getPageDates(Astro.url.pathname);
 ---
 
-<Template meta={metadata} structuredData={structuredData} header={header}>
+<Template meta={metadata} header={header}>
   <slot>Empty md/mdx page slot</slot>
 
   <br>
 
-  <Separator/>
+  <Separator />
 
-  <ContentProperties created={ dates.created} updated={dates.updated}/>
+  <ContentProperties created={dates.created} updated={dates.updated} />
 </Template>

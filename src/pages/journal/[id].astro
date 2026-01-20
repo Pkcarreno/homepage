@@ -24,20 +24,19 @@ const metadata: ComponentProps<typeof Template>["meta"] = {
   title: entry.data.title,
   description: entry.data.description,
   article: {
-    authors: ["pk"],
-    tags: entry.data.tags,
-    publishedTime: entry.data.created.toISOString(),
-    modifiedTime: entry.data.updated.toISOString(),
+    articleAuthor: ["pk"],
+    articleModifiedTime: entry.data.updated.toISOString(),
+    articlePublishedTime: entry.data.created.toISOString(),
+    articleTag: entry.data.tags,
+    articleSection: "journal",
+    twitterLabel1: "Author",
+    twitterData1: "pk",
   },
   ogImage: new URL(`/journal/${entry.id}.png`, Astro.url),
 };
-
-const structuredData: ComponentProps<typeof Template>["structuredData"] = {
-  description: entry.data.description,
-};
 ---
 
-<Template meta={metadata} structuredData={structuredData}>
+<Template meta={metadata}>
   <article>
     <Content/>
   </article>
