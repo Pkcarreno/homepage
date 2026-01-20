@@ -1,8 +1,13 @@
 ---
-
-import { defineArticle, definePerson, defineWebSite, type SchemaOrgNode, useSchemaOrg } from "@unhead/schema-org";
-import { useHead, useSeoMeta  } from "unhead";
-import { CanonicalPlugin, InferSeoMetaPlugin } from "unhead/plugins"
+import {
+  defineArticle,
+  definePerson,
+  defineWebSite,
+  type SchemaOrgNode,
+  useSchemaOrg,
+} from "@unhead/schema-org";
+import { useHead, useSeoMeta } from "unhead";
+import { CanonicalPlugin, InferSeoMetaPlugin } from "unhead/plugins";
 import { createHead, renderSSRHead } from "unhead/server";
 import { type MetaFlat } from "unhead/types";
 
@@ -34,9 +39,9 @@ const headInstance = createHead({
   plugins: [
     InferSeoMetaPlugin(),
     CanonicalPlugin({
-      canonicalHost: Astro.url.host
+      canonicalHost: Astro.url.host,
     }),
-  ]
+  ],
 });
 
 useHead(headInstance, {
@@ -110,23 +115,20 @@ useSeoMeta(headInstance, {
   twitterCard: "summary_large_image",
 });
 
-const schemaOrgNodes: SchemaOrgNode[] = [
-  defineWebSite({
-    name: "pk's site",
-  }),
-  definePerson({
-    name: "pk",
-    sameAs: [
-      "https://github.com/pkcarreno",
-      "https://mastodon.social/@Pkcarreno",
-    ],
-  }),
-];
-
 if (article) {
   useSeoMeta(headInstance, article);
 
-  schemaOrgNodes.push(
+  useSchemaOrg(headInstance, [
+    defineWebSite({
+      name: "pk's site",
+    }),
+    definePerson({
+      name: "pk",
+      sameAs: [
+        "https://github.com/pkcarreno",
+        "https://mastodon.social/@Pkcarreno",
+      ],
+    }),
     defineArticle({
       headline: title,
       description,
@@ -135,23 +137,34 @@ if (article) {
       dateModified: article.articleModifiedTime,
       author: [
         {
-          name: 'pk',
+          name: "pk",
           sameAs: [
             "https://github.com/pkcarreno",
             "https://mastodon.social/@Pkcarreno",
           ],
-        }
+        },
       ],
-    })
-  );
+    }),
+  ]);
+} else {
+  useSchemaOrg(headInstance, [
+    defineWebSite({
+      name: "pk's site",
+    }),
+    definePerson({
+      name: "pk",
+      sameAs: [
+        "https://github.com/pkcarreno",
+        "https://mastodon.social/@Pkcarreno",
+      ],
+    }),
+  ]);
 }
 
-useSchemaOrg(headInstance, schemaOrgNodes);
-
-const { headTags, bodyTags, } = await renderSSRHead(headInstance, {
-  omitLineBreaks: true
+const { headTags, bodyTags } = await renderSSRHead(headInstance, {
+  omitLineBreaks: true,
 });
 ---
 
-<Fragment set:html={headTags}Fragment
->/> set:html={bodyTags}/>
+<Fragment set:html={headTags} />
+<Fragment set:html={bodyTags} />
