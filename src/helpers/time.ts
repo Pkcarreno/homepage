@@ -72,9 +72,21 @@ export function withDates<C extends CollectionKey>(
 }
 
 export async function getCollectionWithDates<C extends CollectionKey>(
-  key: C
+  key: C,
+  sortOrder?: "asc" | "desc"
 ): Promise<EntryWithDates<C>[]> {
   const entries = await getCollection(key);
 
-  return entries.map(withDates);
+  const items = entries.map(withDates);
+
+  if (sortOrder) {
+    items.sort((a, b) => {
+      const timeA = a.data.created.getTime();
+      const timeB = b.data.created.getTime();
+
+      return sortOrder === "asc" ? timeA - timeB : timeB - timeA;
+    });
+  }
+
+  return items;
 }
