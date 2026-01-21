@@ -1,4 +1,5 @@
 ---
+import { UMAMI_ENDPOINT, UMAMI_ID } from "astro:env/client";
 import {
   defineArticle,
   definePerson,
@@ -164,6 +165,20 @@ if (article) {
       ],
     }),
   ]);
+}
+
+if (import.meta.env.PROD && UMAMI_ID && UMAMI_ENDPOINT) {
+  useHead(headInstance, {
+    script: [
+      {
+        defer: true,
+        src: UMAMI_ENDPOINT,
+        "data-host-url": UMAMI_ENDPOINT,
+        "data-website-id": UMAMI_ID,
+        "data-domains": "pkcarreno.com,www.pkcarreno.com",
+      },
+    ],
+  });
 }
 
 const { headTags, bodyTags } = await renderSSRHead(headInstance, {
