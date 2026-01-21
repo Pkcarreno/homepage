@@ -80,7 +80,7 @@ export async function getCollectionWithDates<C extends CollectionKey>(
   const items = entries.map(withDates);
 
   if (sortOrder) {
-    items.sort((a, b) => {
+    items.sort((a: EntryWithDates<C>, b: EntryWithDates<C>) => {
       const timeA = a.data.created.getTime();
       const timeB = b.data.created.getTime();
 
