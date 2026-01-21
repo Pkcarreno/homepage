@@ -1,0 +1,30 @@
+{
+  "src/content/projects/astro-minimal-template": {
+    "created": "2026-01-17T20:19:09-04:00",
+    "updated": "2026-01-17T20:19:09-04:00"
+  },
+  "src/content/projects/glyphide": {
+    "created": "2026-01-17T20:19:09-04:00",
+    "updated": "2026-01-17T20:19:09-04:00"
+  },
+  "src/content/projects/localtag": {
+    "created": "2026-01-17T20:19:09-04:00",
+    "updated": "2026-01-17T20:19:09-04:00"
+  },
+  "src/pages/about": {
+    "created": "2026-01-17T20:15:19-04:00",
+    "updated": "2026-01-17T20:15:19-04:00"
+  },
+  "src/pages/contact": {
+    "created": "2026-01-17T20:15:19-04:00",
+    "updated": "2026-01-17T20:15:19-04:00"
+  },
+  "src/pages/now": {
+    "created": "2026-01-17T20:15:19-04:00",
+    "updated": "2026-01-17T20:15:19-04:00"
+  },
+  "src/content/journals/all-the-ways-to-run-javascript-in-the-browser": {
+    "created": "2026-01-14T18:53:45.606Z",
+    "updated": "2026-01-21T13:33:58.583Z"
+  }
+}

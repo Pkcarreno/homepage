@@ -1,0 +1,548 @@
+---
+title: "All the ways to run JavaScript in the browser"
+description: "A deep dive into secure client-side javascript execution. From native eval to WebAssembly engines, everything I learned while developing Glyphide."
+tags:
+  - javascript
+  - browser
+  - glyphide
+---
+
+# All the ways to run JavaScript in the browser
+
+This information is part of a research I originally did in December 2023 during
+the early development stages of [glyphide](/projects/glyphide). I've reviewed 
+and updated these findings to validate the state of the art in 2026 and offer a
+precise guide on client-side code execution.
+
+Being able tu run arbitrary javascript code in the browser securely is a 
+colossal task. The complexity is such that many commercial tools choose to 
+avoid the problem entirely by delegating execution to an external server or 
+services like cloudflare workers.
+
+However, client-side execution offers unmatched latency and privacy advantages.
+In this article I'll explore the different strategies available from native 
+methods (and why I decided not to use them) to external engines based on 
+WebAssembly (WASM) detailing the technical path that led me to the final 
+architecture of glyphide.
+
+
+- [previous considerations](#previous-considerations)
+- [exploration of execution methods](#exploration-of-execution-methods)
+  - [native approaches](#native-approaches)
+  - [mitigation strategies](#mitigation-strategies)
+  - [external libraries](#external-libraries)
+- [conclusions](#conclusions)
+- [references](#references)
+
+## previous considerations
+
+Building a secure execution enviroment is the ultimate challenge when handling
+arbitrary code. The browser is a critical context because besides containing 
+sensitive data that must be protected, there is a risk that the injected code 
+could use your own domain as a bridge to attack your infrastructure bypassing
+external security controls.
+
+During my research for glyphide I defined a mental framework of three critical
+questions to evaluate the viability of each method. These are not just 
+theoretical questions, they are the real attack vectors that will determine if
+your application is secure or a ticking time bomb.
+
+### 1. can the executed code modify the host enviroment?
+
+This is the integrity test. Javascript is a dynamic and extremely flexible 
+language which is it's greatest virtue and it's worst defect in this context.
+
+The risk here is not just that the code "reads" variables but that it modifies 
+the base behavior of the browser. If the executed code shares the same global 
+object (window/globalThis) it could perform a prototype pollution attack.
+Imagine a malicious script rewriting `Array.prototype.map`. Suddenly all your
+"secure" code that uses arrays starts behaving unpredictably or sending data to
+an external server.
+
+If the enviroment does not isolate globals properly the guest code can destroy 
+the host application simply by overwriting native functions.
+
+### 2. can the executed code access secrets or user data?
+
+This is the confidentiality test. The browser is a vault of secrets 
+including authentication tokens in `localStorage`, session cookies in 
+`document.cookie` and private data in memory.
+
+If you execute arbitrary code without strict isolation you are effectively 
+creating a self-inflicted XSS (Cross-Site Scripting) vulnerability. The 
+injected code could make `fetch` calls to your backend API using the logged-in
+user credentials performing actions on their behalf without them knowing.
+
+The key question here is whether the code can see anything beyond it's own 
+declared variables.
+
+### 3. can the executed code block the main thread?
+
+This is the availability test. Unlike other languages, javascript generally
+runs on a single thread which it shares with the interface rendering.
+
+This is the classic main thread blocking problem. If a user writes:
+
+```javascript
+while(true) { console.log('oops') }
+```
+
+In a poorly isolated enviroment (like a simple `try-catch` around an `eval`)
+the entire browser will freeze. You will not be able to close the tab or click
+"stop" and the only way out will be killing the browser process. For tools like 
+glyphide where user experience is vital, allowing a syntax error to block the UI 
+is unacceptable.
+
+## exploration of execution methods
+
+### native approaches
+
+I refer to native methods as all those functions or strategies for executing 
+javascript that are integrated into the browser. These options can be quite 
+counterintuitive regarding what one might think.
+
+These methods are the base upon which more complex abstractions are built but 
+their direct use is plaged by technical subtleties and security dangers.
+
+#### eval
+
+The [eval](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval)
+function is the most primitive mechanism for dynamic execution. It's behavior 
+varies depending on the syntax used to invoke it.
+
+There is a distinction between direct mode and indirect mode and it's a 
+distinction that has implications on the scope they can reach as well as the 
+optimization of the javascript engine.
+
+##### direct eval 
+
+Direct eval occurs when the function is invoked using the identifier `eval`
+within a function. When executed the evaluated code shares the lexical 
+enviroment of the calling context. This means the injected code has read and 
+write access to local variables function arguments and active closures.
+
+```javascript
+function demo() {
+  var secret = "private_key"
+  eval("console.log(secret)") // has access to the local variable
+}
+```
+
+From a security perspective this is catastrophic as it breaks the encapsulation 
+principle. A malicious script injected via direct eval can exfiltrate sensitive 
+data that the developer assumed was private within the function scope.
+
+Furthermore, modern engines rely heavily on speculative optimizations and
+just-in-time compilation. To optimize variable access the engine must know at 
+compile time where each variable resides in memory. The presence of a direct 
+eval prevents these optimizations since eval can introduce new variables that 
+shadow existing ones and the engine cannot assume the sctructure of the lexical 
+scope. As a result the code surrounding a direct eval often runs in a "slow" 
+mode disabling critical optimizations like inline caching.  
+
+##### indirect eval
+
+This occurs when the `eval` function is invoked through a reference.
+
+```javascript
+function demo() {
+  var secret = "private_key"
+  var globalEval = eval
+  globalEval("console.log(secret)") // secret is not defined
+}
+```
+
+Unlike direct eval this executes the code in the global scope. It does not have 
+access to local variables of the calling context and this provides a superficial 
+layer of security as it avoids accidental leakage of local variables. However, 
+the executed code still  has acces to the global object which allows it to
+access all global APIs, the DOM, cookies and local storage. 
+
+### new function
+
+The [new Function()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function)
+constructor is frequently recommended as a superior alternative to `eval`. It 
+creates a function whose body is the provided string. Unlike statically declared
+functions the body of a function generated with this constructor is parsed only
+at the moment of object creation.
+
+```javascript
+const add = new Function('a', 'b', 'return a + b')
+```
+
+Functions created this way always execute in the global scope and do not 
+capture the lexical enviroment of their creation. This makes them functionally 
+similar to indirect eval in terms of local variable isolation. However, they 
+share the same unrestricted access to the global object. An attacker can 
+execute `new Functions('return document.cookie')()` to steal credentials. 
+
+Although `new Function` avoids some of the performance problems of direct eval 
+it remains an XSS attack vector. Additionally modern content security policies 
+(CSP) often block `new Function` under the same `unsafe-eval` directive that 
+blocks `eval`.
+
+### iframe
+
+The [<iframe>](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe)
+element has evolved from being a simple container for embedded content to a 
+fundamental security tool thanks to the `sandbox` attribute.
+
+The `sandbox` attribute imposes a series of restrictions on the `iframe` content
+disabling scripts and forcing the content to be treated as if it came from a
+unique and opaque origin even if the URL is from the same domain.
+
+To execute javascript code one must relax the `allow-scripts` policy. But you
+must avoid at all costs combining this attribute with `allow-same-origin`
+because the code inside could access the parent DOM and with this the element
+itself could contain a script that navigates the parent DOM until finding it's
+own `iframe` element and removing the `sandbox` attribute which would leave it
+just as exposed as if no protection existed.
+
+When you do not have the `allow-same-origin` attribute the only form of
+communication is through the `postMessage` API which can send data and listen
+for `message` events. Transferred data must be serializable which implies that
+functions or objects or complex class instances cannot be passed and this
+complicates the implementation of callbacks or the injection of custom APIs
+into the sandbox.
+
+### shadowrealms
+
+The [ShadowRealms](https://github.com/tc39/proposal-shadowrealm) proposal of
+the ECMA standard seeks to introduce a new native primitive that allows
+creating isolated evaluation environments.
+
+It would allow creating a new global object and evaluating code inside it
+synchronously.
+
+```javascript
+const realm = new ShadowRealm()
+const result = realm.evaluate('2 + 2')
+```
+
+`ShadowRealm` guarantees integrity as the code cannot modify the parent code.
+However, it is important to note that it does not guarantee confidentiality.
+Since it runs in the same process it is vulnerable to side-channel attacks like
+spectre so it should not be used to isolate secrets from hostile code.
+
+It also does not offer protection against main thread blocking. If an
+infinite loop runs in the ShadowRealm it would block the parent context as
+well. Although there will surely be techniques to combine this with a web worker
+and handle these types of cases.
+
+As of today (January 2026) the proposal is at stage 2.7 but is not yet a
+finalized standard.
+
+### mitigation strategies
+
+Before discarding native methods I tried to implement a series of strategies to
+mitigate the security and stability risks mentioned previously. The premise was
+trying to "sanitize" native execution instead of replacing the engine.
+
+These techniques focused on wrapping the user code in a controlled environment
+before passing it to an `eval` or `new Function`.
+
+#### context isolation & mocking
+
+To avoid access to the real global object the common strategy is to use the
+`with` statement (even though it is deprecated or forbidden in strict mode) or
+Proxies to create a "fake global".
+
+The idea is to create an empty object or whitelist where we inject only what we
+want the user to use and mask everything else.
+
+```javascript
+const sandboxContext = {
+  window: null,
+  document: null,
+  console: {
+    log: (msg) => myCustomLogger(msg) // capture output
+  }
+}
+
+// conceptual execution wrapper with 'with' logic
+new Function('sandbox', 'with(sandbox) { return ' + userCode + '}')(sandboxContext)
+```
+
+This also solved output capturing. By overwriting `console` methods I could
+redirect messages to the glyphide terminal instead of the developer's browser
+console.
+
+#### infinite loop protection
+
+To prevent main thread blocking the only way to protect the UI without using
+web workers is code instrumentation.
+
+This implied using tools like Babel to analyze the Abstract Syntax Tree
+(AST) of the user code and inject a counter inside every infinite loop
+(`for`, `while`, `do-while`).
+
+```javascript
+// user code
+while(true) {}
+
+// transformed code by babel
+let _counter = 0
+while(true) {
+  _counter++
+  if (_counter > 1000) throw new Error("Execution time limit exceeded")
+}
+```
+
+While this worked for explicit loops it proved insufficient for more complex
+cases like recursion. Detecting if a recursive function will cause an
+infinite loop or is simply a deep calculation is extremely difficult.
+
+To protect against this one would have to instrument every function call which
+adds massive performance overhead. Furthermore programmatically determining the
+boundary between legitimate recursion and a crash is arbitrary and in many cases
+impossible to predict accurately without breaking valid code.
+
+
+#### why i discarded it
+
+Although on paper it sounds viable in practice it turned out to be an unreliable
+solution.
+
+1. Cat and mouse game: javascript evolves constantly. New global features
+or new syntax can break the sandbox or escape the logic of `with` or Proxies.
+2. Performance overhead: Parsing and transforming code with Babel on the
+client before each execution adds perceptible latency.
+3. Browser inconsistencies: The way different browsers handle certain scope
+edge cases made maintenance a huge burden.
+
+The conclusion was that trying to secure an environment that is insecure by
+design was much more expensive and risky than implementing a secure environment
+from scratch like the ones we will see next.
+
+### external libraries
+
+This type refers to those methods that require the use of libraries to achieve
+javascript execution in a secure environment. This is where WebAssembly (WASM)
+frequently comes into play although it is not the only strategy.
+
+Unlike native methods where we try to contain the browser javascript engine here
+we are instantiating a complete javascript engine (or a robust simulation) that
+operates independently. This usually creates a "perfect sandbox" by design
+especially in WASM implementations where the code inside has no access to
+browser memory or the DOM unless we explicitly allow it.
+
+The technical challenge here stops being isolation and becomes marshalling
+(Data Serialization). Moving complex objects between the browser javascript and 
+the external engine is expensive and requires serialization.
+
+#### quick-js
+
+[quick-js](https://bellard.org/quickjs/) is a lightweight javascript engine
+that supports the ES2023 specification.
+
+It's great advantage is that it is extremely small and fast to boot which makes
+it ideal for compiling to WASM using [emscripten](https://emscripten.org/).
+Here we are not executing javascript directly, we are executing a C interpreter
+compiled to bytecode which in turn interprets the javascript. Thanks to 
+libraries like [quickjs-emscripten](https://github.com/justjake/quickjs-emscripten)
+we can instantiate this engine in the browser.
+
+Security is maximum but the technical limitation is data synchronization. Every
+time you want to pass an object to the secure environment you must copy it to
+the WASM module memory and vice versa (marshalling) which adds computable
+overhead.
+
+A basic example of raw usage would be:
+
+```javascript
+import { getQuickJS } from "quickjs-emscripten"
+
+async function run() {
+  const QuickJS = await getQuickJS()
+  const vm = QuickJS.newContext() // Create a new environment
+  
+  const result = vm.evalCode("1 + 1")
+  
+  if (result.error) {
+    console.error("Execution failed:", vm.dump(result.error))
+    result.error.dispose()
+  } else {
+    console.log("Result:", vm.dump(result.value)) // Logs: 2
+    result.value.dispose()
+  }
+
+  vm.dispose() // Cleanup is manual and mandatory
+}
+```
+
+##### quickjs-emscripten-sync
+
+[quickjs-emscripten-sync](https://github.com/reearth/quickjs-emscripten-sync) 
+was one of the first abstractions I tested and it's name refers to it's core 
+capability that is synchonizing objects state between the host and the isolated 
+enviroment.
+
+It's great contribution is automating marshalling and object lifecycle. It 
+allows exchanging primitives arrays classes and promises seamlessly. Thanks to 
+the use of `Proxies` it allows modifications on a shared object to be 
+automatically reflected on the other side without having to manage pointers 
+manually.
+
+However, it has a practical limitation regarding orchestration. Although it 
+supports promises, the communication between the host and the sandbox is 
+fundamentally synchronous during function calls. If you inject a host function
+that performs an asynchronous operation (like `fetch`) and returns a promise the
+quickjs engine does not automatically pause it's execution to wait for the host.
+This complicates the implementation of APIs where the sandbox code must wait for
+the result of a network or I/O operation from the browser before continuing to 
+the next instruction line.
+
+```javascript
+import { Arena } from "quickjs-emscripten-sync"
+import { getQuickJS } from "quickjs-emscripten"
+
+async function run() {
+  const ctx = (await getQuickJS()).newContext()
+  // "Arena" manages automatic marshalling and state sync
+  const arena = new Arena(ctx, { isMarshalable: true })
+
+  // We can sync an object state bidirectionally
+  const sharedState = arena.sync({ count: 0 })
+  arena.expose({ sharedState })
+
+  // Code runs and modifies the shared object
+  arena evalCode('sharedState.count += 1')
+
+  // The change is reflected in the host immediately
+  console.log(sharedState.count) // 1
+
+  arena.dispose()
+  ctx.dispose()
+}
+```
+
+##### @sebastianwessel/quickjs
+
+[@sebastianwessel/quikjs](https://github.com/sebastianwessel/quickjs) is a 
+comprehensive abstraction that builds upon `quickjs-emscripten` to provide a 
+feature-rich enviroment. It solves the limitations of `quickjs-emscripten-sync` 
+by offering not just a raw engine but a runtime that includes support for basic 
+Node.js modules, a virtual file system and a built-in test runner. 
+
+Crucially it resolves the asynchronous execution gap. It provides a fetch client
+that allows code inside the sandbox to perform http request securely. This make 
+it possible to run realistic code that interacts with APIs without leaving the 
+isolated WebAssembly enviroment.
+
+It also includes support for executing typescript code directly. However, it's
+important to note that this operates via a syntax-stripping process on the fly.
+It allows the engine to parse and run typescript files by ignoring type 
+annotations but it does not perform type validation at runtime.
+
+##### hako
+
+[hako](https://github.com/6over3/hako) is an engine built on top of a
+`quick-js` fork compiled to WASM. It's value proposition is simplicity and
+support for typescript.
+
+It employs the same syntax-stripping mechanism as `@sebastianwessel/quickjs` to
+run typescript code directly ignoring type annotations during execution without
+performing validation.
+
+I have not tested this one as it's relatively new at the time of writing
+this article however it catches my attention to run a test with it and see what
+advantages it could bring to glyphide.
+
+#### ducktape
+
+[duktape](https://duktape.org/) is an ES5 engine (with parts of ES6) designed
+originally for embedded systems with very limited resources.
+
+I managed to do a minimal test of this and it works quite well as stated. It has
+a reputation for stability with a minimal footprint in size and memory.
+However, it's ECMA standard limitations made me discard it quickly. If your main
+constraint is initial load time and you do not need modern javascript 
+functionalities (like `async/await`) this is the way.
+
+#### repl
+
+[repl](https://github.com/stdlib-js/repl) from the stdlib-js organization is
+not an engine itself but an implementation of the REPL (Read-Eval-Print Loop)
+interface designed for scientific computing.
+
+I have not experimented with it but I can responsibly assume that this library
+makes significant cuts in javascript capabilities to achieve secure execution
+limiting itself to it's purpose which is numerical and scientific calculation
+capabilities instead of being a general-purpose environment.
+
+#### webcontainers
+
+[WebContainers](https://webcontainers.io/) plays in a different league. It's
+not just a javascript engine it is a virtualized operating system over the 
+browser. It's based on WebAssembly and is the engine behind tools like 
+StackBlitz.
+
+The technical magic here is not just WASM but the intensive use of Service
+Workers and SharedArrayBuffer. WebContainers manages to virtualize the
+network layer and the file system inside the browser. When you execute
+`npm install` inside a WebContainer the Service Worker intercepts network
+requests and handles them allowing a complete Node.js environment to function
+without a backend.
+
+I managed to have an operative model in glyphide during the experimentation
+phase. It's implementation is spectacularly simple and worked very well. The 
+fact that it's a node environment mean that features like importing libraries
+were easy to carry out.
+
+Something to keep in mind and the reason why I discarded it is that it's not an
+open-source or permissive technology. It's very easy to integrate but imposes
+considerable limitations for your project or future expansions (requires usage
+of their services for booting and very strict HTTP security headers like
+`Cross-Origin-Embedder-Policy` and `Cross-Origin-Opener-Policy`). This is
+something important to take into account.
+
+## conclusions
+
+For the specific case of [glyphide](/projects/glyphide) the final choice was
+**quickjs** implemented specifically through the library 
+@sebastianwessel/quickjs.
+
+Another decisive factor was **consistency**. By using a self-contained engine in
+WebAssembly execution is deterministic: it does not depend on the user's browser
+engine or it's version. This guarantees that if the code works on my machine it
+will work exactly the same on any other device eliminating cross-browser
+compatibility problems.
+
+Initially I used `quickjs-emscripten-sync` for it's ease of integration but the
+need to support asynchronous operations was decisive for migrating. The ability
+to handle promises and asynchronous APIs of the Sebastian Wessel library was
+what allowed offering a realistic development experience.
+
+This choice was complemented by integrating the engine inside a web worker.
+This combination is what really shields the application: quickjs protects
+integrity and confidentiality while the web worker protects availability 
+preventing an infinite loop from freezing the user interface.
+
+Looking into the future the discovery of _hako_ during this research seems
+promising. It's a clear demonstration that the secure execution ecosystem
+keeps evolving and refining itself for more modern use cases.
+
+As a final reflection the "correct" method will always depend on your
+goals. Remember that these tools are not exclusive to code editors like
+glyphide. They are the fundamental base for building secure plugin systems like
+Figma does, and currently thanks to the fact that many AI tools need to test
+generated code in a secure environment to validate its functionality this is
+driving a new wave of engines designed for this purpose.
+
+## references
+
+Resources that have helped me in the past and now to evaluate this topic and 
+experiment with different methods of execution.
+
+- [how we built the figma plugin system](https://www.figma.com/blog/how-we-built-the-figma-plugin-system/)
+- [Improving infinite loop detection](https://codepen.io/quezo/post/improving-infinite-loop-detection)
+- [Build your own interactive javascript playground](https://krasimirtsonev.com/blog/article/build-your-own-interactive-javascript-playground)
+- [JavaScript security](https://snyk.io/articles/javascript-security/)
+- [The architecture of browser sandbox: A deep dive into javascript code isolation](https://dev.to/alexgriss/the-architecture-of-browser-sandboxes-a-deep-dive-into-javascript-code-isolation-1dnj)
+- [Sandboxing javascript code](https://healeycodes.com/sandboxing-javascript-code)
+- [ShadowRealm proposal explainer](https://github.com/tc39/proposal-shadowrealm/blob/main/explainer.md#Security)
+- [Ducktape in HN](https://news.ycombinator.com/item?id=31966374)
+- [question about iframe sandbox properties in stackoverflow](https://stackoverflow.com/questions/35208161/is-it-safe-to-have-sandbox-allow-scripts-allow-popups-allow-same-origin-on-if)
+- [CSP The unexpected eval](https://dropbox.tech/security/csp-the-unexpected-eval)
+- [Sandboxed iframes](https://web.dev/articles/sandboxed-iframes)
+- [DOM invader and the case of direct eval vs indirect eval](https://portswigger.net/blog/dom-invader-and-the-case-of-direct-eval-vs-indirect-eval)
