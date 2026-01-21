@@ -4,10 +4,10 @@ import Entry from "@/components/atoms/entry.astro";
 import Template from "@/components/layouts/template.astro";
 import { getCollectionWithDates } from "@/helpers/time";
 
-// TODO: fix SEO
 const metadata: ComponentProps<typeof Template>["meta"] = {
   title: "Journal",
-  description: "pending description",
+  description:
+    "Sharing thoughts on technical learnings and discoveries. Insights that may (or may not) be useful.",
 };
 
 const journals = await getCollectionWithDates("journals");

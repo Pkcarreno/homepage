@@ -32,10 +32,9 @@ interface Props {
 
 const { entries, tag } = Astro.props;
 
-// TODO: fix SEO
 const metadata: ComponentProps<typeof Template>["meta"] = {
   title: `Etiqueta ${tag}`,
-  description: "description pendiente",
+  description: `Entries tagged with: ${tag}.`,
 };
 ---
 

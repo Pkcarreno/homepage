@@ -4,10 +4,10 @@ import Entry from "@/components/atoms/entry.astro";
 import Template from "@/components/layouts/template.astro";
 import { getCollectionWithDates } from "@/helpers/time";
 
-// TODO: fix SEO
 const metadata: ComponentProps<typeof Template>["meta"] = {
   title: "Projects",
-  description: "pending description",
+  description:
+    "A technical deep-dive into my most significant projects, covering both past and ongoing work with a focus on implementation and lessons learned.",
 };
 
 const projects = await getCollectionWithDates("projects");
