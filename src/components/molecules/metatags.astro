@@ -72,6 +72,12 @@ useHead(headInstance, {
       href: "/sitemap-index.xml",
     },
     {
+      rel: "alternate",
+      type: "application/rss+xml",
+      title: "pk",
+      href: new URL("index.xml", Astro.site).toString(),
+    },
+    {
       rel: "icon",
       href: "/favicon-96x96.png",
       sizes: "96x96",
