@@ -2,7 +2,6 @@ import markdoc from "@astrojs/markdoc";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
-import umami from "@yeskunall/astro-umami";
 import { defineConfig, envField } from "astro/config";
 import robots from "astro-robots";
 import { config } from "./src/config";
@@ -47,13 +46,6 @@ export default defineConfig({
     }),
     sitemap(),
     markdoc(),
-    !!process.env.UMAMI_ID &&
-      umami({
-        id: process.env.UMAMI_ID,
-        domains: ["pkcarreno.com", "www.pkcarreno.com"],
-        endpointUrl: process.env.UMAMI_ENDPOINT,
-        hostUrl: process.env.UMAMI_ENDPOINT,
-      }),
     mdx(),
   ],
 
