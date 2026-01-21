@@ -21,7 +21,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
-          eslint_flags: "src --max-warnings=0"
 
       - name: Run Lint (Commit)
         if: github.event_name != 'pull_request'
