@@ -6,7 +6,7 @@ export const GET: APIRoute = async () => {
   const link = import.meta.env.SITE;
 
   const pngBuffer = await generateOgImage({
-    title: "Pedro C",
+    title: "Pk",
     subtitle: "Frontend Engineer",
     mode: "dark",
     url: link,
