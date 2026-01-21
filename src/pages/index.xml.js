@@ -16,6 +16,11 @@ export async function GET(context) {
       pubDate: journal.data.created.toISOString(),
       author: "34664891+Pkcarreno@users.noreply.github.com (pk)",
       description: journal.data.description,
+      categories: journal.data.tags,
+      source: {
+        title: "journals",
+        url: new URL("/journal", context.site).toString(),
+      },
       link: `/journal/${journal.id}`,
       content: sanitizeHtml(parser.render(journal.body), {
         allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
