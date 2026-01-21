@@ -114,7 +114,10 @@ const generateHtmlContent = ({
       <h1 tw="text-7xl font-bold m-0 leading-none text-[${variant.colors.moredark}]">
         ${fmtTitle}
       </h1>
-      ${subtitle ? `<span tw="text-4xl mt-2 lowercase">${subtitle}</span>` : ""}
+      <div tw="flex items-baseline mt-2">
+        ${subtitle ? `<span tw="text-4xl mr-2 lowercase">${subtitle}</span>` : ""}
+        ${date ? `<span tw="text-2xl">/ ${getFormattedDate(date)}</span>` : ""}
+      </div>
     </div>
 
     <div tw="text-4xl mb-6 opacity-40">/////////</div>
@@ -125,10 +128,6 @@ const generateHtmlContent = ({
         <div tw="flex flex-col flex-1 justify-between">
           <div tw="flex flex-col">
             ${fmtDescription ? `<p tw="text-4xl text-[${variant.colors.moredark}] leading-tight m-0">${fmtDescription}</p>` : ""}
-          </div>
-
-          <div tw="flex text-2xl my-2 uppercase tracking-widest opacity-90">
-            ${date ? `<span>${getFormattedDate(date)}</span>` : ""}
           </div>
         </div>
 
