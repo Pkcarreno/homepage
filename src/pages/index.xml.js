@@ -9,7 +9,7 @@ export async function GET(context) {
   const journals = await getCollectionWithDates("journals");
   return rss({
     title: "pkcarreno",
-    description: "The Journal of pk",
+    description: "The journal of pk",
     site: context.site,
     items: journals.map((journal) => ({
       title: journal.data.title,
