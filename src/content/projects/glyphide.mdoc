@@ -1,0 +1,185 @@
+---
+title: "Glyphide"
+description: "A web app for executing JavaScript code locally. It requires no login, works offline, and allows you to share your scripts easily."
+tags:
+  - glyphide
+  - astro-minimal-template
+  - web-app
+  - browser
+  - javascript
+---
+
+# Glyphide
+
+A web app for executing JavaScript code locally. It requires no 
+login, works offline, and allows you to share your scripts easily
+
+![glyphide editor with a script](@/assets/images/projects/glyphide/intro.png)
+
+## usage
+
+Navigate to [glyphide.com](https://glyphide.com) and start coding.
+
+To send data to the output window use the global `console` object. It supports
+the following methods:
+
+- `log`
+- `warn`
+- `error`
+- `info`
+- `debug`
+
+Use them exactly as you would in any standard JavaScript enviroment. for 
+example:
+
+```javascript
+console.log('hello world');
+```
+
+
+### configuration
+
+Access the settings panel from the menu in the top-left corner (the app icon)
+and click on `settings` in the dropdown.
+
+From here, you can customize several aspects of the editor:
+
+- Adjust runtime enviroment parameters.
+- Modify interaction behavior.
+- Enable or disable editor features.
+
+// **NOTE:** The runtime enviroment is set with safe defaults. In some cases,
+a functional script might trigger an error if it hits these limits, similar to
+how a faulty script would.
+
+### share
+
+Use the share button located at the top, near the right corner. Here you have 
+two options: copy the script's current URL or copy an embeddable version 
+(iframe) for your site. Both options use the same URL.
+
+### limitations
+
+- Does not output `return` statements.
+- No TypeScript support.
+- Cannot import npm packages.
+
+## motivation
+
+I was looking for a JavaScript playground that met the following criteria:
+
+- Support for the latest ECMAScript features.
+- Ran entirely on my device (local-first).
+- Easily shareable.
+- No login required.
+
+Since I couldn't find anything that caught my attention, the closest being 
+[runjs](https://runjs.app/) which requires installation, I decided to 
+conceptualize what my ideal app would look like.
+
+I wanted a tool that was powerful but not as complex as 
+[codesandbox](https://codesandbox.io) or [stackblitz](https://stackblitz.com)
+with a UI/UX that feels familiar to experienced developers yet remains friendly
+for beginners.
+
+## internals
+
+At its core, the project relies on **quickjs** as its JavaScript engine. It is
+loaded via the [@sebastianwessel/quickjs](https://github.com/sebastianwessel/quickjs)
+library, which utilizes [quickjs-emscripten](https://github.com/justjake/quickjs-emscripten)
+to run quickjs through WebAssembly.
+
+The execution layer is isolated within a web worker to reduce main thread 
+overhead and provide an extra layer of security. I implemented an asynchronous
+communication strategy based on the MessageChannel API, paired with zod schemas
+to validate data consistency and handle errors.
+
+The project is structured as a monorepo, split between the frontend and a 
+dedicated package for preprocessing the `@sebastianwessel/quickjs` library
+(reason explained below).
+
+### frontend architecture
+
+The frontend is built with Astro, based on my 
+[astro-minimal-template](/projects/astro-minimal-template), using react for 
+interactive elements via astro islands. Thisi allows me to delegate parts of 
+the shipped code directly to the HTML.
+
+For state management I use zustand alongside null return components. This 
+pattern integrates state into the react flow as an alternative to react context
+within the scope of astro islands.
+
+#### persistence
+
+Code is stored in URL query params, simplifying the sharing process while 
+maintaining a login-free experience. To manage this I use nanostores for the 
+code sate, which is Base64 encoded before updating the URL to ensure compatibility.
+
+I previously used zustand for URL persistence but its serialization method 
+resulted in unnecessarily long strings. Since URL length is a constraint, I 
+opted for a more concise implementation using nanostores without radically 
+changing the frontend logic.
+
+// **NOTE:** Having two state managers is redundant and unncesessarily 
+increases the bundle size. I plan to fully migrate from zustand to nanostores 
+in the near future.
+
+### v1
+
+The first iteration was a react SPA that served as my proof of concept. This 
+version allowed me to test the execution layer and the initial UI/UX concepts.
+
+It used the `quickjs-emscripten-sync` library, which also relies on quickjs but
+is designed for synchronous execution. This made it difficult to integrate 
+browser web APIs like `fetch`, `setTimeout`, or `setInterval`, which represented
+a significant feature gap for my needs. 
+
+While the UI was similar to the current one, it felt a bit "flatter". In this 
+second version I've optimized the layouts for a more comfortable and 
+distraction-free experience.
+
+### astro, vite and node polyfills in the browser
+
+> **TL;DR** Injecting polyfills globally caused a pollution error that broke 
+Astro's SSR. Isolating the dependency in a monorepo package allowed me to keep 
+the polyfills away from the rest of the codebase.
+
+During the development of the version 2, I ran into one of my biggest 
+headaches. The `@sebastianwessel/quickjs` library requires certain Node 
+polyfills to work properly in the browser. Since Astro uses Vite, and
+[Vite does not include Node polyfills by default in the browser context](https://vite.dev/guide/troubleshooting#module-externalized-for-browser-compatibility),
+I had to look for alternatives.
+
+The issue was obvious: execution wouldn't work, and the console would throw
+warnings like:
+
+```javascript
+Module "path" has been externalized for browser compatibility.
+Cannot access "path" in client code.
+```
+
+I explored several ways to inject polyfills into Astro/Vite. The most promising
+solution was `vite-plugin-node-polyfills` which performed a deep injection that
+allowed the execution logic to work.
+
+However, I soon noticed severe side effects. Unrelated modules began to break,
+including the PWA implementation and Fast Refresh (HRM), where page reloads 
+would suddenly trigger errors. Since the project wasn't a monorepo yet, 
+everything was under Vite's direct control.
+
+After testing, I discovered that disabling the polyfill plugin fixed these 
+issues. The plugin was causing a **pollution error**, where the injected 
+polyfills interfered with Astro's server-side rendering (SSR) process. Event for 
+static sites Astro use SSR in development mode to speed up previews, and the 
+polyfills were breaking SSR.
+
+The final solutions was to isolate the `@sebastianwessel/quickjs` package, 
+apply the polyfills there and pre-build it before importing it into the main
+project. I converted the project into a monorepo and after some routing 
+adjustments everything worked properly.
+
+## Links
+
+- [glyphide.com](https://glyphide.com)
+- [source](https://github.com/pkcarreno/glyphide)
+- [spellchecker demo](https://glyphide.com/?c=Y29uc3QgZGVtb0RpY3Rpb25hcnkgPSBbJ2NhdCcsICdyYXQnLCAnYmF0JywgJ21hdCcsICdoYXQnXQpjb25zdCBkZW1vSW5wdXQgPSBbJ2NvdHcnLCAnaHR0JywgJ21hcGcnLCAnYm90J10KCmZ1bmN0aW9uIGxldmVuc2h0ZWluRGlzdGFuY2Uod29yZEZyb20sIHdvcmRUbykgewogIHdvcmRGcm9tID0gYCAke3dvcmRGcm9tfWAKICB3b3JkVG8gPSBgICR7d29yZFRvfWAKICAKICBsZXQgbGV2ZW5zaHRlaW5UYWJsZSA9IEFycmF5LmZyb20od29yZEZyb20gLCAoKSA9PiBBcnJheS5mcm9tKHdvcmRUbykpCgogIGZvciAobGV0IGZyb21JbmRleCA9IDA7IGZyb21JbmRleCA8IGxldmVuc2h0ZWluVGFibGUubGVuZ3RoOyBmcm9tSW5kZXgrKykgewogICAgZm9yIChsZXQgdG9JbmRleCA9IDA7IHRvSW5kZXggPCBsZXZlbnNodGVpblRhYmxlW2Zyb21JbmRleF0ubGVuZ3RoOyB0b0luZGV4KyspIHsKICAgICAgaWYgKGZyb21JbmRleCA9PT0gMCkgewogICAgICAgIGxldmVuc2h0ZWluVGFibGVbZnJvbUluZGV4XVt0b0luZGV4XSA9IHRvSW5kZXgKICAgICAgfSBlbHNlIGlmICh0b0luZGV4ID09PSAwKSB7CiAgICAgICAgbGV2ZW5zaHRlaW5UYWJsZVtmcm9tSW5kZXhdW3RvSW5kZXhdID0gZnJvbUluZGV4CiAgICAgIH0gZWxzZSB7CiAgICAgICAgCiAgICAgICAgaWYgKHdvcmRGcm9tW2Zyb21JbmRleF0udG9Mb3dlckNhc2UoKSA9PT0gd29yZFRvW3RvSW5kZXhdLnRvTG93ZXJDYXNlKCkpIHsKICAgICAgICAgIGxldmVuc2h0ZWluVGFibGVbZnJvbUluZGV4XVt0b0luZGV4XSA9IGxldmVuc2h0ZWluVGFibGVbZnJvbUluZGV4IC0gMV1bdG9JbmRleCAtMV0KICAgICAgICB9IGVsc2UgewogICAgICAgICAgbGV0IGluc2VydE9wZXJhdGlvbiA9IGxldmVuc2h0ZWluVGFibGVbZnJvbUluZGV4XVt0b0luZGV4IC0gMV0gKyAxOwogICAgICAgICAgbGV0IGRlbGV0ZU9wZXJhdGlvbiA9IGxldmVuc2h0ZWluVGFibGVbZnJvbUluZGV4IC0gMV1bdG9JbmRleF0gKyAxOwogICAgICAgICAgbGV0IHJlcGxhY2VPcGVyYXRpb24gPSBsZXZlbnNodGVpblRhYmxlW2Zyb21JbmRleCAtMV1bdG9JbmRleCAtMV0gKyAxOwoKICAgICAgICAgIGxldmVuc2h0ZWluVGFibGVbZnJvbUluZGV4XVt0b0luZGV4XSA9IE1hdGgubWluKGluc2VydE9wZXJhdGlvbiwgZGVsZXRlT3BlcmF0aW9uLCByZXBsYWNlT3BlcmF0aW9uKQogICAgICAgIH0KICAgICAgICAKICAgICAgfQogICAgfQogIH0KICAKICByZXR1cm4gbGV2ZW5zaHRlaW5UYWJsZVt3b3JkRnJvbS5sZW5ndGggLSAxXVt3b3JkVG8ubGVuZ3RoIC0gMV0KfQoKZnVuY3Rpb24gU3BlbGxDaGVja2VyKGRpY3Rpb25hcnksIHRva2VucywgdG9sZXJhbmNlID0gMikgewogIGxldCBzdWdnZXN0aW9ucyA9IFtdCiAgCiAgdG9rZW5zLmZvckVhY2godG9rZW4gPT4gewogICAgY29uc3QgdG9rZW5TdWdnZXN0aW9ucyA9IGRpY3Rpb25hcnkuZmlsdGVyKGRpY3Rpb25hcnlXb3JkID0-IGxldmVuc2h0ZWluRGlzdGFuY2UodG9rZW4sIGRpY3Rpb25hcnlXb3JkKSA8PSB0b2xlcmFuY2UpCiAgICBzdWdnZXN0aW9ucy5wdXNoKHsKICAgICAgd29yZDogdG9rZW4sCiAgICAgIHN1Z2dlc3Rpb25zOiB0b2tlblN1Z2dlc3Rpb25zCiAgICB9KQogIH0pCiAgCiAgcmV0dXJuIHN1Z2dlc3Rpb25zCn0KCmNvbnNvbGUubG9nKFNwZWxsQ2hlY2tlcihkZW1vRGljdGlvbmFyeSwgZGVtb0lucHV0KSk&t=U3BlbGxDaGVja2VyIERlbW8)

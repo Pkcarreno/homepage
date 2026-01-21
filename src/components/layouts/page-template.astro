@@ -1,0 +1,35 @@
+---
+import type { ComponentProps } from "astro/types";
+import ContentProperties from "@/components/atoms/content-properties.astro";
+import Separator from "@/components/atoms/separator.astro";
+import Template from "@/components/layouts/template.astro";
+import { getPageDates } from "@/helpers/time";
+
+interface Props {
+  frontmatter: ComponentProps<typeof Template>["meta"] &
+    ComponentProps<typeof Template>["header"];
+}
+
+const { frontmatter } = Astro.props;
+
+const metadata: ComponentProps<typeof Template>["meta"] = {
+  title: frontmatter.title,
+  description: frontmatter.description,
+};
+
+const header: ComponentProps<typeof Template>["header"] = {
+  pageTitle: frontmatter.pageTitle,
+};
+
+const dates = getPageDates(Astro.url.pathname);
+---
+
+<Template meta={metadata} header={header}>
+  <slot>Empty md/mdx page slot</slot>
+
+  <br>
+
+  <Separator />
+
+  <ContentProperties created={dates.created} updated={dates.updated} />
+</Template>

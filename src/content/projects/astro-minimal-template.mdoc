@@ -1,0 +1,84 @@
+---
+title: "Astro Minimal Template"
+description: "Minimal Astro template for efficient workflows and high-performance DX. No UI included, control is yours."
+tags:
+  - astro-minimal-template
+  - cli
+---
+
+# Astro Minimal Template
+
+A minimal Astro template that offers an efficient workflow and high-performance
+tools for a better development experience. It does not include UI files or 
+impose a structure for them, giving you complete control over your site's 
+architecture.
+
+## usage
+
+``` bash
+pnpm dlx @pkcarreno/create-astro-minimal@latest <project-name>
+```
+
+## motivation
+
+Astro is my _go-to_ when it comes to developing websites today, because it's 
+simple to use and easy to implement interactivity with any JavaScript framework.
+
+When starting a new project, I always found myself spending too much time 
+setting up the tools. Much of what I learned from the 
+[react-native-obytes-template](https://github.com/obytes/react-native-template-obytes)
+remains my workflow standard. Although it is a `react-native` template, its 
+enviroment configuration is highly compatible with any Node.js project. I 
+strongly recommend exploring that repository, **it's a gem**.
+
+Initially, this Astro template used the same tooling as the 
+`react-native-obytes-template` (EsLint, prettier & husky), but I have migrated
+it to other tools that, in my opinion, offer better development experience and
+objectively better performance, such as Biome and Lefthook.
+
+## features
+
+- Lefthook
+- Biome (with Ultracite)
+- Commitlint
+- Basic GitHub workflow 
+- TypeScript
+- TailwindCSS
+
+## project structure
+
+```
+.github/
+  actions/
+    setup-node-pnpm-install/
+      action.yml
+  workflows/
+    checks.yml
+    release.yml
+  dependabot.yml
+public/
+  favicon.svg
+src/
+  pages/
+    index.astro
+  global.css
+  utils.ts
+.gitignore
+.nvmrc
+LICENSE
+README.md
+astro.config.js
+biome.json
+commitlint.config.js
+lefthook.yml
+package.json
+pnpm-lock.yaml
+pnpm-workspace.yaml
+tsconfig.json
+```
+
+
+## links
+
+- [source](https://github.com/pkcarreno/astro-minimal-template)
+- [npm](https://www.npmjs.com/package/@pkcarreno/create-astro-minimal)

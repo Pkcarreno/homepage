@@ -1,0 +1,60 @@
+name: Checks
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  lint:
+    name: Lint Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/actions/setup-node-pnpm-install
+
+      - name: Run Lint (PR)
+        if: github.event_name == 'pull_request'
+        uses: mongolyy/reviewdog-action-biome@v2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
+
+      - name: Run Lint (Commit)
+        if: github.event_name != 'pull_request'
+        run: pnpm run lint
+
+  typescript:
+    name: Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/actions/setup-node-pnpm-install
+
+      - name: Run TSC (PR)
+        if: github.event_name == 'pull_request'
+        uses: EPMatt/reviewdog-action-tsc@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
+
+      - name: Run TSC (Commit)
+        if: github.event_name != 'pull_request'
+        run: pnpm tsc
+
+  astro:
+    name: Astro Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/actions/setup-node-pnpm-install
+
+      - run: pnpm check

@@ -1,0 +1,36 @@
+---
+import { type CollectionKey } from "astro:content";
+import Anchor from "@/components/atoms/anchor.astro";
+import { getFormattedDate } from "@/helpers/time";
+
+interface Props {
+  id: string;
+  collection: CollectionKey;
+  title: string;
+  description?: string;
+  date?: Date;
+}
+
+const { id, collection, title, date, description } = Astro.props;
+
+const generatePath = (collection: CollectionKey, id: string) => {
+  const PATH_MAP: Record<CollectionKey, string> = {
+    journals: "journal",
+    projects: "projects",
+  };
+
+  return `/${PATH_MAP[collection]}/${id}`;
+};
+---
+
+<Anchor class="w-fit" href={generatePath(collection, id)}>{title}</Anchor>
+{date && 
+  <Fragment>
+    <span class="text-lesslight" aria-hidden="true">{" // "}</span>
+    <small
+      ><em
+        ><time datetime={date.toISOString()}>{getFormattedDate(date)}</time></em
+      ></small
+    >
+  </Fragment>}
+<div><small>{description}</small></div>

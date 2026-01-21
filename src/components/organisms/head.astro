@@ -1,0 +1,19 @@
+---
+import "@/global.css";
+import type { ComponentProps } from "astro/types";
+import Font from "@/components/molecules/font.astro";
+import Metatags from "@/components/molecules/metatags.astro";
+
+interface Props {
+  meta: Pick<
+    ComponentProps<typeof Metatags>,
+    "title" | "description" | "noTemplate" | "ogImage" | "article"
+  >;
+}
+const { meta } = Astro.props;
+---
+
+<head>
+  <Metatags {...meta} />
+  <Font />
+</head>

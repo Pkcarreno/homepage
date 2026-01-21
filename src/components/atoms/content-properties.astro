@@ -1,0 +1,53 @@
+---
+import Anchor from "@/components/atoms/anchor.astro";
+import { getFormattedDate } from "@/helpers/time";
+
+interface Props {
+  created: Date;
+  updated?: Date;
+  tags?: string[];
+}
+
+const { created, updated, tags } = Astro.props;
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2">
+  <!-- created at property -->
+  <div><small>created</small></div>
+  <div><small>
+    <time datetime={created.toISOString()}>{getFormattedDate(created)}</time>
+  </small></div>
+
+  <!-- last modified property -->
+  {updated && (
+    <Fragment>
+      <div>
+        <small>updated</small>
+      </div>
+      <div>
+        <small>
+          <time datetime={updated.toISOString()}>
+            {getFormattedDate(updated)} 
+          </time>
+        </small>
+      </div>
+    </Fragment>
+  )}
+
+  <!-- tags property -->
+  {tags && (
+    <Fragment>
+      <div>
+        <small> tags </small>
+      </div>
+      <div>
+        {tags.length > 0 ? tags.map((tag) => ( <small>
+            <Anchor href={`/tag/${tag}`}>
+              {`${tag}`}
+            </Anchor>
+          </small>
+        )) : 'n/a'}
+      </div>
+    </Fragment>
+  )}
+</div>

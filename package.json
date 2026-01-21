@@ -1,7 +1,7 @@
 {
   "name": "homepage",
   "type": "module",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "private": true,
   "scripts": {
     "dev": "astro dev",
@@ -9,43 +9,52 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check": "biome check . && prettier --check . && astro check",
-    "lint": "biome check . && prettier --check .",
-    "lint:fix": "biome check --write . && prettier --write ."
+    "sync:dates": "node scripts/update-timestamps.js",
+    "check": "astro check",
+    "lint": "ultracite check",
+    "lint:fix": "ultracite fix",
+    "tsc": "tsc --project tsconfig.json --noEmit",
+    "prepare": "lefthook install"
   },
   "dependencies": {
-    "@fontsource/ia-writer-duo": "^5.2.5",
-    "astro-seo": "^0.8.4",
+    "@astrojs/mdx": "^4.3.13",
+    "@unhead/schema-org": "^2.1.2",
     "clsx": "^2.1.1",
-    "markdown-it": "^14.1.0",
-    "sanitize-html": "^2.17.0",
-    "satori": "^0.18.3",
-    "satori-html": "^0.3.2",
     "tailwind-merge": "^3.4.0",
+    "unhead": "^2.1.2",
     "uqr": "^0.1.2"
   },
-  "packageManager": "pnpm@9.15.2+sha256.022309bb31359142b65bfa889e0406d2eebd5acfffca47e6944acf29d9d6a66b",
+  "packageManager": "pnpm@10.23.0+sha512.21c4e5698002ade97e4efe8b8b4a89a8de3c85a37919f957e7a0f30f38fbc5bbdd05980ffe29179b2fb6e6e691242e098d945d1601772cad0fef5fb6411e2a4b",
   "devDependencies": {
-    "@astrojs/check": "^0.9.5",
-    "@astrojs/markdoc": "^0.15.8",
-    "@astrojs/rss": "^4.0.13",
-    "@astrojs/sitemap": "^3.6.0",
-    "@astrojs/ts-plugin": "^1.10.5",
-    "@biomejs/biome": "^2.3.4",
+    "@astrojs/check": "^0.9.6",
+    "@astrojs/markdoc": "^0.15.10",
+    "@astrojs/rss": "^4.0.15",
+    "@astrojs/sitemap": "^3.7.0",
+    "@astrojs/ts-plugin": "^1.10.6",
+    "@biomejs/biome": "2.3.11",
+    "@fontsource/ia-writer-duo": "^5.2.5",
     "@resvg/resvg-js": "^2.6.2",
-    "@tailwindcss/vite": "^4.1.17",
+    "@tailwindcss/vite": "^4.1.18",
     "@types/markdown-it": "^14.1.2",
     "@types/sanitize-html": "^2.16.0",
     "@yeskunall/astro-umami": "^0.0.7",
-    "astro": "^5.15.4",
-    "astro-favicons": "^3.1.5",
+    "astro": "^5.16.12",
     "astro-robots": "^2.3.1",
-    "lightningcss": "^1.30.2",
-    "prettier": "^3.6.2",
-    "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-tailwindcss": "^0.7.1",
+    "fast-glob": "^3.3.3",
+    "lefthook": "^2.0.15",
+    "lightningcss": "^1.31.1",
+    "markdown-it": "^14.1.0",
+    "sanitize-html": "^2.17.0",
+    "satori": "^0.19.1",
+    "satori-html": "^0.3.2",
     "sharp": "^0.34.5",
-    "tailwindcss": "^4.1.17",
-    "typescript": "^5.9.3"
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3",
+    "ultracite": "7.0.12"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "lefthook"
+    ]
   }
 }

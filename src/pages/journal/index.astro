@@ -1,0 +1,32 @@
+---
+import type { ComponentProps } from "astro/types";
+import Entry from "@/components/atoms/entry.astro";
+import Template from "@/components/layouts/template.astro";
+import { getCollectionWithDates } from "@/helpers/time";
+
+const metadata: ComponentProps<typeof Template>["meta"] = {
+  title: "Journal",
+  description:
+    "Sharing thoughts on technical learnings and discoveries. Insights that may (or may not) be useful.",
+};
+
+const journals = await getCollectionWithDates("journals", "desc");
+---
+
+<Template meta={metadata}>
+  <h1>Journals</h1>
+
+  <ul class="list-none p-0 space-y-2">
+    {journals.map((journal) => (
+      <li>
+        <Entry 
+          id={journal.id} 
+          collection={journal.collection} 
+          title={journal.data.title} 
+          description={journal.data.description}
+          date={journal.data.created}
+        />
+      </li>
+      ))}
+  </ul>
+</Template>

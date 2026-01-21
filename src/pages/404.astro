@@ -1,9 +1,16 @@
 ---
-import Layout from '@/layouts/Layout.astro'
+import type { ComponentProps } from "astro/types";
+import Template from "@/components/layouts/template.astro";
+
+const metadata: ComponentProps<typeof Template>["meta"] = {
+  title: "404 Error",
+  description: "Page not found.",
+};
 ---
 
-<Layout title="404" metaTitle="404 Error" description="Página no encontrada">
-  <h2>¯\(x_x)/¯</h2>
+<Template meta={metadata}>
+  <h1>Upss...</h1>
 
-  <p>Upss..Parece que esta página no existe.</p>
-</Layout>
+  <p>It seems that this specific page does not exist.</p>
+  <p>¯\(x_x)/¯</p>
+</Template>

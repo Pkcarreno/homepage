@@ -1,8 +1,8 @@
-# PK
+# pk
 
-Personal website, at the same time I use it to experiment with web technologies, specially Astro.js.
+Personal website, based on my template [astro-minimal-template](https://github.com/Pkcarreno/astro-minimal-template).
 
-## Licenses
+## licenses
 
-- The source code of [pkcarreno.com](pkcarreno.com) is licensed under [MIT](./LICENSE)
+- The source code is licensed under [MIT](./LICENSE)
 - The images, text and assets are licensed under [BY-NC-SA 4.0](./LICENSE.by-nc-sa-4.0)

@@ -1,0 +1,171 @@
+@layer theme, base, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@theme {
+  --color-light: var(--light);
+  --color-lesslight: var(--lesslight);
+  --color-dark: var(--dark);
+  --color-moredark: var(--moredark);
+}
+
+@layer base {
+  :root {
+    --light: #fffaeb;
+    --lesslight: #e8e2d4;
+    --dark: #4c453b;
+    --moredark: #140d05;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --light: #140f00;
+      --lesslight: #282213;
+      --dark: #bbb1a5;
+      --moredark: #d8cec2;
+    }
+
+    *:focus {
+      outline: var(--light);
+      box-shadow: 0 0 0 0.25em var(--link);
+    }
+  }
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    box-sizing: border-box; /* 1 */
+  }
+
+  :root {
+    color-scheme: light dark;
+    line-height: 1.5em;
+    font-family:
+      "iA Writer Duo", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+      "Liberation Mono", "Courier New", monospace;
+    font-size: 16px;
+    color: var(--dark);
+  }
+
+  *::selection {
+    background-color: var(--dark);
+    color: var(--light);
+  }
+
+  h1 {
+    line-height: 1em;
+  }
+
+  button,
+  input,
+  textarea {
+    font-size: 1em; /* Override browser default font shrinking*/
+  }
+
+  input {
+    border: 1px solid var(--dark);
+    background-color: var(--lesslight);
+    border-radius: 0.25em;
+    padding: 0.5em;
+  }
+
+  pre {
+    background-color: var(--lesslight);
+    margin: 0.5em 0 0.5em 0;
+    padding: 0.5em;
+    overflow: auto;
+  }
+
+  strong {
+    background-color: var(--moredark);
+    color: var(--light);
+  }
+
+  code {
+    background-color: var(--lesslight);
+  }
+
+  blockquote {
+    border-left: 0.25rem solid var(--dark);
+    padding-left: 1rem;
+  }
+
+  body {
+    background-color: var(--light);
+    margin: 0;
+  }
+
+  figure {
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    outline: none;
+    color: var(--dark);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-style: dotted;
+  }
+
+  a:hover {
+    text-decoration-style: dashed;
+    background-color: var(--moredark);
+    color: var(--light);
+  }
+
+  a[data-is-active="true"] {
+    background-color: var(--lesslight);
+  }
+
+  a[data-is-active="true"]:hover {
+    color: var(--moredark);
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  button,
+  .button,
+  input[type="submit"] {
+    display: inline-block;
+    background-color: var(--dark);
+    color: var(--light);
+    text-align: center;
+    padding: 0.5em;
+    border-radius: 0.25em;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .button a {
+    text-decoration: none;
+  }
+
+  button:hover,
+  .button:hover,
+  input[type="submit"]:hover {
+    color: var(--lesslight);
+    background-color: var(--moredark);
+  }
+
+  button + button,
+  .button + .button,
+  input[type="submit"] + input[type="submit"] {
+    margin-left: 1em;
+  }
+}

@@ -1,0 +1,175 @@
+---
+import {
+  defineArticle,
+  definePerson,
+  defineWebSite,
+  useSchemaOrg,
+} from "@unhead/schema-org";
+import { useHead, useSeoMeta } from "unhead";
+import { CanonicalPlugin, InferSeoMetaPlugin } from "unhead/plugins";
+import { createHead, renderSSRHead } from "unhead/server";
+import { type MetaFlat } from "unhead/types";
+
+interface Props {
+  title: string;
+  noTemplate?: boolean;
+  description: string;
+  ogImage?: URL;
+  article?: Pick<
+    MetaFlat,
+    | "articleAuthor"
+    | "articlePublishedTime"
+    | "articleModifiedTime"
+    | "articleSection"
+    | "articleTag"
+    | "twitterLabel1"
+    | "twitterData1"
+  >;
+}
+
+const {
+  title,
+  description,
+  article,
+  ogImage = new URL("/default.png", Astro.url),
+} = Astro.props;
+
+const headInstance = createHead({
+  plugins: [
+    InferSeoMetaPlugin(),
+    CanonicalPlugin({
+      canonicalHost: Astro.url.host,
+    }),
+  ],
+});
+
+useHead(headInstance, {
+  titleTemplate: "%s / pk",
+  meta: [
+    {
+      name: "theme-color",
+      content: "#fffaeb",
+      media: "(prefers-color-scheme: light)",
+    },
+    {
+      name: "theme-color",
+      content: "#140f00",
+      media: "(prefers-color-scheme: dark)",
+    },
+    { name: "color-scheme", content: "light dark" },
+    {
+      name: "generator",
+      content: Astro.generator,
+    },
+  ],
+  link: [
+    {
+      rel: "canonical",
+      href: Astro.url.href,
+    },
+    {
+      rel: "sitemap",
+      href: "/sitemap-index.xml",
+    },
+    {
+      rel: "alternate",
+      type: "application/rss+xml",
+      title: "pk",
+      href: new URL("index.xml", Astro.site).toString(),
+    },
+    {
+      rel: "icon",
+      href: "/favicon-96x96.png",
+      sizes: "96x96",
+      type: "image/png",
+    },
+    { rel: "icon", href: "/favicon.svg", sizes: "any", type: "image/svg+xml" },
+    { rel: "shortcut icon", href: "/favicon.ico" },
+    {
+      rel: "apple-touch-icon",
+      sizes: "180x180",
+      href: "/apple-touch-icon.png",
+    },
+  ],
+});
+
+useSeoMeta(headInstance, {
+  title,
+  description,
+  ogType: article ? "article" : "website",
+  ogUrl: Astro.url.href,
+  ogLocale: "en",
+  ogSiteName: "PK",
+  twitterTitle: title,
+  twitterDescription: description,
+  twitterCreator: "@pkcarreno",
+  ogImage: {
+    width: 1200,
+    height: 630,
+    alt: title,
+    type: "image/png",
+    url: ogImage.href,
+  },
+  twitterImage: {
+    width: 1200,
+    height: 630,
+    alt: title,
+    type: "image/png",
+    url: ogImage.href,
+  },
+  twitterCard: "summary_large_image",
+});
+
+if (article) {
+  useSeoMeta(headInstance, article);
+
+  useSchemaOrg(headInstance, [
+    defineWebSite({
+      name: "pk's site",
+    }),
+    definePerson({
+      name: "pk",
+      sameAs: [
+        "https://github.com/pkcarreno",
+        "https://mastodon.social/@Pkcarreno",
+      ],
+    }),
+    defineArticle({
+      headline: title,
+      description,
+      image: ogImage.href,
+      datePublished: article.articlePublishedTime,
+      dateModified: article.articleModifiedTime,
+      author: [
+        {
+          name: "pk",
+          sameAs: [
+            "https://github.com/pkcarreno",
+            "https://mastodon.social/@Pkcarreno",
+          ],
+        },
+      ],
+    }),
+  ]);
+} else {
+  useSchemaOrg(headInstance, [
+    defineWebSite({
+      name: "pk's site",
+    }),
+    definePerson({
+      name: "pk",
+      sameAs: [
+        "https://github.com/pkcarreno",
+        "https://mastodon.social/@Pkcarreno",
+      ],
+    }),
+  ]);
+}
+
+const { headTags, bodyTags } = await renderSSRHead(headInstance, {
+  omitLineBreaks: true,
+});
+---
+
+<Fragment set:html={headTags} />
+<Fragment set:html={bodyTags} />

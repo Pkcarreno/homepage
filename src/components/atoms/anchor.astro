@@ -1,0 +1,87 @@
+---
+import path from "node:path";
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"a">;
+
+const { href, ...props } = Astro.props;
+
+const { pathname } = Astro.url;
+
+const getDir = (href: Props["href"]) => {
+  if (typeof href === "string") {
+    return href;
+  }
+
+  return href ? href.toString() : "";
+};
+
+const dir = getDir(href);
+
+const isExternal = URL.canParse(dir) ? true : undefined;
+const isNotExternal = isExternal ? undefined : true;
+const isHash = dir.startsWith("#") ? true : undefined;
+const isNotHash = isHash ? undefined : true;
+const isMail = dir.startsWith("mailto:") ? true : undefined;
+const isNotMail = isMail ? undefined : true;
+const isTel = dir.startsWith("tel:") ? true : undefined;
+const isNotTel = isTel ? undefined : true;
+const isInternal =
+  isNotExternal && isNotHash && isNotMail && isNotTel ? true : undefined;
+const isActive =
+  isInternal &&
+  (dir === pathname ||
+    dir === `${pathname}/` ||
+    `${dir}/` === pathname ||
+    dir === "." ||
+    dir === "./")
+    ? true
+    : undefined;
+
+let parsedUrl = dir;
+if (isExternal !== true && isHash !== true) {
+  const basePrefix = import.meta.env.BASE_URL;
+
+  parsedUrl = path.isAbsolute(dir)
+    ? `${path.join(basePrefix ?? "/", dir)}`
+    : dir;
+}
+
+const getRelValue = (
+  rel: Props["rel"],
+  isExternal: boolean | undefined,
+  isInternal: boolean | undefined,
+  isActive: boolean | undefined
+): Props["rel"] => {
+  if (rel) {
+    return rel;
+  }
+
+  if (isExternal) {
+    return "noopener nofollow";
+  }
+
+  if (isInternal && !isActive) {
+    return "prefetch";
+  }
+  return undefined;
+};
+
+const relValue = getRelValue(props.rel, isExternal, isInternal, isActive);
+
+const attributes = {
+  href: parsedUrl,
+  "data-is-external": isExternal,
+  "data-is-internal": isInternal,
+  "data-is-hash": isHash,
+  "data-is-mail": isMail,
+  "data-is-tel": isTel,
+  "data-is-active": isActive,
+  rel: relValue,
+  ...props,
+};
+---
+
+<Fragment><a {...attributes}
+  ><slot /></a
+></Fragment>

@@ -1,0 +1,102 @@
+---
+import { Picture } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import { getDiagonalColors } from "@/helpers/colors";
+
+interface Props {
+  src: string | ImageMetadata;
+  alt: string;
+  title?: string;
+  class?: string;
+  loading?: "eager" | "lazy";
+}
+
+const { src, alt, title, class: className, loading = "lazy" } = Astro.props;
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/**/*.{jpeg,jpg,png,gif,webp,avif}",
+  { eager: true }
+);
+
+let imageToRender: ImageMetadata | null = null;
+let isLocal = false;
+let relativePath = "";
+
+if (typeof src === "object") {
+  imageToRender = src;
+  isLocal = true;
+
+  const foundKey = Object.keys(images).find((key) => {
+    return images[key].default.src === src.src;
+  });
+
+  if (foundKey) {
+    relativePath = foundKey;
+  }
+} else if (typeof src === "string" && !src.startsWith("http")) {
+  const normalized = src.replace(/^@\//, "/src/");
+  const foundKey = Object.keys(images).find(
+    (key) => key === normalized || key.endsWith(normalized.replace(/^\//g, ""))
+  );
+
+  if (foundKey) {
+    imageToRender = images[foundKey].default;
+    isLocal = true;
+    relativePath = foundKey;
+  }
+}
+
+let cssVars = {};
+if (isLocal && relativePath) {
+  try {
+    const colors = await getDiagonalColors(relativePath);
+    if (colors.length > 0) {
+      cssVars = Object.fromEntries(
+        colors.map((color, i) => [`--c${i + 1}`, color])
+      );
+    }
+  } catch (e) {
+    console.error("error getting diagonal colors:", e);
+  }
+}
+---
+
+<figure class:list={["w-full h-auto", className]}>
+  {isLocal && imageToRender ? (
+      <Picture
+        src={imageToRender} 
+        alt={alt}
+        widths={[240, 540, 800, 1200, imageToRender.width]} 
+        sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1024px) 800px, (max-width: 1600px) 1200px, ${imageToRender.width}px`}
+        formats={['avif', 'webp']}
+        loading={loading}
+        decoding="async"
+        class="w-full h-auto object-cover"
+        style={cssVars}
+      />
+    ) : (
+      <img 
+        src={src as string} 
+        alt={alt}
+        loading={loading}
+        decoding="async"
+        class="w-full h-auto object-cover rounded-md"
+      />
+    )}
+  {title && <figcaption class="text-sm mt-1">{title}</figcaption>}
+</figure>
+
+<style>
+  img[loading="lazy"] {
+    background: linear-gradient(
+      135deg,
+      var(--c1, #fffaeb),
+      var(--c2, #bdb8aa),
+      var(--c3, #7f7a6e),
+      var(--c4, #464237),
+      var(--c5, #140f00)
+    );
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+</style>
