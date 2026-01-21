@@ -171,10 +171,9 @@ if (import.meta.env.PROD && UMAMI_ID && UMAMI_ENDPOINT) {
     script: [
       {
         defer: true,
+        async: true,
         src: UMAMI_ENDPOINT,
-        "data-host-url": UMAMI_ENDPOINT,
         "data-website-id": UMAMI_ID,
-        "data-domains": "pkcarreno.com,www.pkcarreno.com",
       },
     ],
   });
