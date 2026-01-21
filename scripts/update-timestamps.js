@@ -14,7 +14,7 @@ function getGitDates(filePath) {
   try {
     const created = execSync(
       `git log --diff-filter=A --follow --format=%aI -1 -- "${filePath}"`,
-      { encoding: "utf8" },
+      { encoding: "utf8" }
     ).trim();
     const updated = execSync(`git log -1 --format=%aI -- "${filePath}"`, {
       encoding: "utf8",

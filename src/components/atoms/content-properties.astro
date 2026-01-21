@@ -13,14 +13,10 @@ const { created, updated, tags } = Astro.props;
 
 <div class="grid grid-cols-1 md:grid-cols-2">
   <!-- created at property -->
-  <div>
-    <small>created</small>
-  </div>
-  <div>
-    <small>
-      <time datetime={created.toISOString()}>{getFormattedDate(created)}</time>
-    </small>
-  </div>
+  <div><small>created</small></div>
+  <div><small>
+    <time datetime={created.toISOString()}>{getFormattedDate(created)}</time>
+  </small></div>
 
   <!-- last modified property -->
   {updated && (

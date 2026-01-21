@@ -4,8 +4,8 @@ import { Resvg, type ResvgRenderOptions } from "@resvg/resvg-js";
 import satori from "satori";
 import { html as toReactElement } from "satori-html";
 import { renderSVG } from "uqr";
-import { generateHash } from "./visuals";
 import { getFormattedDate } from "./time";
+import { generateHash } from "./visuals";
 
 interface generateImage {
   title: string;
@@ -18,10 +18,10 @@ interface generateImage {
 
 const generateOgImage = async (props: generateImage): Promise<Buffer> => {
   const fontDataRegular = readFileSync(
-    "node_modules/@fontsource/ia-writer-duo/files/ia-writer-duo-latin-400-normal.woff",
+    "node_modules/@fontsource/ia-writer-duo/files/ia-writer-duo-latin-400-normal.woff"
   );
   const fontDataBold = readFileSync(
-    "node_modules/@fontsource/ia-writer-duo/files/ia-writer-duo-latin-700-normal.woff",
+    "node_modules/@fontsource/ia-writer-duo/files/ia-writer-duo-latin-700-normal.woff"
   );
 
   const height = 630;
@@ -149,7 +149,7 @@ const generateHtmlContent = ({
 
 const setStringSizeLimit = (
   string: string | undefined,
-  maxCharacters: number,
+  maxCharacters: number
 ) => {
   return (
     string &&

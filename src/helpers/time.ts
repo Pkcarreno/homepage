@@ -48,7 +48,7 @@ export function getPageDates(pagePath: string) {
 }
 
 export function withDates<C extends CollectionKey>(
-  entry: CollectionEntry<C>,
+  entry: CollectionEntry<C>
 ): EntryWithDates<C> {
   const folder = entry.collection;
   const id = entry.id;
@@ -72,7 +72,7 @@ export function withDates<C extends CollectionKey>(
 }
 
 export async function getCollectionWithDates<C extends CollectionKey>(
-  key: C,
+  key: C
 ): Promise<EntryWithDates<C>[]> {
   const entries = await getCollection(key);
 
