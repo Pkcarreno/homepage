@@ -6,7 +6,7 @@ import Separator from "@/components/atoms/separator.astro";
 import Template from "@/components/layouts/template.astro";
 import { getCollectionWithDates } from "@/helpers/time";
 
-const journals = await getCollectionWithDates("journals");
+const journals = await getCollectionWithDates("journals", "desc");
 const projects = await getCollectionWithDates("projects");
 
 const metadata: ComponentProps<typeof Template>["meta"] = {

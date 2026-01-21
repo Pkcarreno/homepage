@@ -6,7 +6,7 @@ import { getCollectionWithDates } from "@/helpers/time";
 const parser = new MarkdownIt();
 
 export async function GET(context) {
-  const journals = await getCollectionWithDates("journals");
+  const journals = await getCollectionWithDates("journals", "desc");
   return rss({
     title: "pkcarreno",
     description: "The journal of pk",

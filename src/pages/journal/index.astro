@@ -10,7 +10,7 @@ const metadata: ComponentProps<typeof Template>["meta"] = {
     "Sharing thoughts on technical learnings and discoveries. Insights that may (or may not) be useful.",
 };
 
-const journals = await getCollectionWithDates("journals");
+const journals = await getCollectionWithDates("journals", "desc");
 ---
 
 <Template meta={metadata}>

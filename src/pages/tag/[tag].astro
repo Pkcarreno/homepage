@@ -5,8 +5,8 @@ import Template from "@/components/layouts/template.astro";
 import { type EntryWithDates, getCollectionWithDates } from "@/helpers/time";
 
 export async function getStaticPaths() {
-  const journals = await getCollectionWithDates("journals");
-  const projects = await getCollectionWithDates("projects");
+  const journals = await getCollectionWithDates("journals", "desc");
+  const projects = await getCollectionWithDates("projects", "desc");
 
   const allEntries = [...journals, ...projects];
 
